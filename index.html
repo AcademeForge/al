@@ -10,26 +10,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <script>
     !function(){
-      // Forced Dark Theme for Premium Look & Feel
       document.documentElement.setAttribute('data-theme', 'dark');
     }();
   </script>
   <style>
-    /* ── RESET & PREMIUM VARIABLES ── */
+    /* ── DESIGN TOKENS & SYSTEM VARIABLES ── */
     :root {
-      --bg: #09090b;
-      --surface: #121215;
-      --card: #18181b;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --p: #6366f1;
-      --p-glow: rgba(99, 102, 241, 0.15);
+      --bg: #07070a;
+      --surface: #0f0f12;
+      --card: #141417;
+      --card-border: rgba(255, 255, 255, 0.07);
+      --p: #5e61e9;
+      --p-glow: rgba(94, 97, 233, 0.15);
       --acc: #06b6d4;
       --ok: #10b981;
       --err: #ef4444;
       --t1: #f4f4f5;
       --t2: #a1a1aa;
-      --tm: #71717a;
-      --inp: #27272a;
+      --tm: #61616a;
+      --inp: #1b1b1f;
       
       --fd: 'Space Grotesk', sans-serif;
       --fb: 'Plus Jakarta Sans', sans-serif;
@@ -37,52 +36,53 @@
       --r3: 16px;
       --r4: 24px;
       --rf: 9999px;
-      --sh: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --sh: 0 12px 40px -12px rgba(0, 0, 0, 0.7);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; width: 100%; overflow: hidden; background: var(--bg); color: var(--t1); font-family: var(--fb); }
-    button { font-family: var(--fb); cursor: pointer; border: none; background: none; color: inherit; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    button { font-family: var(--fb); cursor: pointer; border: none; background: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     input, textarea, select { font-family: var(--fb); }
     .hidden { display: none !important; }
     
     html, body, * { -webkit-user-select: none; user-select: none; }
     input, textarea, select { -webkit-user-select: text; user-select: text; }
 
-    /* ── ANIMATED GRADIENT BACKGROUND (LOGIN PAGE) ── */
+    /* ── HYPER-ANIMATED SPACE GRADIENT BG ── */
     .auth-bg-animation {
       position: fixed;
       inset: 0;
       z-index: 0;
-      background: linear-gradient(125deg, #09090b, #111115, #030712);
+      background: #060609;
       overflow: hidden;
     }
     .auth-bg-animation::before {
       content: '';
       position: absolute;
-      top: -20%;
+      top: -30%;
       left: -20%;
-      width: 60%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
-      animation: floatGlow 12s infinite alternate ease-in-out;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(94,97,233,0.18) 0%, transparent 65%);
+      animation: ambientMotion 15s infinite alternate ease-in-out;
     }
     .auth-bg-animation::after {
       content: '';
       position: absolute;
       bottom: -20%;
-      right: -20%;
-      width: 60%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%);
-      animation: floatGlow 18s infinite alternate-reverse ease-in-out;
+      right: -25%;
+      width: 75%;
+      height: 75%;
+      background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+      animation: ambientMotion 22s infinite alternate-reverse ease-in-out;
     }
-    @keyframes floatGlow {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(8%, 12%) scale(1.1); }
+    @keyframes ambientMotion {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(5%, 8%) scale(1.08) rotate(45deg); }
+      100% { transform: translate(-3%, -5%) scale(0.95) rotate(90deg); }
     }
 
-    /* ── AUTH CONTAINER WITH FULL SCROLL FIXED ── */
+    /* ── UNIFIED SCROLL FRAME ── */
     .auth-wrapper {
       position: relative;
       z-index: 1;
@@ -92,70 +92,80 @@
       justify-content: center;
       align-items: center;
       overflow-y: auto;
-      padding: 24px 16px;
+      padding: 40px 16px;
     }
     .auth-shell {
       width: 100%;
-      max-width: 440px;
-      margin: auto; /* Ensures perfect scrolling inside the parent flex */
+      max-width: 450px;
+      margin: auto;
     }
 
-    /* ── AUTH CARD UI ── */
+    /* ── UNIFIED FIXED SIZE BOX (PROPRIETARY SYMMETRY) ── */
     .auth-card {
       border-radius: var(--r4);
-      background: rgba(24, 24, 27, 0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(20, 20, 23, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--card-border);
       box-shadow: var(--sh);
-      padding: 32px 28px;
+      padding: 36px 32px;
       position: relative;
+      width: 100%;
+      min-height: 560px; /* Uniform base footprint setup */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .auth-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: var(--r3);
-      margin: 0 auto 16px;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.1));
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      animation: pulseGlow 3s infinite ease-in-out;
-    }
-    @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.2); }
-      50% { transform: scale(1.03); box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.1); }
-    }
-    .auth-title { font-family: var(--fd); font-size: 26px; font-weight: 700; text-align: center; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .auth-sub { font-size: 14px; color: var(--t2); text-align: center; line-height: 1.5; margin-bottom: 24px; }
     
-    .tab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border-radius: var(--r3); background: rgba(0,0,0,0.2); border: 1px solid var(--card-border); margin-bottom: 20px; }
-    .tab-btn { padding: 10px; border-radius: var(--r2); font-size: 13px; font-weight: 600; color: var(--t2); }
-    .tab-btn.active { background: var(--p); color: #fff; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+    .auth-header-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .auth-logo-img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: var(--r2);
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 12px rgba(94, 97, 233, 0.3));
+    }
+    
+    .auth-title { font-family: var(--fd); font-size: 25px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--t1); }
+    .auth-sub { font-size: 13.5px; color: var(--t2); line-height: 1.5; margin-bottom: 24px; max-width: 320px; }
+    
+    .tab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border-radius: var(--r3); background: rgba(0,0,0,0.25); border: 1px solid var(--card-border); margin-bottom: 20px; width: 100%; }
+    .tab-btn { padding: 11px; border-radius: var(--r2); font-size: 13px; font-weight: 600; color: var(--t2); }
+    .tab-btn.active { background: var(--p); color: #fff; box-shadow: 0 4px 12px rgba(94, 97, 233, 0.35); }
 
-    .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--t1); margin: 14px 0 6px; }
-    .form-input { width: 100%; min-height: 48px; padding: 12px 14px; border-radius: var(--r2); border: 1px solid var(--card-border); background: var(--inp); color: var(--t1); font-size: 14px; font-weight: 500; transition: all 0.2s; outline: none; }
-    .form-input:focus { border-color: var(--p); box-shadow: 0 0 0 3px var(--p-glow); background: rgba(0,0,0,0.3); }
+    .form-container-box { flex: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; }
+    .form-label { display: block; font-size: 12.5px; font-weight: 600; color: #e4e4e7; margin: 12px 0 6px; }
+    .form-input { width: 100%; min-height: 46px; padding: 12px 14px; border-radius: var(--r2); border: 1px solid var(--card-border); background: var(--inp); color: var(--t1); font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; outline: none; }
+    .form-input:focus { border-color: var(--p); box-shadow: 0 0 0 3px var(--p-glow); background: rgba(0,0,0,0.2); }
 
-    .main-btn { width: 100%; min-height: 48px; padding: 13px; border-radius: var(--r2); margin-top: 20px; font-size: 14px; font-weight: 700; color: #fff; background: var(--p); box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); }
+    .main-btn { width: 100%; min-height: 46px; padding: 12px; border-radius: var(--r2); margin-top: 24px; font-size: 14px; font-weight: 700; color: #fff; background: var(--p); box-shadow: 0 4px 14px rgba(94, 97, 233, 0.35); }
     .main-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
     .main-btn:active { transform: translateY(0); }
     
-    .danger-btn { width: 100%; min-height: 40px; padding: 10px; border-radius: var(--r2); margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--t2); }
-    .danger-btn:hover { color: var(--err); background: rgba(239, 44, 44, 0.08); }
+    .danger-btn { width: 100%; min-height: 38px; padding: 8px; border-radius: var(--r2); margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--t2); }
+    .danger-btn:hover { color: #fca5a5; background: rgba(239, 68, 68, 0.06); }
 
-    .msg-box { display: none; margin-top: 14px; padding: 12px 14px; border-radius: var(--r2); font-size: 13px; font-weight: 500; line-height: 1.4; }
-    .msg-box.ok { display: block; background: rgba(16, 185, 129, 0.1); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.2); }
-    .msg-box.err { display: block; background: rgba(239, 68, 68, 0.1); color: var(--err); border: 1px solid rgba(239, 68, 68, 0.2); }
-    .msg-box.info { display: block; background: var(--p-glow); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
-    .auth-note { margin-top: 20px; padding: 12px; border-radius: var(--r2); background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); font-size: 12px; color: var(--t2); line-height: 1.5; text-align: center; }
-    .auth-note b { color: var(--p); }
+    .msg-box { display: none; margin-top: 16px; padding: 12px 14px; border-radius: var(--r2); font-size: 13px; font-weight: 500; line-height: 1.4; }
+    .msg-box.ok { display: block; background: rgba(16, 185, 129, 0.08); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .msg-box.err { display: block; background: rgba(239, 68, 68, 0.08); color: var(--err); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .msg-box.info { display: block; background: var(--p-glow); color: #cbd5e1; border: 1px solid rgba(94, 97, 233, 0.25); }
+    
+    /* PROFESSIONAL FOOTER SYSTEM */
+    .auth-note { margin-top: 24px; padding: 14px; border-radius: var(--r2); background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); font-size: 12px; color: var(--t2); line-height: 1.6; text-align: center; width: 100%; }
+    .auth-note a { color: var(--p); font-weight: 600; text-decoration: none; border-bottom: 1px dashed var(--p); transition: all 0.2s; }
+    .auth-note a:hover { color: #818cf8; border-bottom-style: solid; }
 
-    /* ── AI DASHBOARD SHELL ── */
+    /* ── AI DASHBOARD FRAME ── */
     .ai-shell { width: 100%; height: 100%; display: flex; overflow: hidden; background: var(--bg); }
     
-    /* ── SIDEBAR DRAWER (COLLAPSIBLE VIA HAMBURGER) ── */
+    /* COLLAPSIBLE SIDEBAR CONFIGURATION */
     .ai-drawer {
       width: 280px;
       background: var(--surface);
@@ -166,97 +176,111 @@
       flex-shrink: 0;
       z-index: 50;
     }
-    /* Hidden state class applied to sidebar */
-    .ai-drawer.collapsed-sidebar {
-      width: 0px;
-      overflow: hidden;
-      border-right: none;
-    }
+    .ai-drawer.collapsed-sidebar { width: 0px; overflow: hidden; border-right: none; }
     
-    .drawer-head { padding: 18px 16px; border-bottom: 1px solid var(--card-border); }
-    .drawer-brand { font-family: var(--fd); font-size: 18px; font-weight: 700; }
-    .drawer-student { color: var(--t2); font-size: 12px; margin-top: 4px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-    .drawer-new-btn { width: 100%; margin-top: 14px; padding: 11px; border: 1px solid var(--card-border); background: rgba(255,255,255,0.03); border-radius: var(--r2); text-align: left; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .drawer-head { padding: 18px 16px; border-bottom: 1px solid var(--card-border); position: relative; }
+    
+    /* Logo Integration inside Sidebar head */
+    .drawer-brand-area { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .drawer-logo-img { width: 24px; height: 24px; object-fit: contain; border-radius: 6px; }
+    .drawer-brand { font-family: var(--fd); font-size: 17px; font-weight: 700; color: var(--t1); }
+    .drawer-student { color: var(--t2); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding-left: 34px; }
+    
+    .drawer-new-btn { width: 100%; margin-top: 16px; padding: 11px; border: 1px solid var(--card-border); background: rgba(255,255,255,0.03); border-radius: var(--r2); text-align: left; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .drawer-new-btn:hover { background: var(--inp); border-color: var(--tm); }
     
     .drawer-search { margin: 12px; width: calc(100% - 24px); border: 1px solid var(--card-border); background: var(--inp); color: var(--t1); border-radius: var(--r2); padding: 10px 12px; outline: none; font-size: 13px; }
     .conv-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
     .conv-row { width: 100%; display: flex; gap: 10px; align-items: center; border-radius: var(--r2); padding: 10px 12px; color: var(--t2); text-align: left; margin-bottom: 2px; }
-    .conv-row:hover, .conv-row.active { background: rgba(255,255,255,0.05); color: var(--t1); }
+    .conv-row:hover, .conv-row.active { background: rgba(255,255,255,0.04); color: var(--t1); }
     .conv-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p); flex: none; }
     .conv-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 500; }
 
     .drawer-usage { border-top: 1px solid var(--card-border); padding: 16px; background: rgba(0,0,0,0.15); }
     .usage-heading { font-size: 11px; color: var(--tm); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
     .usage-row { display: flex; justify-content: space-between; font-size: 12px; margin: 6px 0; color: var(--t2); }
-    .usage-bar { height: 6px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
+    .usage-bar { height: 6px; background: rgba(255,255,255,0.04); border-radius: 99px; overflow: hidden; }
     .usage-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--p), var(--acc)); transition: width 0.4s ease; }
 
-    /* ── MAIN WORKSPACE CONTENT ── */
+    /* MAIN STREAM VIEW */
     .ai-main { flex: 1; display: flex; flex-direction: column; position: relative; height: 100%; overflow: hidden; background: var(--bg); }
     
-    /* ── HEADER DESIGN WITH BLINKING BADGES ── */
-    .ai-header { height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: rgba(18, 18, 21, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
+    /* NAVBAR SECTION WITH BALANCED ALIGNMENTS */
+    .ai-header { height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: rgba(15, 15, 18, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
     .ai-menu-btn { width: 40px; height: 40px; border: 1px solid var(--card-border); background: var(--inp); border-radius: var(--r2); display: grid; place-items: center; font-size: 18px; color: var(--t1); }
-    .ai-menu-btn:hover { background: rgba(255,255,255,0.08); }
+    .ai-menu-btn:hover { background: rgba(255,255,255,0.06); }
     
-    .ai-header-copy { flex: 1; display: flex; align-items: center; gap: 12px; min-width: 0; }
-    .ai-header-title { font-family: var(--fd); font-weight: 700; font-size: 16px; }
+    .ai-header-copy { flex: 1; display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .ai-header-title { font-family: var(--fd); font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-fallback { width: 22px; height: 22px; object-fit: contain; border-radius: 5px; }
     
-    /* BADGES SECTION */
+    /* NOTIFICATION BLINKING BADGES */
     .header-badges { display: flex; align-items: center; gap: 8px; }
-    .badge { display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--rf); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; border: 1px solid transparent; }
-    .badge.free { background: rgba(239, 44, 44, 0.1); color: #ffa3a3; border-color: rgba(239, 44, 44, 0.2); }
-    .badge.beta { background: rgba(6, 182, 212, 0.1); color: #a5f3fc; border-color: rgba(6, 182, 212, 0.2); }
+    .badge { display: flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--rf); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid transparent; }
+    .badge.free { background: rgba(239, 44, 44, 0.08); color: #ffa3a3; border-color: rgba(239, 44, 44, 0.18); }
+    .badge.beta { background: rgba(6, 182, 212, 0.08); color: #a5f3fc; border-color: rgba(6, 182, 212, 0.18); }
     
-    /* Blinking Red Dot Animation */
-    .blink-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--err); position: relative; }
-    .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--err); animation: badgeBlink 1.5s infinite; }
-    @keyframes badgeBlink { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+    /* Global Dual Blinking Target System */
+    .blink-dot { width: 6px; height: 6px; border-radius: 50%; position: relative; }
+    .badge.free .blink-dot { background: var(--err); }
+    .badge.free .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--err); animation: badgeBlink 1.6s infinite; }
+    .badge.beta .blink-dot { background: var(--acc); }
+    .badge.beta .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--acc); animation: badgeBlink 1.6s infinite; }
+    @keyframes badgeBlink { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.6); opacity: 0; } }
 
-    .hdr-logout { padding: 8px 14px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: var(--r2); font-size: 12px; font-weight: 600; color: var(--err); }
+    .hdr-logout { padding: 8px 14px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.18); border-radius: var(--r2); font-size: 12px; font-weight: 600; color: var(--err); }
     .hdr-logout:hover { background: var(--err); color: #fff; }
 
-    /* ── MODE TABS ── */
+    /* MODE BUTTON BAR */
     .mode-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 20px auto 4px; padding: 5px; border: 1px solid var(--card-border); background: var(--surface); border-radius: var(--r3); flex-shrink: 0; width: calc(100% - 40px); max-width: 600px; }
     .mode-tab { border: 0; background: transparent; color: var(--t2); padding: 10px 4px; border-radius: var(--r2); font-weight: 600; font-size: 13px; }
-    .mode-tab.active { background: var(--inp); color: var(--t1); box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.05); }
-    .mode-tab[data-mode="af_proguide"].active { color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.2); }
+    .mode-tab.active { background: var(--inp); color: var(--t1); }
+    .mode-tab[data-mode="af_proguide"].active { color: #818cf8; border: 1px solid rgba(94, 97, 233, 0.2); }
     .mode-tab[data-mode="dev"].active { color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.2); }
     .mode-tab[data-mode="tapri"].active { color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.2); }
 
-    /* ── CHAT SCREEN & RESPONSIVE SCROLL ── */
+    /* STREAM SCROLL VIEW */
     .chat-scroll { flex: 1; overflow-y: auto; padding: 24px 20px 180px; display: flex; flex-direction: column; }
-    .chat-scroll::-webkit-scrollbar { width: 6px; }
+    .chat-scroll::-webkit-scrollbar { width: 5px; }
     .chat-scroll::-webkit-scrollbar-thumb { background: var(--inp); border-radius: 99px; }
 
-    /* GEMINI STYLE WELCOME WATERMARK AI GRADIENT ── */
+    /* WATERMARK HEADER (TYPING + CUSTOM GREETINGS) */
     .welcome-block { max-width: 720px; width: 100%; margin: auto; padding: 40px 0; }
-    .welcome-kicker { font-size: 12px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+    .welcome-user-greet { font-size: 16px; font-weight: 600; color: var(--t2); margin-bottom: 4px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
+    .welcome-kicker { font-size: 11px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; margin-top: 6px; }
+    
     .welcome-title { 
       font-family: var(--fd); 
-      font-size: 40px; 
+      font-size: 38px; 
       font-weight: 700; 
-      line-height: 1.2; 
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #fff 30%, var(--t2) 70%, var(--p) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      line-height: 1.25; 
+      margin-bottom: 14px;
+      color: var(--t1);
+      min-height: 50px; /* Layout displacement guard */
     }
-    .welcome-copy { font-size: 15px; color: var(--t2); line-height: 1.6; }
     
-    /* SUGGESTIONS CARDS GRID */
+    /* Smooth fading cursor layout indicator */
+    .welcome-title::after {
+      content: '|';
+      margin-left: 4px;
+      color: var(--p);
+      animation: cursorBlink 0.8s infinite;
+    }
+    @keyframes cursorBlink { 50% { opacity: 0; } }
+
+    .welcome-copy { font-size: 14.5px; color: var(--t2); line-height: 1.6; }
+    
     .suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 32px; }
     .suggestion { text-align: left; border: 1px solid var(--card-border); background: var(--surface); color: var(--t2); padding: 16px; border-radius: var(--r3); font-size: 13px; font-weight: 500; line-height: 1.4; }
-    .suggestion:hover { border-color: var(--p); color: var(--t1); background: rgba(99,102,241,0.03); transform: translateY(-2px); }
+    .suggestion:hover { border-color: var(--p); color: var(--t1); background: rgba(255,255,255,0.01); transform: translateY(-2px); }
 
-    /* MESSAGES AREA */
+    /* STREAM BLOCKS setup */
     .messages { max-width: 720px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
     .msg-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 4px; }
     .msg-row.user { flex-direction: row-reverse; }
     
     .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--inp); color: var(--t2); border: 1px solid var(--card-border); flex: none; }
-    .msg-row.user .avatar { background: var(--p-glow); color: #818cf8; border-color: rgba(99,102,241,0.3); }
+    .msg-row.user .avatar { background: var(--p-glow); color: #818cf8; border-color: rgba(94, 97, 233, 0.25); }
     
     .msg-body { max-width: calc(100% - 48px); }
     .bubble { padding: 12px 16px; border-radius: var(--r3); border: 1px solid var(--card-border); background: var(--surface); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; color: #e4e4e7; }
@@ -265,39 +289,62 @@
     .msg-meta { font-size: 11px; color: var(--tm); margin-top: 6px; padding-left: 2px; }
     .msg-row.user .msg-meta { text-align: right; padding-right: 2px; }
 
-    /* ── SHINY GEMINI STYLE ANIMATED LOADER ── */
+    /* MULTI-TONE GLOWING LOADER FRAME */
     .thinking { display: flex; align-items: center; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--r3); width: 80px; justify-content: center; position: relative; overflow: hidden; }
-    .thinking::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); transform: translateX(-100%); animation: geminiLoading 1.5s infinite; }
-    @keyframes geminiLoading { 100% { transform: translateX(100%); } }
-    .thinking-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p); animation: tdot 1.2s infinite ease-in-out; }
+    .thinking::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); transform: translateX(-100%); animation: flashShift 1.4s infinite; }
+    @keyframes flashShift { 100% { transform: translateX(100%); } }
+    .thinking-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p); animation: pulseJump 1.2s infinite ease-in-out; }
     .thinking-dot:nth-child(2) { animation-delay: 0.2s; background: var(--acc); }
     .thinking-dot:nth-child(3) { animation-delay: 0.4s; background: #a855f7; }
-    @keyframes tdot { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-5px); opacity: 1; } }
+    @keyframes pulseJump { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-6px); opacity: 1; } }
 
-    /* COMPOSER BOX AREA */
-    .composer-wrap { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 24px 20px 20px; background: linear-gradient(transparent 0%, var(--bg) 40%); }
-    .composer { display: flex; align-items: flex-end; gap: 10px; border: 1px solid var(--card-border); background: rgba(24, 24, 27, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: var(--r3); padding: 10px 12px; max-width: 720px; margin: 0 auto; box-shadow: var(--sh); }
-    .composer:focus-within { border-color: var(--p); box-shadow: 0 0 0 1px var(--p); }
+    /* INTERACTIVE PULSE GLOWING COMPOSER INNER BOX */
+    .composer-wrap { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 24px 20px 20px; background: linear-gradient(transparent 0%, var(--bg) 45%); }
+    .composer { 
+      display: flex; 
+      align-items: flex-end; 
+      gap: 10px; 
+      border: 1px solid var(--card-border); 
+      background: rgba(20, 20, 23, 0.85); 
+      backdrop-filter: blur(20px); 
+      -webkit-backdrop-filter: blur(20px); 
+      border-radius: var(--r3); 
+      padding: 10px 12px; 
+      max-width: 720px; 
+      margin: 0 auto; 
+      box-shadow: var(--sh);
+      animation: pulseBoxGlow 3.5s infinite ease-in-out;
+    }
+    
+    /* Adaptive continuous soft breath glow around prompt input box */
+    @keyframes pulseBoxGlow {
+      0%, 100% { border-color: var(--card-border); box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5); }
+      50% { border-color: rgba(94, 97, 233, 0.35); box-shadow: 0 0 20px 2px rgba(94, 97, 233, 0.12); }
+    }
+    
+    .composer:focus-within { 
+      border-color: var(--p) !important; 
+      box-shadow: 0 0 25px 4px rgba(94, 97, 233, 0.2) !important;
+      animation: none; /* Disables ambient breathing on active interaction */
+    }
+    
     .composer-input { flex: 1; min-height: 40px; max-height: 120px; resize: none; border: 0; outline: 0; background: transparent; color: var(--t1); line-height: 1.5; padding: 8px 4px; font-size: 14.5px; }
     .send-btn { width: 40px; height: 40px; border: 0; border-radius: var(--r2); background: var(--p); color: #fff; font-size: 15px; display: grid; place-items: center; flex: none; }
-    .send-btn:disabled { opacity: 0.25; cursor: not-allowed; background: var(--inp); color: var(--tm); }
-    
+    .send-btn:disabled { opacity: 0.2; cursor: not-allowed; background: var(--inp); color: var(--tm); }
     .composer-meta { display: flex; justify-content: space-between; color: var(--tm); font-size: 11px; max-width: 720px; margin: 8px auto 0; padding: 0 4px; }
 
-    /* MOBILE OVERLAY FIXED */
+    /* OVERLAYS & LAYOUT RESOLUTIONS */
     .ai-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 45; display: none; }
     .ai-overlay.open { display: block; }
 
-    /* TOAST BANNER STYLE */
     .toast-wrap { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%); z-index: 99999; width: min(calc(100vw - 32px), 380px); pointer-events: none; }
-    .toast { display: flex; align-items: flex-start; gap: 12px; background: #1c1c1f; color: var(--t1); border: 1px solid var(--card-border); border-radius: var(--r3); padding: 14px; box-shadow: var(--sh); pointer-events: auto; }
+    .toast { display: flex; align-items: flex-start; gap: 12px; background: #18181c; color: var(--t1); border: 1px solid var(--card-border); border-radius: var(--r3); padding: 14px; box-shadow: var(--sh); pointer-events: auto; }
     .toast.ok { border-left: 4px solid var(--ok); }
     .toast.err { border-left: 4px solid var(--err); }
     .toast-body p:first-child { font-size: 13px; font-weight: 700; }
     .toast-body p:last-child { font-size: 12px; color: var(--t2); margin-top: 2px; }
     .toast-x { font-size: 18px; color: var(--tm); cursor: pointer; margin-left: auto; padding-left: 8px; line-height: 1; }
 
-    /* RESPONSIVE CODE BREAKER FOR TABLETS/MOBILES */
     @media(max-width: 768px) {
       .ai-drawer { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); width: 280px; }
       .ai-drawer.open { transform: translateX(0); }
@@ -307,123 +354,147 @@
 </head>
 <body>
 
+<!-- ══════════════ AUTH PANEL ══════════════ -->
 <div id="panelAuth" class="auth-bg-animation">
   <div class="auth-wrapper">
     <div class="auth-shell">
       <div class="auth-card">
-        <div class="auth-icon">🎓</div>
-        <h2 class="auth-title" id="authTitle">AcademeForge AI</h2>
-        <p class="auth-sub" id="authSub">Login with your Student ID to access your AI workspace.</p>
+        
+        <div class="auth-header-block">
+          <!-- Logo Asset Routing Integrated -->
+          <img class="auth-logo-img" src="AF LOGO 2.jpeg" alt="AcademeForge" onerror="this.style.display='none';">
+          <h2 class="auth-title" id="authTitle">AcademeForge AI</h2>
+          <p class="auth-sub" id="authSub">Sign in with your verification key to enter your student workspace.</p>
+        </div>
 
         <div class="tab-row" id="authTabs">
           <button class="tab-btn active" id="tabLogin" onclick="switchMode('login')">Login</button>
           <button class="tab-btn" id="tabCreate" onclick="switchMode('create')">Create ID</button>
         </div>
 
-        <div id="boxLogin" class="form-box">
-          <label class="form-label">Student ID / Phone Number</label>
-          <input id="loginPhone" class="form-input" type="tel" placeholder="Enter your phone number"/>
-          <label class="form-label">Password</label>
-          <input id="loginPassword" class="form-input" type="password" placeholder="Enter password"/>
-          <button class="main-btn" onclick="doLogin()">Log In to AI Workspace</button>
-          <button class="danger-btn" onclick="switchMode('forgot')">Forgot Password?</button>
-        </div>
+        <div class="form-container-box">
+          <!-- LOGIN VIEW -->
+          <div id="boxLogin" class="form-box">
+            <label class="form-label">Student ID / Registered Phone</label>
+            <input id="loginPhone" class="form-input" type="tel" placeholder="Enter your identity or number"/>
+            <label class="form-label">Security Password</label>
+            <input id="loginPassword" class="form-input" type="password" placeholder="Enter your password"/>
+            <button class="main-btn" onclick="doLogin()">Log In to AI Workspace</button>
+            <button class="danger-btn" onclick="switchMode('forgot')">Forgot Password?</button>
+          </div>
 
-        <div id="boxCreate" class="form-box hidden">
-          <label class="form-label">Full Name</label>
-          <input id="createName" class="form-input" type="text" placeholder="Enter your full name"/>
-          <label class="form-label">Phone Number</label>
-          <input id="createPhone" class="form-input" type="tel" placeholder="Enter phone number"/>
-          <label class="form-label">Email Address</label>
-          <input id="createEmail" class="form-input" type="email" placeholder="Enter email address"/>
-          <label class="form-label">Create Password</label>
-          <input id="createPassword" class="form-input" type="password" placeholder="Create password (min 4 chars)"/>
-          <button class="main-btn" onclick="sendCreateOtp()">Send Email OTP</button>
-          <div id="createOtpArea" class="otp-area hidden">
-            <label class="form-label">Email OTP</label>
-            <input id="createOtp" class="form-input" type="text" maxlength="6" placeholder="Enter OTP sent to your email"/>
-            <button class="main-btn" onclick="verifyCreateOtp()">Verify OTP &amp; Create ID</button>
+          <!-- CREATE ACCOUNT VIEW -->
+          <div id="boxCreate" class="form-box hidden">
+            <label class="form-label">Full Name</label>
+            <input id="createName" class="form-input" type="text" placeholder="Enter your official name"/>
+            <label class="form-label">Mobile Number</label>
+            <input id="createPhone" class="form-input" type="tel" placeholder="Enter link number"/>
+            <label class="form-label">Email Address</label>
+            <input id="createEmail" class="form-input" type="email" placeholder="Enter candidate email address"/>
+            <label class="form-label">Create Security Code</label>
+            <input id="createPassword" class="form-input" type="password" placeholder="Minimum 4 characters alphanumeric"/>
+            <button class="main-btn" onclick="sendCreateOtp()">Send Email OTP</button>
+            <div id="createOtpArea" class="otp-area hidden">
+              <label class="form-label">Email Security OTP</label>
+              <input id="createOtp" class="form-input" type="text" maxlength="6" placeholder="Verification code"/>
+              <button class="main-btn" onclick="verifyCreateOtp()">Verify OTP &amp; Initialize Account</button>
+            </div>
+            <p style="margin-top:14px;font-size:12px;color:var(--tm);font-weight:500;text-align:center;">Your phone registration code acts as your global Student ID.</p>
           </div>
-          <p style="margin-top:14px;font-size:12px;color:var(--tm);font-weight:500;text-align:center;">Your phone number will be your Student ID.</p>
-        </div>
 
-        <div id="boxForgot" class="form-box hidden">
-          <label class="form-label">Student ID / Phone / Email</label>
-          <input id="forgotLogin" class="form-input" type="text" placeholder="Enter your phone or email"/>
-          <button class="main-btn" onclick="findStudentForReset()">Send Email OTP</button>
-          <div id="forgotOtpArea" class="otp-area hidden">
-            <label class="form-label">Email OTP</label>
-            <input id="forgotOtp" class="form-input" type="text" maxlength="6" placeholder="Enter OTP sent to your email"/>
-            <button class="main-btn" onclick="verifyForgotOtp()">Verify OTP</button>
+          <!-- RECOVERY ACCOUNT VIEW -->
+          <div id="boxForgot" class="form-box hidden">
+            <label class="form-label">Account Identity (ID / Email / Phone)</label>
+            <input id="forgotLogin" class="form-input" type="text" placeholder="Enter structural credentials"/>
+            <button class="main-btn" onclick="findStudentForReset()">Send Email OTP</button>
+            <div id="forgotOtpArea" class="otp-area hidden">
+              <label class="form-label">Email Security OTP</label>
+              <input id="forgotOtp" class="form-input" type="text" maxlength="6" placeholder="Verification token"/>
+              <button class="main-btn" onclick="verifyForgotOtp()">Verify Code</button>
+            </div>
+            <div id="resetPasswordArea" class="hidden">
+              <label class="form-label">New Security Password</label>
+              <input id="newPassword" class="form-input" type="password" placeholder="Create strong security string"/>
+              <button class="main-btn" onclick="resetPassword()">Reset Password</button>
+            </div>
+            <button class="danger-btn" onclick="switchMode('login')">Return to Authentication Screen</button>
           </div>
-          <div id="resetPasswordArea" class="hidden">
-            <label class="form-label">New Password</label>
-            <input id="newPassword" class="form-input" type="password" placeholder="Create new password"/>
-            <button class="main-btn" onclick="resetPassword()">Reset Password</button>
-          </div>
-          <button class="danger-btn" onclick="switchMode('login')">Back to Login</button>
         </div>
 
         <div id="authMsg" class="msg-box"></div>
+        
+        <!-- UPGRADED PROFESSIONAL SUPPORT FOOTER -->
         <div class="auth-note">
-          For help creating your Student ID, email us at <b>academeforge@gmail.com</b>
+          Need assistance deploying or accessing your account? Contact our systems administration desk directly at <a href="mailto:help@academeforge.in">help@academeforge.in</a>.
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ══════════════ AI WORKSPACE DASHBOARD ══════════════ -->
 <div id="panelAI" class="ai-shell hidden">
 
   <div class="ai-overlay" id="aiOverlay" onclick="handleHamburgerClick()"></div>
 
+  <!-- COLLAPSIBLE HISTORY DRAWER -->
   <aside class="ai-drawer" id="aiDrawer">
     <div class="drawer-head">
-      <div class="drawer-brand">AcademeForge AI</div>
-      <div class="drawer-student" id="drawerStudent">Loading…</div>
-      <button class="drawer-new-btn" onclick="newChat()"><span>+</span> New Chat</button>
+      <div class="drawer-brand-area">
+        <img class="drawer-logo-img" src="AF LOGO 2.jpeg" alt="AF Logo" onerror="this.style.display='none';">
+        <div class="drawer-brand">AcademeForge AI</div>
+      </div>
+      <div class="drawer-student" id="drawerStudent">Loading Workspace…</div>
+      <button class="drawer-new-btn" onclick="newChat()"><span>+</span> New Session</button>
     </div>
-    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search conversations…" oninput="filterConvs(this.value)">
+    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search parameters…" oninput="filterConvs(this.value)">
     <div class="conv-list" id="convList">
-      <div class="conv-empty">No past conversations yet.</div>
+      <div class="conv-empty">No active parameters logged.</div>
     </div>
     <div class="drawer-usage">
-      <div class="usage-heading">Quota</div>
+      <div class="usage-heading">Resource Metrics</div>
       <div class="usage-row"><span>Session Requests</span><strong id="uSessReq">—</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uSessReqBar"></div></div>
       <div class="usage-row"><span>Session Tokens</span><strong id="uSessTok">—</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uSessTokBar"></div></div>
-      <div class="usage-row"><span>Daily Remaining</span><strong id="uDailyReq">—</strong></div>
+      <div class="usage-row"><span>Daily Requests</span><strong id="uDailyReq">—</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uDailyReqBar"></div></div>
     </div>
   </aside>
 
+  <!-- CONTENT PANEL STREAM -->
   <div class="ai-main" id="aiMain">
     <header class="ai-header">
       <button class="ai-menu-btn" id="aiMenuBtn" onclick="handleHamburgerClick()">☰</button>
       <div class="ai-header-copy">
-        <div class="ai-header-title">AcademeForge</div>
+        <div class="ai-header-title">
+          <img class="nav-logo-fallback" src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';">
+          AcademeForge
+        </div>
         <div class="header-badges">
-          <div class="badge free"><span class="blink-dot"></span>Free</div>
-          <div class="badge beta">Beta</div>
+          <div class="badge free"><span class="blink-dot"></span>Free Layer</div>
+          <div class="badge beta"><span class="blink-dot"></span>Beta Stream</div>
         </div>
       </div>
       <div class="ai-header-actions">
-        <button class="hdr-logout" onclick="doLogout()">Logout</button>
+        <button class="hdr-logout" onclick="doLogout()">Terminal Signout</button>
       </div>
     </header>
 
     <div class="mode-tabs" id="modeTabs">
       <button class="mode-tab active" data-mode="af_proguide" onclick="setMode('af_proguide')">🧑‍🏫 ProGuide</button>
-      <button class="mode-tab" data-mode="dev" onclick="setMode('dev')">⚡ Dev</button>
-      <button class="mode-tab" data-mode="tapri" onclick="setMode('tapri')">☕ Tapri</button>
+      <button class="mode-tab" data-mode="dev" onclick="setMode('dev')">⚡ Dev Eng</button>
+      <button class="mode-tab" data-mode="tapri" onclick="setMode('tapri')">☕ Tapri Core</button>
     </div>
 
     <div class="chat-scroll" id="chatScroll">
       <div class="welcome-block" id="welcomeBlock">
-        <div class="welcome-kicker" id="welcomeKicker">Student mentor</div>
-        <div class="welcome-title" id="welcomeTitle">What are we building today?</div>
-        <div class="welcome-copy" id="welcomeCopy">Ask about coding, careers, projects, interviews, or study strategy.</div>
+        <!-- Greeting Fields for User Inject Tracking -->
+        <div class="welcome-user-greet" id="welcomeUserGreet">Hi, Student!</div>
+        <div class="welcome-kicker" id="welcomeKicker">STUDENT MENTOR ENGINE</div>
+        <!-- Targeted Dynamic Text Loop Node -->
+        <div class="welcome-title" id="welcomeTitle">What architecture are we building today?</div>
+        <div class="welcome-copy" id="welcomeCopy">Query multi-agent pipelines, career roadmaps, or core code execution matrices.</div>
         <div class="suggestions" id="suggestions"></div>
       </div>
       <div class="messages" id="messages"></div>
@@ -431,11 +502,11 @@
 
     <div class="composer-wrap">
       <div class="composer">
-        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask anything…"></textarea>
+        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Compile instructions…"></textarea>
         <button class="send-btn" id="sendBtn" disabled onclick="sendMessage()">➤</button>
       </div>
       <div class="composer-meta">
-        <span>Verify AI outputs before applying them.</span>
+        <span>Verify pipeline outputs before production runtime execution.</span>
         <span id="charCount">0 / 800</span>
       </div>
     </div>
@@ -447,36 +518,114 @@
 <script>
 'use strict';
 
-/* ══ CONSTANTS ══ */
+/* ══ CONFIG DATA STRUCTURE ══ */
 const SB_URL = "https://afooyyydhlwngzssgqih.supabase.co";
 const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
 const AI_ENDPOINT = `${SB_URL}/functions/v1/academe-ai-af_ai`;
 const MAX_CHARS = 800;
+
+/* ══ WELCOMING MESSAGE PATTERNS ARRAY ══ */
+const SYSTEM_PROMPTS_POOL = [
+  "What are we building today?",
+  "What code are we shipping next?",
+  "Bring the problem. Let's design the solution.",
+  "Which engineering concept are we mastering right now?",
+  "Let's map out your production architecture. Where should we start?",
+  "Ready to crush your engineering block? Describe the logic issue."
+];
 
 /* ══ HELPERS ══ */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const cleanPhone = v => String(v || '').trim().replace(/\D/g, '');
 
-/* ── REFACTORED TO HANDLE COLLAPSIBLE HAMBURGER SIDEBAR TOGGLING ── */
+/* COLLAPSIBLE TOGGLING CONTROLLER */
 function handleHamburgerClick() {
   const sidebar = $('aiDrawer');
   const overlay = $('aiOverlay');
-  
   if (window.innerWidth <= 768) {
-    // Mobile View Drawer Toggle
     sidebar.classList.toggle('open');
     overlay.classList.toggle('open');
   } else {
-    // Desktop View Sidebar Show / Hide Collapse Toggle
     sidebar.classList.toggle('collapsed-sidebar');
   }
 }
 
-/* ══ AUTH STATE ══ */
+/* TYPING ANIMATOR HOOK FOR VELOCITY LOOPS */
+function animateWelcomeText(targetText) {
+  const el = $('welcomeTitle');
+  if(!el) return;
+  el.textContent = '';
+  let i = 0;
+  
+  // Clear any existing animation trackers on the object element
+  if(el.typeInterval) clearInterval(el.typeInterval);
+  
+  el.typeInterval = setInterval(() => {
+    if (i < targetText.length) {
+      el.textContent += targetText.charAt(i);
+      i++;
+    } else {
+      clearInterval(el.typeInterval);
+    }
+  }, 35); // Smooth typewriter rhythm delay
+}
+
+/* ══ SYSTEM CONTROL MODE PROPERTIES ══ */
+const MODES = {
+  af_proguide: {
+    kicker: 'STUDENT MENTOR ENGINE',
+    copy: 'Query multi-agent pipelines, career roadmaps, or core code execution matrices.',
+    suggestions: ['Learn Python Frameworks', 'Build a Next.js Portfolio', 'Prepare Core Engineering Interviews', 'Structure Technical Strategy'],
+    placeholder: 'Ask AF ProGuide anything…'
+  },
+  dev: {
+    kicker: 'FOUNDER SYSTEM DIRECTIVES',
+    copy: 'Direct systems compilation access. Optimize execution matrices, database schemas, and infrastructure scaling.',
+    suggestions: ['Review Distributed Systems', 'Debug Multi-threaded Code', 'Draft architectural MVP', 'Refactor Core Database Indexes'],
+    placeholder: 'Ask Dev Anything…'
+  },
+  tapri: {
+    kicker: 'BIG BROTHER PROTOCOLS',
+    copy: 'Career confusion, engineering fatigue, or study stress? Open a thread to clear validation dependencies.',
+    suggestions: ['Resolving Career Confusion', 'Effective Coding Roadmaps', 'Dealing with Burnout', 'Tech jobs vs placements advice'],
+    placeholder: 'Talk to Tapri Core…'
+  }
+};
+
+let currentMode = 'af_proguide';
+
+function setMode(mode) {
+  if (!MODES[mode]) return;
+  currentMode = mode;
+  const m = MODES[mode];
+
+  document.querySelectorAll('.mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === mode);
+  });
+
+  $('welcomeKicker').textContent = m.kicker;
+  $('welcomeCopy').textContent = m.copy;
+  $('composerInput').placeholder = m.placeholder;
+
+  // Render a random welcome string from pool when toggling profiles
+  const randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
+  animateWelcomeText(randomTitle);
+
+  $('suggestions').innerHTML = m.suggestions.map(s =>
+    `<button class="suggestion" onclick="useSuggestion('${esc(s)}')">${esc(s)}</button>`
+  ).join('');
+}
+
+function useSuggestion(text) {
+  $('composerInput').value = text;
+  updateComposer();
+  $('composerInput').focus();
+}
+
+/* ══ AUTH MANAGEMENT ══ */
 let _pendingCreate = null, _resetStudent = null, _forgotOtpPassed = false;
 
-/* ══ MODE SWITCHER ══ */
 function switchMode(mode) {
   clearMsg();
   _pendingCreate = null; _resetStudent = null; _forgotOtpPassed = false;
@@ -495,18 +644,15 @@ function switchMode(mode) {
   if (mode === 'login') {
     $('boxLogin').classList.remove('hidden');
     $('tabLogin').classList.add('active');
-    $('authTitle').textContent = 'AcademeForge AI';
-    $('authSub').textContent = 'Login with your Student ID to access your AI workspace.';
+    $('authSub').textContent = 'Sign in with your verification key to enter your student workspace.';
   } else if (mode === 'create') {
     $('boxCreate').classList.remove('hidden');
     $('tabCreate').classList.add('active');
-    $('authTitle').textContent = 'Create Student ID';
-    $('authSub').textContent = 'Register with your phone number to access the AI workspace.';
+    $('authSub').textContent = 'Register terminal telemetry to unlock personalized execution clusters.';
   } else if (mode === 'forgot') {
     $('boxForgot').classList.remove('hidden');
     $('authTabs').classList.add('hidden');
-    $('authTitle').textContent = 'Recover Password';
-    $('authSub').textContent = 'Verify your registered email to reset your password.';
+    $('authSub').textContent = 'Verify communication parameters to re-initialize account layer validation keys.';
   }
 }
 
@@ -522,7 +668,7 @@ function clearMsg() {
   b.textContent = '';
 }
 
-/* ══ SUPABASE LAZY LOAD ══ */
+/* ══ SUPABASE INFRASTRUCTURE LAYER ══ */
 let _sb = null;
 async function getSb() {
   if (_sb) return _sb;
@@ -540,26 +686,26 @@ async function getSb() {
 
 async function edgeCall(fn, payload) {
   try {
-    if (!navigator.onLine) return { ok: false, message: 'No internet connection.' };
+    if (!navigator.onLine) return { ok: false, message: 'Terminal disconnected. Check physical networking interfaces.' };
     const sb = await getSb();
     const { data, error } = await sb.functions.invoke(fn, { body: payload || {} });
-    if (error) return { ok: false, message: error.message || 'Request failed.' };
-    return data || { ok: false, message: 'Empty response.' };
+    if (error) return { ok: false, message: error.message || 'Function endpoint returned exceptions.' };
+    return data || { ok: false, message: 'Null transaction payload signature.' };
   } catch (e) {
-    return { ok: false, message: e.message || 'Request failed.' };
+    return { ok: false, message: e.message || 'System fault runtime error.' };
   }
 }
 
-/* ══ LOGIN ══ */
+/* ══ AUTH RUNTIME METHODS ══ */
 async function doLogin() {
   const loginId = ($('loginPhone').value || '').trim();
   const cleanId = cleanPhone(loginId);
   const password = ($('loginPassword').value || '').trim();
 
-  if (!loginId) { showMsg('err', 'Enter your Student ID or phone number.'); return; }
-  if (!password) { showMsg('err', 'Enter your password.'); return; }
+  if (!loginId) { showMsg('err', 'Verification mismatch. Identity key required.'); return; }
+  if (!password) { showMsg('err', 'Identity validation parameters missing.'); return; }
 
-  showMsg('info', 'Verifying your credentials…');
+  showMsg('info', 'Compiling profile verification nodes…');
   const res = await edgeCall('student-login-af', {
     login_id: loginId,
     clean_login_id: cleanId,
@@ -568,124 +714,122 @@ async function doLogin() {
     device_name: getDeviceName()
   });
 
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Login failed. Please check your credentials.'); return; }
-  if (!res.student)    { showMsg('err', 'Login failed. Student data not received.'); return; }
+  if (!res || !res.ok) { showMsg('err', res?.message || 'Authentication mismatch. Confirm active database hashes.'); return; }
+  if (!res.student)    { showMsg('err', 'Telemetry load failed. Profile configuration node unreadable.'); return; }
   const token = res.session_token || res.login_token || '';
-  if (!token)          { showMsg('err', 'Login failed. Session token not received.'); return; }
+  if (!token)          { showMsg('err', 'Authorization initialization rejected. Missing signature token.'); return; }
 
   saveSession(res.student, token, res.device_id || getDeviceId());
   openWorkspace(res.student);
 }
 
-/* ══ CREATE ID ══ */
 async function sendCreateOtp() {
   const name     = ($('createName').value || '').trim();
   const mobile   = cleanPhone($('createPhone').value || '');
   const email    = ($('createEmail').value || '').trim().toLowerCase();
   const password = ($('createPassword').value || '').trim();
 
-  if (!name || name.length < 3) { showMsg('err', 'Enter your full name (at least 3 characters).'); return; }
-  if (!mobile || mobile.length < 10) { showMsg('err', 'Enter a valid phone number (at least 10 digits).'); return; }
-  if (!email || !email.includes('@')) { showMsg('err', 'Enter a valid email address.'); return; }
-  if (!password || password.length < 4) { showMsg('err', 'Create a password with at least 4 characters.'); return; }
+  if (!name || name.length < 3) { showMsg('err', 'String structure invalid. Provide absolute system name.'); return; }
+  if (!mobile || mobile.length < 10) { showMsg('err', 'Identity tracking validation require full length phone signature.'); return; }
+  if (!email || !email.includes('@')) { showMsg('err', 'Routing network failure. Invalid standard formatting pattern.'); return; }
+  if (!password || password.length < 4) { showMsg('err', 'Security arrays require minimum configuration size >= 4.'); return; }
 
-  showMsg('info', 'Checking if account already exists…');
+  showMsg('info', 'Scanning data blocks for duplicate entries…');
   const check = await edgeCall('student-check-existing-af', { mobile, email });
-  if (!check || !check.ok) { showMsg('err', check?.message || 'Could not verify account details.'); return; }
-  if (check.mobile_exists || check.student_id_exists) { showMsg('err', 'This phone number is already registered.'); return; }
-  if (check.email_exists)  { showMsg('err', 'This email is already registered.'); return; }
+  if (!check || !check.ok) { showMsg('err', check?.message || 'Data stream scanning exception encountered.'); return; }
+  if (check.mobile_exists || check.student_id_exists) { showMsg('err', 'Identity already maps to existing system node.'); return; }
+  if (check.email_exists)  { showMsg('err', 'Communication node routing map matches duplicate entity records.'); return; }
 
   _pendingCreate = { student_id: mobile, name, mobile, email, password, status: 'active', email_verified: false };
 
-  showMsg('info', 'Sending OTP to your email…');
+  showMsg('info', 'Dispatching secure verification string to communication hub…');
   const otpRes = await edgeCall('student-send-otp-af', { email, mobile, purpose: 'create' });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'OTP send failed: ' + (otpRes?.message || 'Server error.')); return; }
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'Dispatch sequence failed: ' + (otpRes?.message || 'Gateway offline.')); return; }
 
   $('createOtpArea').classList.remove('hidden');
-  showMsg('ok', 'OTP sent! Check your email and enter the code below.');
+  showMsg('ok', 'Telemetry string dispatched successfully. Verify target inbox.');
 }
 
 async function verifyCreateOtp() {
   const otp = ($('createOtp').value || '').trim();
-  if (!_pendingCreate) { showMsg('err', 'Please fill the form and send OTP first.'); return; }
-  if (!otp || otp.length < 4) { showMsg('err', 'Enter the OTP from your email.'); return; }
+  if (!_pendingCreate) { showMsg('err', 'Execution loop empty. Compile profile block data arrays first.'); return; }
+  if (!otp || otp.length < 4) { showMsg('err', 'Verification code matching parameters are incomplete.'); return; }
 
-  showMsg('info', 'Verifying OTP and creating your Student ID…');
+  showMsg('info', 'Validating verification parameter keys & writing blocks…');
   const res = await edgeCall('student-create-af', Object.assign({}, _pendingCreate, { otp, purpose: 'create' }));
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Could not create Student ID.'); return; }
-  if (!res.student)    { showMsg('err', 'Student ID created but no data received.'); return; }
+  if (!res || !res.ok) { showMsg('err', res?.message || 'Account database instantiation script failed.'); return; }
+  if (!res.student)    { showMsg('err', 'Workspace initialized but failed to extract data configuration nodes.'); return; }
 
   _pendingCreate = null;
   $('createOtpArea').classList.add('hidden');
   $('createOtp').value = '';
 
   saveSession(res.student, res.session_token || res.login_token || '', getDeviceId());
-  showToast('Student ID created! Welcome 🎉', 'ok');
+  showToast('Student Workspace Instantiated! Welcome 🎉', 'ok');
   openWorkspace(res.student);
 }
 
-/* ══ FORGOT PASSWORD ══ */
 async function findStudentForReset() {
   const value = ($('forgotLogin').value || '').trim();
   const clean = cleanPhone(value);
-  if (!value) { showMsg('err', 'Enter your Student ID, phone, or email.'); return; }
+  if (!value) { showMsg('err', 'Provide search tracking keys to scan database clusters.'); return; }
 
-  showMsg('info', 'Finding your account…');
+  showMsg('info', 'Mapping account references…');
   const res = await edgeCall('student-find-reset-af', {
     value,
     clean_value: clean,
     email_value: value.toLowerCase()
   });
-  if (!res || !res.ok)       { showMsg('err', res?.message || 'No account found for that ID.'); return; }
-  if (!res.student?.email)   { showMsg('err', 'Account found but no email is registered.'); return; }
+  if (!res || !res.ok)       { showMsg('err', res?.message || 'No registered structure matches the criteria search key.'); return; }
+  if (!res.student?.email)   { showMsg('err', 'Cluster reference found but matching email routing maps are empty.'); return; }
 
   _resetStudent = res.student;
   _forgotOtpPassed = false;
 
-  showMsg('info', 'Sending OTP to your registered email…');
+  showMsg('info', 'Dispatching authorization reset validation tokens…');
   const otpRes = await edgeCall('student-send-otp-af', {
     email: _resetStudent.email,
     mobile: _resetStudent.mobile || '',
     purpose: 'reset'
   });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'OTP send failed: ' + (otpRes?.message || 'Server error.')); return; }
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'Token dispatch sequence threw system alerts: ' + (otpRes?.message || 'Internal exception.')); return; }
 
   $('forgotOtpArea').classList.remove('hidden');
   $('resetPasswordArea').classList.add('hidden');
-  showMsg('ok', 'OTP sent to your registered email. Enter it below.');
+  showMsg('ok', 'Verification string compiled and pushed to email records.');
 }
 
 async function verifyForgotOtp() {
   const otp = ($('forgotOtp').value || '').trim();
-  if (!_resetStudent)        { showMsg('err', 'Please find your account first.'); return; }
-  if (!otp || otp.length < 4){ showMsg('err', 'Enter the OTP from your email.'); return; }
+  if (!_resetStudent)        { showMsg('err', 'Missing entity context. Scan structural identity registries first.'); return; }
+  if (!otp || otp.length < 4){ showMsg('err', 'Parameter verification keys require complete characters layout.'); return; }
 
-  showMsg('info', 'Verifying OTP…');
+  showMsg('info', 'Checking structural telemetry keys...');
   const res = await edgeCall('student-verify-otp-af', {
     email: _resetStudent.email,
     otp,
     purpose: 'reset'
   });
-  if (!res || !res.ok) { showMsg('err', 'Invalid OTP: ' + (res?.message || 'Verification failed.')); return; }
+  if (!res || !res.ok) { showMsg('err', 'Validation fail: ' + (res?.message || 'Parameters unverified.')); return; }
 
   _forgotOtpPassed = true;
   $('resetPasswordArea').classList.remove('hidden');
-  showMsg('ok', 'Email verified! Create your new password.');
+  showMsg('ok', 'Identity verified. Rewrite execution security keys.');
 }
 
 async function resetPassword() {
   const newPwd = ($('newPassword').value || '').trim();
-  if (!_resetStudent)       { showMsg('err', 'Please find your account first.'); return; }
-  if (!_forgotOtpPassed)    { showMsg('err', 'Please verify your email OTP first.'); return; }
-  if (!newPwd || newPwd.length < 4) { showMsg('err', 'New password must be at least 4 characters.'); return; }
+  if (!_resetStudent)       { showMsg('err', 'Entity missing configuration initialization contexts.'); return; }
+  if (!_forgotOtpPassed)    { showMsg('err', 'Token validation layer check dependencies unresolved.'); return; }
+  if (!newPwd || newPwd.length < 4) { showMsg('err', 'Security keys criteria must be >= 4 characters.'); return; }
 
-  showMsg('info', 'Resetting your password…');
+  showMsg('info', 'Updating production cryptographic database records…');
   const res = await edgeCall('student-reset-password-af', {
     id: _resetStudent.id,
     email: _resetStudent.email,
     new_password: newPwd
   });
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Password reset failed.'); return; }
+  if (!res || !res.ok) { showMsg('err', res?.message || 'Database commit rejected updates.'); return; }
 
   _resetStudent = null; _forgotOtpPassed = false;
   $('forgotOtpArea').classList.add('hidden');
@@ -693,11 +837,11 @@ async function resetPassword() {
   $('forgotOtp').value = '';
   $('newPassword').value = '';
 
-  showMsg('ok', 'Password reset successful! Please login with your new password.');
-  setTimeout(() => switchMode('login'), 1000);
+  showMsg('ok', 'Database updated. Re-authenticate using the new parameter criteria.');
+  setTimeout(() => switchMode('login'), 1200);
 }
 
-/* ══ SESSION ══ */
+/* ══ PERSISTENCE LAYERS ══ */
 function saveSession(student, token, deviceId) {
   localStorage.setItem('af_student_logged_in', 'true');
   localStorage.setItem('af_session_token',     token || '');
@@ -715,7 +859,7 @@ function doLogout() {
   $('panelAI').classList.add('hidden');
   $('panelAuth').classList.remove('hidden');
   switchMode('login');
-  showToast('Logged out 👋', 'ok');
+  showToast('Terminal Session Terminated 👋', 'ok');
 }
 
 function getDeviceId() {
@@ -725,79 +869,28 @@ function getDeviceId() {
 }
 function getDeviceName() {
   const ua = navigator.userAgent || '';
-  if (/Android/i.test(ua)) return 'Android Browser';
-  if (/iPhone|iPad/i.test(ua)) return 'iOS Browser';
-  if (/Windows/i.test(ua)) return 'Windows Browser';
-  return 'Web Browser';
+  if (/Android/i.test(ua)) return 'Android Telemetry Client';
+  if (/iPhone|iPad/i.test(ua)) return 'iOS Systems Interface';
+  if (/Windows/i.test(ua)) return 'NT Arch Framework OS';
+  return 'Standard Browser Engine';
 }
 
-/* ══ WORKSPACE OPEN ══ */
+/* ══ WORKSPACE LIFECYCLE INITIALIZER ══ */
 function openWorkspace(student) {
   $('panelAuth').classList.add('hidden');
   $('panelAI').classList.remove('hidden');
   const name = student?.name || localStorage.getItem('af_student_name') || 'Student';
-  $('drawerStudent').textContent = name + ' · Active';
+  $('drawerStudent').textContent = name + ' · Active Terminal';
+  
+  // Dynamic Greeting injection point mapped above welcome-title block
+  $('welcomeUserGreet').textContent = 'Hi, ' + name + '!';
+  
   setMode('af_proguide');
   loadUsage();
   loadConvList();
 }
 
-/* ══ MODE CONFIG ══ */
-const MODES = {
-  af_proguide: {
-    label: 'AF ProGuide 2.4',
-    kicker: 'Student mentor',
-    title: 'What are we building today?',
-    copy: 'Ask about coding, careers, projects, interviews, or study strategy.',
-    suggestions: ['Learn Python', 'Build a portfolio', 'Prepare for interviews', 'Choose a tech career'],
-    placeholder: 'Ask AF ProGuide anything…'
-  },
-  dev: {
-    label: 'Dev 1.3',
-    kicker: 'Founder mode',
-    title: 'Bring the problem. We will ship.',
-    copy: 'Get direct help with code, products, startups, architecture, and execution.',
-    suggestions: ['Review my product idea', 'Debug my code', 'Plan an MVP', 'Improve my architecture'],
-    placeholder: 'Ask Dev anything…'
-  },
-  tapri: {
-    label: 'Tapri 7.9',
-    kicker: 'Big bro mode',
-    title: 'Kya scene hai? Bolo.',
-    copy: 'Career confusion, college pressure, coding, ya self-doubt. Seedhi baat karte hain.',
-    suggestions: ['Career mein confused hoon', 'Coding kaise seekhun', 'Self-doubt se kaise niklu', 'College vs job advice'],
-    placeholder: 'Tapri se kuch poocho…'
-  }
-};
-
-let currentMode = 'af_proguide';
-
-function setMode(mode) {
-  if (!MODES[mode]) return;
-  currentMode = mode;
-  const m = MODES[mode];
-
-  document.querySelectorAll('.mode-tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.mode === mode);
-  });
-
-  $('welcomeKicker').textContent = m.kicker;
-  $('welcomeTitle').textContent = m.title;
-  $('welcomeCopy').textContent = m.copy;
-  $('composerInput').placeholder = m.placeholder;
-
-  $('suggestions').innerHTML = m.suggestions.map(s =>
-    `<button class="suggestion" onclick="useSuggestion('${esc(s)}')">${esc(s)}</button>`
-  ).join('');
-}
-
-function useSuggestion(text) {
-  $('composerInput').value = text;
-  updateComposer();
-  $('composerInput').focus();
-}
-
-/* ══ COMPOSER ══ */
+/* ══ COMPOSER SYSTEMS ══ */
 function updateComposer() {
   const inp = $('composerInput');
   inp.style.height = 'auto';
@@ -811,7 +904,7 @@ $('composerInput').addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
-/* ══ CHAT ══ */
+/* ══ PIPELINE STREAM CORE ══ */
 let isLoading = false;
 let currentConvId = '';
 
@@ -853,9 +946,9 @@ async function sendMessage() {
     });
     clearTimeout(timer);
     result = await resp.json().catch(() => ({}));
-    if (!resp.ok) result = { error_af_ai: result.error_af_ai || 'Server error ' + resp.status };
+    if (!resp.ok) result = { error_af_ai: result.error_af_ai || 'Server cluster processing failure status ' + resp.status };
   } catch (e) {
-    result = { error_af_ai: e.name === 'AbortError' ? 'Request timed out.' : 'Network error.' };
+    result = { error_af_ai: e.name === 'AbortError' ? 'Execution runtime timeout threshold breached.' : 'Network cluster link disconnection.' };
   }
 
   $('thinking')?.remove();
@@ -868,7 +961,7 @@ async function sendMessage() {
 
   if (result.session_request_limit_af_ai !== undefined) applyUsage(result);
   currentConvId = result.conversation_id_af_ai || currentConvId;
-  appendMsg('assistant', result.answer_af_ai || 'No response received.', result.mode_af_ai || currentMode);
+  appendMsg('assistant', result.answer_af_ai || 'No processing signature fetched.', result.mode_af_ai || currentMode);
   updateComposer();
   loadConvList();
 }
@@ -880,7 +973,12 @@ function appendMsg(role, content, mode) {
   const initials = name.trim().split(/\s+/).slice(0,2).map(p => p[0].toUpperCase()).join('');
   const avatarContent = role === 'user' ? initials : 'AI';
   const bubbleContent = role === 'user' ? esc(content) : renderMarkdown(content);
-  const metaLabel = role === 'user' ? esc(name) : esc(MODES[mode]?.label || 'AcademeForge AI');
+  
+  let labelConfig = 'AcademeForge Engine';
+  if(mode === 'dev') labelConfig = 'Dev Core v1.3';
+  if(mode === 'tapri') labelConfig = 'Tapri Protocol v7.9';
+
+  const metaLabel = role === 'user' ? esc(name) : labelConfig;
 
   row.innerHTML = `
     <div class="avatar">${avatarContent}</div>
@@ -893,15 +991,16 @@ function appendMsg(role, content, mode) {
 }
 
 function renderMarkdown(text) {
-  return text.split(/(```[\s\S]*?```)/g).map(chunk => {
+  return text.split(/(```[\s\S]*?
+```)/g).map(chunk => {
     const m = chunk.match(/^```([\w+-]*)\n?([\s\S]*?)```$/);
     if (m) {
-      const lang = m[1] || 'code', code = m[2];
+      const lang = m[1] || 'Code Block', code = m[2];
       return `<div class="code-wrap"><div class="code-head"><span>${esc(lang)}</span><button class="code-copy-btn" data-code="${encodeURIComponent(code)}">Copy</button></div><pre class="code-pre">${esc(code)}</pre></div>`;
     }
     return esc(chunk)
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/`([^`]+)`/g, '<code style="background:var(--inp);padding:2px 5px;border-radius:4px;font-size:12px;">$1</code>')
+      .replace(/`([^`]+)`/g, '<code style="background:var(--inp);padding:2px 5px;border-radius:4px;font-size:12px;color:#f43f5e;">$1</code>')
       .replace(/\n/g, '<br>');
   }).join('');
 }
@@ -920,11 +1019,15 @@ function scrollChat() {
   s.scrollTop = s.scrollHeight;
 }
 
-/* ══ NEW CHAT ══ */
 function newChat() {
   currentConvId = '';
   $('messages').innerHTML = '';
   $('welcomeBlock').classList.remove('hidden');
+  
+  // Generate random prompt statement animation on explicit new clean thread allocation
+  const randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
+  animateWelcomeText(randomTitle);
+
   if(window.innerWidth <= 768) {
     $('aiDrawer').classList.remove('open');
     $('aiOverlay').classList.remove('open');
@@ -932,7 +1035,7 @@ function newChat() {
   $('composerInput').focus();
 }
 
-/* ══ CONVERSATIONS ══ */
+/* ══ TELEMETRY ENGINE LOGGER ══ */
 let allConvs = [];
 
 async function loadConvList() {
@@ -952,12 +1055,12 @@ async function loadConvList() {
 
 function renderConvList(list) {
   const el = $('convList');
-  if (!list.length) { el.innerHTML = '<div class="conv-empty">No past conversations yet.</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div class="conv-empty">No active parameters logged.</div>'; return; }
   el.innerHTML = list.map(c => `
     <button class="conv-row${c.conversation_id_af_ai === currentConvId ? ' active' : ''}"
       onclick="loadConv('${esc(c.conversation_id_af_ai)}')">
       <span class="conv-dot"></span>
-      <span class="conv-title">${esc(c.title_af_ai || 'Conversation')}</span>
+      <span class="conv-title">${esc(c.title_af_ai || 'Thread Node Cluster')}</span>
     </button>`).join('');
 }
 
@@ -984,7 +1087,7 @@ async function loadConv(id) {
       body: JSON.stringify({ action_af_ai: 'load_conversation_af_ai', conversation_id_af_ai: id, student_key_af_ai: key })
     });
     data = await resp.json().catch(() => ({}));
-  } catch(_) { data = { error_af_ai: 'Network error.' }; }
+  } catch(_) { data = { error_af_ai: 'Network framework read block failure.' }; }
 
   $('thinking')?.remove();
   if (data.error_af_ai) { showToast(data.error_af_ai, 'err'); return; }
@@ -994,7 +1097,6 @@ async function loadConv(id) {
   renderConvList(allConvs);
 }
 
-/* ══ USAGE ══ */
 async function loadUsage() {
   const key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
   try {
@@ -1030,12 +1132,12 @@ function applyUsage(d) {
   $('uDailyReqBar').style.width = pct(dailyUsed,    dailyLimit);
 }
 
-/* ══ TOAST ══ */
+/* ══ TOAST NOTIFICATIONS ══ */
 let _tt = null;
 function showToast(msg, type = 'info', title = '') {
   const w = $('toastWrap'); w.innerHTML = '';
   if (_tt) { clearTimeout(_tt); _tt = null; }
-  const labels = { ok: 'Done', info: 'Info', err: 'Error' };
+  const labels = { ok: 'Done', info: 'Info', err: 'Critical Failure' };
   const d = document.createElement('div');
   d.className = 'toast ' + type;
   d.innerHTML = `<div class="toast-body"><p>${esc(title || labels[type] || 'Info')}</p><p>${esc(msg)}</p></div><span class="toast-x" onclick="this.parentElement.remove()">×</span>`;
@@ -1043,7 +1145,7 @@ function showToast(msg, type = 'info', title = '') {
   _tt = setTimeout(() => d.remove(), 2800);
 }
 
-/* ══ INIT ══ */
+/* ══ MAIN DETECTOR ENGINE INIT ══ */
 document.addEventListener('DOMContentLoaded', () => {
   const loggedIn = localStorage.getItem('af_student_logged_in') === 'true';
   if (loggedIn) {
