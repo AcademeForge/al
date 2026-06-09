@@ -105,7 +105,7 @@
     .sb-search:focus{border-color:var(--p)}
     .sb-search::placeholder{color:var(--t3)}
     .sb-actions{display:flex;gap:6px;padding:0 10px 8px}
-    .sb-action-btn{flex:1;padding:7px 8px;border-radius:var(--r1);font-size:11px;font-weight:600;color:var(--t3);background:rgba(255,255,255,0.02);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.18s}
+    .sb-action-btn{flex:1;padding:7px 8px;border-radius:var(--r1);font-size:11px;font-weight:600;color:var(--t2);background:rgba(255,255,255,0.02);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.18s}
     .sb-action-btn:hover{color:#fca5a5;background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.18)}
     .conv-list{flex:1;overflow-y:auto;padding:4px 8px}
     .conv-list::-webkit-scrollbar{width:3px}
@@ -213,24 +213,15 @@
     .suggestion{text-align:left;border:1px solid var(--border);background:var(--surface);color:var(--t2);padding:13px 14px;border-radius:var(--r3);font-size:12.5px;font-weight:500;line-height:1.4;transition:all 0.2s var(--ease)}
     .suggestion:hover{border-color:var(--p-light);background:rgba(255,255,255,0.01);color:var(--t1);transform:translateY(-2px);box-shadow:var(--sh-sm)}
 
-    /* ── MESSAGES (UPDATED FOR UNIQUE LEFT/RIGHT DIALOGUES) ── */
+    /* ── MESSAGES (DYNAMIC THEMED BUBBLES BASED ON MODALS) ── */
     .messages{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:20px}
     .msg-row{display:flex;gap:12px;align-items:flex-start;animation:msgIn 0.22s var(--ease) both;width:100%}
     @keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     
-    /* User Row Side Styling (Right Aligned) */
     .msg-row.user{flex-direction:row-reverse;align-self:flex-end}
-    
-    /* Assistant Row Side Styling (Left Aligned) */
     .msg-row.assistant{flex-direction:row;align-self:flex-start}
 
-    .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;transition:all 0.2s}
-    
-    /* User Avatar Specific style */
-    .msg-row.user .avatar{background:rgba(94,97,233,0.18);color:var(--p-light);border:1px solid rgba(94,97,233,0.35);box-shadow:0 2px 8px rgba(94,97,233,0.1)}
-    
-    /* AI Assistant Avatar Specific style */
-    .msg-row.assistant .avatar{background:rgba(6,182,212,0.15);color:var(--acc);border:1px solid rgba(6,182,212,0.35);box-shadow:0 2px 8px rgba(6,182,212,0.1)}
+    .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;box-shadow:var(--sh-sm)}
     
     .msg-body{max-width:calc(100% - 48px);display:flex;flex-direction:column}
     .msg-row.user .msg-body{align-items:flex-end}
@@ -238,19 +229,31 @@
 
     .bubble{padding:12px 16px;border-radius:var(--r3);font-size:14px;line-height:1.6;overflow-wrap:anywhere}
     .bubble p+p{margin-top:8px}
-    
-    /* User Bubble Specific Design */
-    .msg-row.user .bubble{background:var(--p);border:1px solid rgba(255,255,255,0.06);border-top-right-radius:4px;color:#ffffff;box-shadow:0 4px 14px rgba(94,97,233,0.15)}
-    
-    /* AI Assistant Bubble Specific Design */
-    .msg-row.assistant .bubble{background:var(--card);border:1px solid var(--border);border-top-left-radius:4px;color:var(--t1);box-shadow:var(--sh-sm)}
 
-    .msg-meta{font-size:10.5px;color:var(--t3);margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    /* 1. Modal Theme: ProGuide */
+    .msg-row.mode-af_proguide.user .bubble { background: var(--p); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; }
+    .msg-row.mode-af_proguide.user .avatar { background: rgba(94,97,233,0.18); color: var(--p-light); border: 1px solid rgba(94,97,233,0.3); }
+    .msg-row.mode-af_proguide.assistant .bubble { background: rgba(94,97,233,0.08); border: 1px solid rgba(94,97,233,0.22); border-top-left-radius: 4px; color: var(--t1); }
+    .msg-row.mode-af_proguide.assistant .avatar { background: var(--p); color: #fff; border: 1px solid rgba(94,97,233,0.4); }
+
+    /* 2. Modal Theme: Dev Eng */
+    .msg-row.mode-dev.user .bubble { background: var(--mode-dev); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; box-shadow: 0 4px 12px var(--mode-dev-glow); }
+    .msg-row.mode-dev.user .avatar { background: rgba(249,115,22,0.18); color: var(--mode-dev); border: 1px solid rgba(249,115,22,0.3); }
+    .msg-row.mode-dev.assistant .bubble { background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.25); border-top-left-radius: 4px; color: var(--t1); }
+    .msg-row.mode-dev.assistant .avatar { background: var(--mode-dev); color: #fff; border: 1px solid rgba(249,115,22,0.4); }
+
+    /* 3. Modal Theme: Tapri Core */
+    .msg-row.mode-tapri.user .bubble { background: var(--mode-tapri); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; box-shadow: 0 4px 12px var(--mode-tapri-glow); }
+    .msg-row.mode-tapri.user .avatar { background: rgba(168,85,247,0.18); color: var(--mode-tapri); border: 1px solid rgba(168,85,247,0.3); }
+    .msg-row.mode-tapri.assistant .bubble { background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.25); border-top-left-radius: 4px; color: var(--t1); }
+    .msg-row.mode-tapri.assistant .avatar { background: var(--mode-tapri); color: #fff; border: 1px solid rgba(168,85,247,0.4); }
+
+    .msg-meta{font-size:10.5px;color:var(--t3);margin-top:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .msg-row.user .msg-meta{justify-content:flex-end;padding-right:2px}
     .msg-row.assistant .msg-meta{justify-content:flex-start;padding-left:2px}
     
-    .copy-msg-btn{font-size:10.5px;font-weight:600;color:var(--t3);background:none;border:none;cursor:pointer;padding:2px 6px;border-radius:4px;transition:all 0.15s;display:inline-flex;align-items:center;gap:3px}
-    .copy-msg-btn:hover{color:var(--p-light);background:var(--p-glow)}
+    .action-msg-btn{font-size:10.5px;font-weight:600;color:var(--t2);background:rgba(255,255,255,0.02);border:1px solid var(--border);cursor:pointer;padding:3px 8px;border-radius:6px;transition:all 0.18s;display:inline-flex;align-items:center;gap:4px}
+    .action-msg-btn:hover{color:#fff;background:rgba(255,255,255,0.06);border-color:var(--border-hover)}
 
     /* ── CODE BLOCKS ── */
     .code-wrap{background:#0b0b0f;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:12px 0;width:100%;max-width:100%}
@@ -341,6 +344,7 @@
 </head>
 <body>
 
+<!-- AUTH PANEL -->
 <div id="panelAuth" aria-label="Authentication">
   <span class="auth-orb auth-orb-1" aria-hidden="true"></span>
   <span class="auth-orb auth-orb-2" aria-hidden="true"></span>
@@ -411,9 +415,11 @@
   </div>
 </div>
 
+<!-- AI WORKSPACE -->
 <div id="panelAI" class="ai-shell hidden" aria-label="AI Workspace">
   <div class="ai-overlay" id="aiOverlay" onclick="closeSidebar()" aria-hidden="true"></div>
 
+  <!-- SIDEBAR -->
   <aside class="ai-sidebar" id="aiSidebar" aria-label="Navigation">
     <div class="sb-head">
       <div class="sb-brand">
@@ -452,8 +458,10 @@
     </div>
   </aside>
 
+  <!-- MAIN -->
   <div class="ai-main">
 
+    <!-- Desktop Header -->
     <header class="ai-header">
       <button class="hdr-menu-btn" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
       <div class="hdr-brand">
@@ -470,6 +478,7 @@
       <button class="hdr-logout" onclick="doLogout()">Sign Out</button>
     </header>
 
+    <!-- Mobile Header -->
     <div class="mobile-header" id="mobileHeader">
       <div class="mhdr-row1">
         <button class="mhdr-menu" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
@@ -493,12 +502,14 @@
       </div>
     </div>
 
+    <!-- Desktop Mode Tabs -->
     <div class="mode-tabs" id="modeTabs" role="tablist" aria-label="AI Modes">
       <button class="mode-tab active" data-mode="af_proguide" role="tab" aria-selected="true" onclick="setMode('af_proguide')">🧑‍🏫 ProGuide</button>
       <button class="mode-tab" data-mode="dev" role="tab" aria-selected="false" onclick="setMode('dev')">⚡ Dev Eng</button>
       <button class="mode-tab" data-mode="tapri" role="tab" aria-selected="false" onclick="setMode('tapri')">☕ Tapri Core</button>
     </div>
 
+    <!-- Chat -->
     <div class="chat-scroll" id="chatScroll">
       <div class="welcome-block" id="welcomeBlock" aria-live="polite">
         <div class="welcome-greet" id="welcomeGreet">Hi, Student!</div>
@@ -513,6 +524,7 @@
       <div class="messages" id="messages" aria-label="Chat messages"></div>
     </div>
 
+    <!-- Composer -->
     <div class="composer-wrap">
       <div class="composer">
         <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask your academic question…" aria-label="Type your message"></textarea>
@@ -634,11 +646,13 @@ async function sendMessage(){
   var inp=$('composerInput'),text=inp.value.trim();if(!text)return;
   isLoading=true;$('welcomeBlock').classList.add('hidden');inp.value='';updateComposer();
   appendMsg('user',text,currentMode);
-  var thinking = document.createElement('div');
-  thinking.className = 'msg-row assistant';
-  thinking.id = 'thinkingRow';
-  thinking.innerHTML = '<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
+  
+  var thinking=document.createElement('div');
+  thinking.className='msg-row assistant mode-'+currentMode;
+  thinking.id='thinkingRow';
+  thinking.innerHTML='<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
   $('messages').appendChild(thinking);scrollChat();
+  
   var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
   var result;
   try{var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},60000);var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'ask_af_ai',question_af_ai:text,mode_af_ai:currentMode,conversation_id_af_ai:currentConvId||undefined,student_key_af_ai:key}),signal:ctrl.signal});clearTimeout(timer);result=await resp.json().catch(function(){return{}});if(!resp.ok)result={error_af_ai:(result&&result.error_af_ai)||'Server error '+resp.status}}catch(e){result={error_af_ai:e.name==='AbortError'?'Request timed out. Please try again.':'Network error. Check your connection.'}}
@@ -652,34 +666,47 @@ async function sendMessage(){
 
 function appendMsg(role,content,mode){
   var row=document.createElement('div');
-  // AI ke liye assistant class append karega, user ke liye user class
-  row.className='msg-row ' + (role==='user'?'user':'assistant');
+  // Secure dynamic class added for modal color code separation
+  row.className='msg-row '+(role==='user'?'user':'assistant')+' mode-'+(mode||currentMode);
   var name=localStorage.getItem('af_student_name')||'Student';
   var initials=name.trim().split(/\s+/).slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():''}).join('');
   var avatarContent=role==='user'?(initials||'S'):'AI';
   var bubbleContent=role==='user'?'<p>'+esc(content)+'</p>':renderMarkdown(content);
   var m=MODES[mode]||MODES['af_proguide'];
   var metaLabel=role==='user'?esc(name):esc(m.metaLabel);
-  row.innerHTML='<div class="avatar" aria-hidden="true">'+avatarContent+'</div><div class="msg-body"><div class="bubble">'+bubbleContent+'</div><div class="msg-meta"><span>'+metaLabel+'</span><button class="copy-msg-btn" data-plain="'+encodeURIComponent(content)+'" title="Copy message">📋 Copy</button></div></div>';
+  row.innerHTML='<div class="avatar" aria-hidden="true">'+avatarContent+'</div><div class="msg-body"><div class="bubble">'+bubbleContent+'</div><div class="msg-meta"><span>'+metaLabel+'</span><button class="action-msg-btn copy-btn" data-plain="'+encodeURIComponent(content)+'">📋 Copy Text</button><button class="action-msg-btn share-btn" data-plain="'+encodeURIComponent(content)+'">🔗 Share</button></div></div>';
   $('messages').appendChild(row);scrollChat();
 }
 
 function renderMarkdown(text){
-  var parts=[],codeRegex=/```([\w+-]*)\n?([\s\S]*?)```/g,lastIndex=0,match;
+  var parts=[],codeRegex=/```([\w+-]*)\n?([\s\S]*?)
+```/g,lastIndex=0,match;
   codeRegex.lastIndex=0;
   while((match=codeRegex.exec(text))!==null){if(match.index>lastIndex)parts.push({type:'text',content:text.slice(lastIndex,match.index)});parts.push({type:'code',lang:match[1]||'code',code:match[2]});lastIndex=match.index+match[0].length}
   if(lastIndex<text.length)parts.push({type:'text',content:text.slice(lastIndex)});
   return parts.map(function(part){
-    if(part.type==='code')return'<div class="code-wrap"><div class="code-head"><span class="code-lang">'+esc(part.lang||'code')+'</span><button class="code-copy-btn" data-code="'+encodeURIComponent(part.code)+'">Copy</button></div><pre class="code-pre">'+esc(part.code)+'</pre></div>';
+    if(part.type==='code')return'<div class="code-wrap"><div class="code-head"><span class="code-lang">'+esc(part.lang||'code')+'</span><button class="code-copy-btn" data-code="'+encodeURIComponent(part.code)+'">Copy Code</button></div><pre class="code-pre">'+esc(part.code)+'</pre></div>';
     return esc(part.content).replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*\n]+)\*/g,'<em>$1</em>').replace(/`([^`\n]+)`/g,'<code style="background:var(--inp);padding:2px 6px;border-radius:5px;font-size:12.5px;color:#f87171;font-family:monospace;">$1</code>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
   }).join('');
 }
 
+// Global Event Handler for Message controls (Copy, Code Copy, Native Share)
 $('messages').addEventListener('click',async function(e){
   var codeBtn=e.target.closest('[data-code]');
-  if(codeBtn){try{await navigator.clipboard.writeText(decodeURIComponent(codeBtn.dataset.code));var o=codeBtn.textContent;codeBtn.textContent='Copied!';setTimeout(function(){codeBtn.textContent=o},1500)}catch(err){showToast('Could not copy to clipboard.','err','Copy Failed')}return}
-  var msgBtn=e.target.closest('[data-plain]');
-  if(msgBtn){try{await navigator.clipboard.writeText(decodeURIComponent(msgBtn.dataset.plain));var o2=msgBtn.textContent;msgBtn.textContent='✓ Copied';setTimeout(function(){msgBtn.textContent='📋 Copy'},1500)}catch(err){showToast('Could not copy to clipboard.','err','Copy Failed')}}
+  if(codeBtn){try{await navigator.clipboard.writeText(decodeURIComponent(codeBtn.dataset.code));var o=codeBtn.textContent;codeBtn.textContent='✓ Copied!';setTimeout(function(){codeBtn.textContent=o},1500)}catch(err){showToast('Clipboard access failed.','err','Copy Failed')}return}
+  
+  var copyBtn=e.target.closest('.copy-btn');
+  if(copyBtn){try{await navigator.clipboard.writeText(decodeURIComponent(copyBtn.dataset.plain));var o2=copyBtn.textContent;copyBtn.textContent='✓ Copied!';setTimeout(function(){copyBtn.textContent=o2},1500)}catch(err){showToast('Clipboard access failed.','err','Copy Failed')}return}
+
+  var shareBtn=e.target.closest('.share-btn');
+  if(shareBtn){
+    var rawText=decodeURIComponent(shareBtn.dataset.plain);
+    if(navigator.share){
+      try{await navigator.share({title:'AcademeForge Session',text:rawText,url:window.location.href})}catch(err){}
+    }else{
+      try{await navigator.clipboard.writeText(rawText);showToast('Link & Session text copied to clipboard! Share anywhere.','ok','Shared Status')}catch(e){showToast('Share API error.','err','Failed')}
+    }
+  }
 });
 
 function scrollChat(){var s=$('chatScroll');requestAnimationFrame(function(){s.scrollTop=s.scrollHeight})}
@@ -695,7 +722,7 @@ function renderConvList(list){
   if(!list.length){el.innerHTML='<div class="conv-empty">No sessions yet.<br>Start a new conversation!</div>';return}
   el.innerHTML=list.map(function(c){
     var isActive=c.conversation_id_af_ai===currentConvId;
-    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem"><span class="conv-dot" aria-hidden="true"></span><button style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;" onclick="loadConv(\''+esc(c.conversation_id_af_ai)+'\')"><span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button><button class="conv-del-btn" onclick="confirmDeleteConv(\''+esc(c.conversation_id_af_ai)+'\',\''+esc(c.title_af_ai||'this session')+'\')" title="Delete session">✕</button></div>';
+    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem"><span class="conv-dot" aria-hidden="true"></span><button style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;" onclick="loadConv(\''+esc(c.conversation_id_af_ai)+'\')"><span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button><button class="conv-del-btn" onclick="event.stopPropagation(); confirmDeleteConv(\''+esc(c.conversation_id_af_ai)+'\',\''+esc(c.title_af_ai||'this session')+'\')" title="Delete session">✕</button></div>';
   }).join('');
 }
 
@@ -713,30 +740,36 @@ async function loadConv(id){
   renderConvList(allConvs);
 }
 
-/* ── DELETE / CLEAR HISTORY ── */
+/* ── CONFIRM MODAL CONTROLS ── */
 var _confirmCallback=null;
 function showConfirm(title,text,okLabel,callback){$('confirmTitle').textContent=title;$('confirmText').textContent=text;$('confirmOkBtn').textContent=okLabel;_confirmCallback=callback;$('confirmOverlay').classList.remove('hidden')}
-function closeConfirm(){$('confirmOverlay').classList.add('hidden');_confirmCallback=null}
+function closeConfirm()){$('confirmOverlay').classList.add('hidden');_confirmCallback=null}
 $('confirmOkBtn').addEventListener('click',function(){if(_confirmCallback)_confirmCallback();closeConfirm()});
 
 function confirmDeleteConv(id,title){showConfirm('Delete Session','Delete "'+title+'"? This cannot be undone.','Delete',function(){deleteConv(id)})}
-function confirmClearAll(){if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return}showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All',function(){clearAllConvs()})}
+function confirmClearAll(){if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return}showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All History',function(){clearAllConvs()})}
 
 async function deleteConv(id){
   var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
   try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:id,student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(data.error_af_ai){showToast(data.error_af_ai,'err','Delete Failed');return}}catch(err){}
   allConvs=allConvs.filter(function(c){return c.conversation_id_af_ai!==id});
   if(currentConvId===id)newChat();
-  renderConvList(allConvs);showToast('Session deleted.','ok','Done');
+  renderConvList(allConvs);showToast('Session deleted successfully.','ok','Done');
 }
 
+// Bulk history cleaner action fix
 async function clearAllConvs(){
   var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'clear_all_conversations_af_ai',student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(data.error_af_ai){showToast(data.error_af_ai,'err','Clear Failed');return}}catch(err){}
+  try{
+    var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'clear_all_conversations_af_ai',student_key_af_ai:key})});
+    var data=await resp.json().catch(function(){return{}});
+    if(data.error_af_ai){showToast(data.error_af_ai,'err','Clear History Failed');return}
+  }catch(err){showToast('Network sync lost. Failed bulk operations.','err','Error')}
   allConvs=[];currentConvId='';renderConvList(allConvs);newChat();showToast('All sessions cleared.','ok','Done');
 }
 
-async function loadUsage(){var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'usage_af_ai',student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(!data.error_af_ai)applyUsage(data)}catch(err){}}
+async function loadUsage(){var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'usage_af_ai',student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(!data.error_af_ai)applyUsage(data)}catch(err){}
+}
 
 function applyUsage(d){
   if(d.session_request_limit_af_ai===undefined)return;
