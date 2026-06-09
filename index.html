@@ -9,24 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:#07070a; --surface:#0f0f13; --card:#141418; --inp:#1c1c21;
-      --border:rgba(255,255,255,0.07); --border-hover:rgba(255,255,255,0.13);
-      --p:#5e61e9; --p-light:#818cf8; --p-glow:rgba(94,97,233,0.14); --p-glow-str:rgba(94,97,233,0.25);
-      --acc:#06b6d4;
-      --mode-dev:#f97316; --mode-dev-glow:rgba(249,115,22,0.14);
-      --mode-tapri:#a855f7; --mode-tapri-glow:rgba(168,85,247,0.14);
-      --ok:#10b981; --ok-glow:rgba(16,185,129,0.12);
-      --err:#ef4444; --err-glow:rgba(239,68,68,0.10);
-      --t1:#f0f0f2; --t2:#9494a3; --t3:#5a5a6a;
-      --fd:'Space Grotesk',sans-serif; --fb:'Plus Jakarta Sans',sans-serif;
-      --r1:8px; --r2:12px; --r3:16px; --r4:22px; --rf:9999px;
-      --sh-sm:0 4px 16px -4px rgba(0,0,0,0.5);
-      --sh-md:0 10px 36px -10px rgba(0,0,0,0.65);
-      --sh-lg:0 20px 60px -15px rgba(0,0,0,0.8);
-      --sidebar-w:268px;
-      --ease:cubic-bezier(0.4,0,0.2,1);
-    }
+    /* ── (All CSS unchanged from original — abbreviated for clarity) ─────── */
+    :root{--bg:#07070a;--surface:#0f0f13;--card:#141418;--inp:#1c1c21;--border:rgba(255,255,255,0.07);--border-hover:rgba(255,255,255,0.13);--p:#5e61e9;--p-light:#818cf8;--p-glow:rgba(94,97,233,0.14);--p-glow-str:rgba(94,97,233,0.25);--acc:#06b6d4;--mode-dev:#f97316;--mode-dev-glow:rgba(249,115,22,0.14);--mode-tapri:#a855f7;--mode-tapri-glow:rgba(168,85,247,0.14);--ok:#10b981;--ok-glow:rgba(16,185,129,0.12);--err:#ef4444;--err-glow:rgba(239,68,68,0.10);--t1:#f0f0f2;--t2:#9494a3;--t3:#5a5a6a;--fd:'Space Grotesk',sans-serif;--fb:'Plus Jakarta Sans',sans-serif;--r1:8px;--r2:12px;--r3:16px;--r4:22px;--rf:9999px;--sh-sm:0 4px 16px -4px rgba(0,0,0,0.5);--sh-md:0 10px 36px -10px rgba(0,0,0,0.65);--sh-lg:0 20px 60px -15px rgba(0,0,0,0.8);--sidebar-w:268px;--ease:cubic-bezier(0.4,0,0.2,1)}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(--t1);font-family:var(--fb);-webkit-font-smoothing:antialiased}
     button{font-family:var(--fb);cursor:pointer;border:none;background:none;color:inherit;transition:all 0.22s var(--ease)}
@@ -35,16 +19,12 @@
     .hidden{display:none!important}
     html,body,*{-webkit-user-select:none;user-select:none}
     input,textarea,select,.bubble,.bubble *{-webkit-user-select:text;user-select:text}
-
-    /* ── AUTH BG ── */
     #panelAuth{position:fixed;inset:0;z-index:0;background:#060609;overflow:hidden}
     .auth-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;will-change:transform}
     .auth-orb-1{width:60vw;height:60vw;max-width:560px;max-height:560px;top:-20%;left:-15%;background:radial-gradient(circle,rgba(94,97,233,0.22) 0%,transparent 70%);animation:orbDrift 16s ease-in-out infinite alternate}
     .auth-orb-2{width:50vw;height:50vw;max-width:480px;max-height:480px;bottom:-15%;right:-20%;background:radial-gradient(circle,rgba(6,182,212,0.15) 0%,transparent 70%);animation:orbDrift 22s ease-in-out infinite alternate-reverse}
     .auth-orb-3{width:30vw;height:30vw;max-width:300px;max-height:300px;top:40%;left:55%;background:radial-gradient(circle,rgba(168,85,247,0.08) 0%,transparent 70%);animation:orbDrift 18s ease-in-out infinite alternate;animation-delay:-5s}
     @keyframes orbDrift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(4%,7%) scale(1.07)}100%{transform:translate(-3%,-4%) scale(0.96)}}
-
-    /* ── AUTH CARD ── */
     .auth-wrapper{position:relative;z-index:1;width:100%;height:100%;display:flex;justify-content:center;align-items:center;overflow-y:auto;padding:24px 16px}
     .auth-shell{width:100%;max-width:430px;margin:auto}
     .auth-card{border-radius:var(--r4);background:rgba(16,16,20,0.78);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--border);box-shadow:var(--sh-lg),inset 0 1px 0 rgba(255,255,255,0.05);padding:30px 28px 24px;width:100%}
@@ -82,11 +62,7 @@
     .auth-note{margin-top:18px;padding:12px 14px;border-radius:var(--r2);background:rgba(255,255,255,0.02);border:1px solid var(--border);font-size:11.5px;color:var(--t2);line-height:1.5;text-align:center}
     .auth-note a{color:var(--p-light);font-weight:600;text-decoration:none;border-bottom:1px dashed rgba(129,140,248,0.4)}
     .auth-note a:hover{color:#c7d2fe;border-bottom-style:solid}
-
-    /* ── WORKSPACE SHELL ── */
     .ai-shell{width:100%;height:100%;display:flex;overflow:hidden;background:var(--bg)}
-
-    /* ── SIDEBAR ── */
     .ai-sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width 0.3s var(--ease),transform 0.3s var(--ease);z-index:50;overflow:hidden;position:relative}
     .ai-sidebar.collapsed{width:0;border-right-color:transparent}
     .sb-head{padding:18px 16px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
@@ -97,7 +73,8 @@
     .sb-logo-text{font-family:var(--fd);font-size:11px;font-weight:700;color:#fff;display:none}
     .sb-logo img[data-error="true"]~.sb-logo-text{display:block}
     .sb-brand-name{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--t1);white-space:nowrap;letter-spacing:-0.02em}
-    .sb-student{font-size:11.5px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sb-student{font-size:11.5px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;border:0;background:none;text-align:left;width:100%}
+    .sb-student:hover{color:var(--p-light)}
     .sb-new-btn{width:100%;margin-top:13px;padding:10px 14px;border:1px solid var(--border);background:rgba(255,255,255,0.025);border-radius:var(--r2);font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--t2)}
     .sb-new-btn:hover{background:rgba(255,255,255,0.05);border-color:var(--border-hover);color:var(--t1)}
     .sb-new-icon{width:20px;height:20px;border-radius:5px;background:var(--p-glow);color:var(--p-light);display:grid;place-items:center;font-size:14px;line-height:1}
@@ -121,17 +98,15 @@
     .conv-row:hover .conv-del-btn{display:flex}
     .conv-del-btn:hover{color:#fca5a5;background:rgba(239,68,68,0.1)}
     .sb-usage{border-top:1px solid var(--border);padding:14px 15px;background:rgba(0,0,0,0.18);flex-shrink:0}
-    .usage-heading{font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+    .usage-heading{font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
     .usage-item{margin-bottom:10px}
     .usage-row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--t2);margin-bottom:5px}
     .usage-row strong{color:var(--t1);font-weight:600}
     .usage-bar{height:4px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden}
     .usage-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--p),var(--acc));border-radius:99px;transition:width 0.5s var(--ease)}
-
-    /* ── MAIN ── */
+    .usage-detail-btn{font-size:10px;color:var(--p-light);padding:3px 6px;border-radius:6px}
+    .usage-detail-btn:hover{background:var(--p-glow)}
     .ai-main{flex:1;display:flex;flex-direction:column;position:relative;height:100%;overflow:hidden;background:var(--bg);min-width:0}
-
-    /* ── DESKTOP HEADER ── */
     .ai-header{height:56px;display:flex;align-items:center;gap:12px;padding:0 18px;flex-shrink:0;background:rgba(10,10,14,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:relative;z-index:10}
     .hdr-menu-btn{width:36px;height:36px;border:1px solid var(--border);background:var(--inp);border-radius:var(--r2);display:grid;place-items:center;font-size:16px;color:var(--t1);flex-shrink:0}
     .hdr-menu-btn:hover{background:rgba(255,255,255,0.06);border-color:var(--border-hover)}
@@ -154,16 +129,12 @@
     @keyframes blinkPulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.8);opacity:0}}
     .hdr-logout{padding:7px 13px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.16);border-radius:var(--r2);font-size:12px;font-weight:600;color:#fca5a5;white-space:nowrap;flex-shrink:0}
     .hdr-logout:hover{background:var(--err);color:#fff;border-color:var(--err)}
-
-    /* ── DESKTOP MODE TABS ── */
     .mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px auto 6px;padding:5px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r3);width:calc(100% - 32px);max-width:580px;flex-shrink:0}
     .mode-tab{padding:9px 4px;border-radius:var(--r2);font-weight:600;font-size:12.5px;color:var(--t2);transition:all 0.2s var(--ease);border:1px solid transparent}
     .mode-tab:hover:not(.active){color:var(--t1);background:rgba(255,255,255,0.03)}
     .mode-tab[data-mode="af_proguide"].active{background:var(--inp);color:var(--p-light);border-color:rgba(94,97,233,0.22);box-shadow:0 2px 10px var(--p-glow)}
     .mode-tab[data-mode="dev"].active{background:var(--inp);color:var(--mode-dev);border-color:rgba(249,115,22,0.2);box-shadow:0 2px 10px var(--mode-dev-glow)}
     .mode-tab[data-mode="tapri"].active{background:var(--inp);color:var(--mode-tapri);border-color:rgba(168,85,247,0.2);box-shadow:0 2px 10px var(--mode-tapri-glow)}
-
-    /* ── MOBILE HEADER ── */
     .mobile-header{display:none;flex-direction:column;flex-shrink:0;background:rgba(10,10,14,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:10}
     .mhdr-row1{display:flex;align-items:center;gap:8px;padding:10px 12px 6px}
     .mhdr-menu{width:34px;height:34px;border:1px solid var(--border);background:var(--inp);border-radius:var(--r2);display:grid;place-items:center;font-size:15px;color:var(--t1);flex-shrink:0}
@@ -180,7 +151,6 @@
     .mhdr-badge{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--rf);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:rgba(239,68,68,0.08);color:#fca5a5;border:1px solid rgba(239,68,68,0.18);flex-shrink:0}
     .mhdr-logout{padding:6px 10px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.16);border-radius:var(--r2);font-size:11px;font-weight:600;color:#fca5a5;white-space:nowrap;flex-shrink:0}
     .mhdr-logout:hover{background:var(--err);color:#fff}
-    /* Mode pills row */
     .mhdr-row2{display:flex;gap:6px;align-items:center;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none}
     .mhdr-row2::-webkit-scrollbar{display:none}
     .mode-pill{display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:var(--rf);font-size:12px;font-weight:700;border:1px solid var(--border);background:rgba(255,255,255,0.025);color:var(--t2);white-space:nowrap;flex-shrink:0;transition:all 0.2s var(--ease)}
@@ -188,14 +158,10 @@
     .mode-pill.active[data-mode="dev"]{background:rgba(249,115,22,0.15);color:var(--mode-dev);border-color:rgba(249,115,22,0.3)}
     .mode-pill.active[data-mode="tapri"]{background:rgba(168,85,247,0.15);color:var(--mode-tapri);border-color:rgba(168,85,247,0.3)}
     .mode-pill:not(.active):hover{color:var(--t1);background:rgba(255,255,255,0.04)}
-
-    /* ── CHAT SCROLL ── */
     .chat-scroll{flex:1;overflow-y:auto;padding:24px 16px 200px;display:flex;flex-direction:column;scroll-behavior:smooth}
     .chat-scroll::-webkit-scrollbar{width:5px}
     .chat-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:99px}
     .chat-scroll::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.1)}
-
-    /* ── WELCOME ── */
     .welcome-block{max-width:680px;width:100%;margin:auto;padding:48px 0 32px}
     .welcome-greet{font-size:15px;font-weight:600;color:var(--t2);margin-bottom:4px;letter-spacing:-0.01em;display:flex;align-items:center;gap:6px}
     .welcome-kicker{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;margin-top:6px}
@@ -212,58 +178,40 @@
     .suggestions{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:9px;margin-top:24px}
     .suggestion{text-align:left;border:1px solid var(--border);background:var(--surface);color:var(--t2);padding:13px 14px;border-radius:var(--r3);font-size:12.5px;font-weight:500;line-height:1.4;transition:all 0.2s var(--ease)}
     .suggestion:hover{border-color:var(--p-light);background:rgba(255,255,255,0.01);color:var(--t1);transform:translateY(-2px);box-shadow:var(--sh-sm)}
-
-    /* ── MESSAGES (DYNAMIC THEMED BUBBLES BASED ON MODALS) ── */
     .messages{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:20px}
     .msg-row{display:flex;gap:12px;align-items:flex-start;animation:msgIn 0.22s var(--ease) both;width:100%}
     @keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    
     .msg-row.user{flex-direction:row-reverse;align-self:flex-end}
     .msg-row.assistant{flex-direction:row;align-self:flex-start}
-
     .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;box-shadow:var(--sh-sm)}
-    
     .msg-body{max-width:calc(100% - 48px);display:flex;flex-direction:column}
     .msg-row.user .msg-body{align-items:flex-end}
     .msg-row.assistant .msg-body{align-items:flex-start}
-
     .bubble{padding:12px 16px;border-radius:var(--r3);font-size:14px;line-height:1.6;overflow-wrap:anywhere}
     .bubble p+p{margin-top:8px}
-
-    /* 1. Modal Theme: ProGuide */
-    .msg-row.mode-af_proguide.user .bubble { background: var(--p); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; }
-    .msg-row.mode-af_proguide.user .avatar { background: rgba(94,97,233,0.18); color: var(--p-light); border: 1px solid rgba(94,97,233,0.3); }
-    .msg-row.mode-af_proguide.assistant .bubble { background: rgba(94,97,233,0.08); border: 1px solid rgba(94,97,233,0.22); border-top-left-radius: 4px; color: var(--t1); }
-    .msg-row.mode-af_proguide.assistant .avatar { background: var(--p); color: #fff; border: 1px solid rgba(94,97,233,0.4); }
-
-    /* 2. Modal Theme: Dev Eng */
-    .msg-row.mode-dev.user .bubble { background: var(--mode-dev); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; box-shadow: 0 4px 12px var(--mode-dev-glow); }
-    .msg-row.mode-dev.user .avatar { background: rgba(249,115,22,0.18); color: var(--mode-dev); border: 1px solid rgba(249,115,22,0.3); }
-    .msg-row.mode-dev.assistant .bubble { background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.25); border-top-left-radius: 4px; color: var(--t1); }
-    .msg-row.mode-dev.assistant .avatar { background: var(--mode-dev); color: #fff; border: 1px solid rgba(249,115,22,0.4); }
-
-    /* 3. Modal Theme: Tapri Core */
-    .msg-row.mode-tapri.user .bubble { background: var(--mode-tapri); border: 1px solid rgba(255,255,255,0.06); border-top-right-radius: 4px; color: #fff; box-shadow: 0 4px 12px var(--mode-tapri-glow); }
-    .msg-row.mode-tapri.user .avatar { background: rgba(168,85,247,0.18); color: var(--mode-tapri); border: 1px solid rgba(168,85,247,0.3); }
-    .msg-row.mode-tapri.assistant .bubble { background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.25); border-top-left-radius: 4px; color: var(--t1); }
-    .msg-row.mode-tapri.assistant .avatar { background: var(--mode-tapri); color: #fff; border: 1px solid rgba(168,85,247,0.4); }
-
+    .msg-row.mode-af_proguide.user .bubble{background:var(--p);border:1px solid rgba(255,255,255,0.06);border-top-right-radius:4px;color:#fff}
+    .msg-row.mode-af_proguide.user .avatar{background:rgba(94,97,233,0.18);color:var(--p-light);border:1px solid rgba(94,97,233,0.3)}
+    .msg-row.mode-af_proguide.assistant .bubble{background:rgba(94,97,233,0.08);border:1px solid rgba(94,97,233,0.22);border-top-left-radius:4px;color:var(--t1)}
+    .msg-row.mode-af_proguide.assistant .avatar{background:var(--p);color:#fff;border:1px solid rgba(94,97,233,0.4)}
+    .msg-row.mode-dev.user .bubble{background:var(--mode-dev);border:1px solid rgba(255,255,255,0.06);border-top-right-radius:4px;color:#fff;box-shadow:0 4px 12px var(--mode-dev-glow)}
+    .msg-row.mode-dev.user .avatar{background:rgba(249,115,22,0.18);color:var(--mode-dev);border:1px solid rgba(249,115,22,0.3)}
+    .msg-row.mode-dev.assistant .bubble{background:rgba(249,115,22,0.07);border:1px solid rgba(249,115,22,0.25);border-top-left-radius:4px;color:var(--t1)}
+    .msg-row.mode-dev.assistant .avatar{background:var(--mode-dev);color:#fff;border:1px solid rgba(249,115,22,0.4)}
+    .msg-row.mode-tapri.user .bubble{background:var(--mode-tapri);border:1px solid rgba(255,255,255,0.06);border-top-right-radius:4px;color:#fff;box-shadow:0 4px 12px var(--mode-tapri-glow)}
+    .msg-row.mode-tapri.user .avatar{background:rgba(168,85,247,0.18);color:var(--mode-tapri);border:1px solid rgba(168,85,247,0.3)}
+    .msg-row.mode-tapri.assistant .bubble{background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.25);border-top-left-radius:4px;color:var(--t1)}
+    .msg-row.mode-tapri.assistant .avatar{background:var(--mode-tapri);color:#fff;border:1px solid rgba(168,85,247,0.4)}
     .msg-meta{font-size:10.5px;color:var(--t3);margin-top:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .msg-row.user .msg-meta{justify-content:flex-end;padding-right:2px}
     .msg-row.assistant .msg-meta{justify-content:flex-start;padding-left:2px}
-    
     .action-msg-btn{font-size:10.5px;font-weight:600;color:var(--t2);background:rgba(255,255,255,0.02);border:1px solid var(--border);cursor:pointer;padding:3px 8px;border-radius:6px;transition:all 0.18s;display:inline-flex;align-items:center;gap:4px}
     .action-msg-btn:hover{color:#fff;background:rgba(255,255,255,0.06);border-color:var(--border-hover)}
-
-    /* ── CODE BLOCKS ── */
     .code-wrap{background:#0b0b0f;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:12px 0;width:100%;max-width:100%}
     .code-head{display:flex;justify-content:space-between;align-items:center;padding:7px 13px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border);font-size:11px;color:var(--t2)}
     .code-lang{font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
     .code-copy-btn{font-size:11px;font-weight:600;color:var(--p-light);cursor:pointer;background:none;border:none;font-family:var(--fb);padding:2px 6px;border-radius:4px;transition:all 0.15s}
     .code-copy-btn:hover{background:var(--p-glow)}
     .code-pre{padding:13px 15px;overflow-x:auto;font-size:12.5px;line-height:1.6;color:#e2e8f0;font-family:'Fira Code','Courier New',monospace;white-space:pre}
-
-    /* ── THINKING ── */
     .thinking{display:flex;align-items:center;gap:6px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);width:80px;justify-content:center;position:relative;overflow:hidden}
     .thinking::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.035),transparent);transform:translateX(-100%);animation:shimmerFlow 1.5s infinite}
     @keyframes shimmerFlow{100%{transform:translateX(100%)}}
@@ -271,8 +219,6 @@
     .thinking-dot:nth-child(2){animation-delay:0.18s;background:var(--acc)}
     .thinking-dot:nth-child(3){animation-delay:0.36s;background:var(--mode-tapri)}
     @keyframes dotBounce{0%,100%{transform:translateY(0);opacity:0.4}50%{transform:translateY(-5px);opacity:1}}
-
-    /* ── COMPOSER ── */
     .composer-wrap{position:absolute;z-index:20;left:0;right:0;bottom:0;padding:18px 16px 20px;background:linear-gradient(to top,var(--bg) 55%,transparent)}
     .composer{display:flex;align-items:flex-end;gap:9px;border:1px solid var(--border);background:rgba(18,18,24,0.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:var(--r3);padding:9px 10px;max-width:680px;margin:0 auto;box-shadow:var(--sh-md);animation:composerGlow 4s ease-in-out infinite}
     @keyframes composerGlow{0%,100%{border-color:var(--border)}50%{border-color:rgba(94,97,233,0.28);box-shadow:0 0 24px 3px rgba(94,97,233,0.1)}}
@@ -283,12 +229,8 @@
     .send-btn:not(:disabled):hover{filter:brightness(1.15);transform:scale(1.06)}
     .send-btn:disabled{opacity:0.25;cursor:not-allowed;background:var(--inp);color:var(--t3);box-shadow:none;transform:none}
     .composer-meta{display:flex;justify-content:space-between;color:var(--t3);font-size:10.5px;max-width:680px;margin:7px auto 0;padding:0 4px}
-
-    /* ── OVERLAY ── */
     .ai-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:40;display:none}
     .ai-overlay.open{display:block}
-
-    /* ── TOAST ── */
     .toast-wrap{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:99999;width:min(calc(100vw - 32px),360px);pointer-events:none}
     .toast{display:flex;align-items:flex-start;gap:12px;background:#1a1a20;color:var(--t1);border:1px solid var(--border);border-radius:var(--r3);padding:13px 14px;box-shadow:var(--sh-md);pointer-events:auto;animation:toastIn 0.3s var(--ease)}
     @keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -300,8 +242,6 @@
     .toast-body span{font-size:11.5px;color:var(--t2)}
     .toast-close{font-size:18px;color:var(--t3);cursor:pointer;padding-left:8px;line-height:1;flex-shrink:0}
     .toast-close:hover{color:var(--t1)}
-
-    /* ── CONFIRM MODAL ── */
     .confirm-overlay,.top-modal-overlay{position:fixed;inset:0;background:rgba(1,2,6,.78);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:modalFade .18s ease}
     .confirm-box,.top-modal{background:linear-gradient(160deg,rgba(28,29,38,.98),rgba(13,14,20,.98));border:1px solid rgba(255,255,255,.11);border-radius:22px;padding:24px;max-width:390px;width:100%;box-shadow:0 30px 100px rgba(0,0,0,.72),inset 0 1px rgba(255,255,255,.06);animation:modalRise .25s var(--ease)}
     @keyframes modalFade{from{opacity:0}to{opacity:1}}
@@ -319,22 +259,18 @@
     .top-modal-close:hover{color:var(--t1);background:rgba(255,255,255,.08)}
     .modal-profile{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:14px;margin:8px 0 16px}
     .modal-avatar{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--p),var(--acc));color:#fff;font-weight:800}
-    .modal-profile-name{font-weight:700;font-size:14px}.modal-profile-sub{font-size:11.5px;color:var(--t2);margin-top:3px;word-break:break-all}
+    .modal-profile-name{font-weight:700;font-size:14px}
+    .modal-profile-sub{font-size:11.5px;color:var(--t2);margin-top:3px;word-break:break-all}
     .modal-data-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
     .modal-data-card{padding:12px;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:13px}
     .modal-data-card span{display:block;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
     .modal-data-card strong{font-size:13px;font-weight:700}
-    .modal-usage-row{margin-top:14px}.modal-usage-copy{display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:7px}
+    .modal-usage-row{margin-top:14px}
+    .modal-usage-copy{display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:7px}
     .modal-usage-copy strong{color:var(--t1)}
     .modal-usage-track{height:7px;background:rgba(255,255,255,.055);border-radius:99px;overflow:hidden}
     .modal-usage-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--acc));border-radius:99px;transition:width .4s var(--ease)}
     .modal-footnote{font-size:11px;color:var(--t3);line-height:1.55;margin-top:16px}
-    .sb-student{cursor:pointer;border:0;background:none;text-align:left;width:100%}.sb-student:hover{color:var(--p-light)}
-    .usage-heading{display:flex;align-items:center;justify-content:space-between}
-    .usage-detail-btn{font-size:10px;color:var(--p-light);padding:3px 6px;border-radius:6px}
-    .usage-detail-btn:hover{background:var(--p-glow)}
-
-    /* ── RESPONSIVE MOBILE ── */
     @media(max-width:768px){
       .ai-header{display:none!important}
       .mode-tabs{display:none!important}
@@ -360,9 +296,7 @@
       .suggestions{grid-template-columns:1fr}
       .mhdr-badge{display:none}
     }
-    @media(min-width:1280px){
-      :root{--sidebar-w:280px}
-    }
+    @media(min-width:1280px){:root{--sidebar-w:280px}}
   </style>
 </head>
 <body>
@@ -441,8 +375,6 @@
 <!-- AI WORKSPACE -->
 <div id="panelAI" class="ai-shell hidden" aria-label="AI Workspace">
   <div class="ai-overlay" id="aiOverlay" onclick="closeSidebar()" aria-hidden="true"></div>
-
-  <!-- SIDEBAR -->
   <aside class="ai-sidebar" id="aiSidebar" aria-label="Navigation">
     <div class="sb-head">
       <div class="sb-brand">
@@ -461,9 +393,7 @@
     <div class="sb-actions">
       <button class="sb-action-btn" onclick="confirmClearAll()">🗑 Clear All History</button>
     </div>
-    <div class="conv-list" id="convList" role="list">
-      <div class="conv-empty">No sessions yet.</div>
-    </div>
+    <div class="conv-list" id="convList" role="list"><div class="conv-empty">No sessions yet.</div></div>
     <div class="sb-usage" aria-label="Usage statistics">
       <div class="usage-heading"><span>Resource Usage</span><button class="usage-detail-btn" onclick="openUsageModal()">Details</button></div>
       <div class="usage-item">
@@ -481,10 +411,7 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="ai-main">
-
-    <!-- Desktop Header -->
     <header class="ai-header">
       <button class="hdr-menu-btn" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
       <div class="hdr-brand">
@@ -500,8 +427,6 @@
       </div>
       <button class="hdr-logout" onclick="doLogout()">Sign Out</button>
     </header>
-
-    <!-- Mobile Header -->
     <div class="mobile-header" id="mobileHeader">
       <div class="mhdr-row1">
         <button class="mhdr-menu" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
@@ -524,15 +449,11 @@
         <button class="mode-pill" data-mode="tapri" onclick="setMode('tapri')">☕ Tapri Core</button>
       </div>
     </div>
-
-    <!-- Desktop Mode Tabs -->
     <div class="mode-tabs" id="modeTabs" role="tablist" aria-label="AI Modes">
       <button class="mode-tab active" data-mode="af_proguide" role="tab" aria-selected="true" onclick="setMode('af_proguide')">🧑‍🏫 ProGuide</button>
       <button class="mode-tab" data-mode="dev" role="tab" aria-selected="false" onclick="setMode('dev')">⚡ Dev Eng</button>
       <button class="mode-tab" data-mode="tapri" role="tab" aria-selected="false" onclick="setMode('tapri')">☕ Tapri Core</button>
     </div>
-
-    <!-- Chat -->
     <div class="chat-scroll" id="chatScroll">
       <div class="welcome-block" id="welcomeBlock" aria-live="polite">
         <div class="welcome-greet" id="welcomeGreet">Hi, Student!</div>
@@ -546,8 +467,6 @@
       </div>
       <div class="messages" id="messages" aria-label="Chat messages"></div>
     </div>
-
-    <!-- Composer -->
     <div class="composer-wrap">
       <div class="composer">
         <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask your academic question…" aria-label="Type your message"></textarea>
@@ -615,296 +534,649 @@
 
 <script>
 'use strict';
-var SB_URL="https://afooyyydhlwngzssgqih.supabase.co";
-var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
-var AI_ENDPOINT=SB_URL+"/functions/v1/academe-ai-af_ai";
-var MAX_CHARS=800;
 
-var MODES={
+// ── Config ─────────────────────────────────────────────────────────────────
+var SB_URL      = "https://afooyyydhlwngzssgqih.supabase.co";
+var SB_KEY      = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
+var AI_ENDPOINT = SB_URL + "/functions/v1/academe-ai-af_ai";
+var MAX_CHARS   = 800;
+
+// ── State ──────────────────────────────────────────────────────────────────
+var currentMode = 'af_proguide', isLoading = false, currentConvId = '';
+var _typeTimer  = null, allConvs = [], latestUsage = null, usageLimited = false;
+
+// ── Modes (unchanged) ──────────────────────────────────────────────────────
+var MODES = {
   af_proguide:{kickerText:"STUDENT MENTOR ENGINE",kickerClass:"kicker-proguide",cursorClass:"cursor-proguide",metaLabel:"AcademeForge AI",greetFn:function(n){return'Hi, '+n+'! 📚'},copy:"Learn any concept, prep for exams and interviews, build your first project, or map out your entire skill roadmap — all in one place.",titlePool:["What are we learning today?","Which concept shall we tackle?","Ready to level up your skills?","Let's decode something together.","What's on today's study list?","What problem are we solving?"],placeholder:"Ask an academic question, request an explanation, or describe a project…",suggestions:["Create a 30-day DSA study plan for me","What are the best projects for a CSE fresher?","Teach me React.js from scratch","Explain time complexity in simple terms"]},
   dev:{kickerText:"FOUNDER MODE — BUILD & SHIP",kickerClass:"kicker-dev",cursorClass:"cursor-dev",metaLabel:"Dev Core",greetFn:function(){return"Builder Mode Active. ⚡"},copy:"Validate startup ideas, map out MVPs, craft go-to-market strategies, and ship faster. No theory — pure execution.",titlePool:["What are we shipping today?","What's the startup we're building?","Which problem are you solving?","Time to build your next product.","What's blocking your launch?","Let's go from idea to MVP."],placeholder:"Describe your startup, product idea, or growth challenge…",suggestions:["Validate my startup idea in 5 minutes","Build me an MVP roadmap for a SaaS product","Help me write cold outreach for investors","Prioritize features using the MoSCoW method"]},
   tapri:{kickerText:"BIG BRO MODE — REAL TALK",kickerClass:"kicker-tapri",cursorClass:"cursor-tapri",metaLabel:"Tapri Core",greetFn:function(){return"Kya haal hai dost? ☕"},copy:"No formal advice. No corporate talk. Just real, honest conversations about career stress, placement anxiety, life confusion, and finding your way.",titlePool:["Bata, kya chal raha hai?","Bol bhai, kya hua?","Kya soch raha hai aajkal?","Tension mat le, baat kar.","Yaar, sab theek hoga — bata toh.","Aaj kya dil mein hai?"],placeholder:"Bol bhai — career, placement, life, kuch bhi…",suggestions:["Career path hi decide nahi ho raha","Padhai mein mann nahi lag raha","Mujhe motivate kar bhai","Life mein direction chahiye"]}
 };
 
-var currentMode='af_proguide',isLoading=false,currentConvId='',_typeTimer=null,allConvs=[],latestUsage=null,usageLimited=false;
+// ── Safe DOM helper ────────────────────────────────────────────────────────
+function $(id){ return document.getElementById(id); }
 
-function $(id){return document.getElementById(id)}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
-function cleanPhone(v){return String(v||'').trim().replace(/\D/g,'')}
-function toApiMode(mode){return mode==='dev'?'dev_af_ai':mode==='tapri'?'tapri_af_ai':'af_proguide_af_ai'}
-function fromApiMode(mode){return mode==='dev_af_ai'?'dev':mode==='tapri_af_ai'?'tapri':'af_proguide'}
-function getDeviceId(){var k='af_device_id',id=localStorage.getItem(k);if(!id){id='afdev_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,12);localStorage.setItem(k,id)}return id}
-function getDeviceName(){var ua=navigator.userAgent||'';if(/Android/i.test(ua))return'Android';if(/iPhone|iPad/i.test(ua))return'iOS';if(/Windows/i.test(ua))return'Windows';if(/Mac/i.test(ua))return'Mac';return'Browser'}
-
-function toggleSidebar(){var sb=$('aiSidebar'),ov=$('aiOverlay');if(window.innerWidth<=768){sb.classList.toggle('mobile-open');ov.classList.toggle('open')}else{sb.classList.toggle('collapsed')}}
-function closeSidebar(){$('aiSidebar').classList.remove('mobile-open');$('aiOverlay').classList.remove('open')}
-
-function setMode(mode){
-  if(!MODES[mode])return;currentMode=mode;var m=MODES[mode];
-  document.querySelectorAll('.mode-tab').forEach(function(t){var a=t.dataset.mode===mode;t.classList.toggle('active',a);t.setAttribute('aria-selected',a?'true':'false')});
-  document.querySelectorAll('.mode-pill').forEach(function(t){t.classList.toggle('active',t.dataset.mode===mode)});
-  var kicker=$('welcomeKicker');kicker.textContent=m.kickerText;kicker.className='welcome-kicker '+m.kickerClass;
-  $('welcomeCursor').className='cursor '+m.cursorClass;
-  var name=localStorage.getItem('af_student_name')||'Student';
-  $('welcomeGreet').textContent=m.greetFn(name);
-  $('welcomeCopy').textContent=m.copy;
-  $('composerInput').placeholder=m.placeholder;
-  var pool=m.titlePool;animateTitle(pool[Math.floor(Math.random()*pool.length)]);
-  $('suggestions').innerHTML=m.suggestions.map(function(s){return'<button class="suggestion" onclick="useSuggestion(\''+esc(s).replace(/'/g,"\\'")+'\')">' +esc(s)+'</button>'}).join('');
+// ── HTML escape (XSS protection) ──────────────────────────────────────────
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];
+  });
 }
 
-function animateTitle(text){var el=$('welcomeTitleText');if(!el)return;if(_typeTimer)clearInterval(_typeTimer);el.textContent='';var i=0;_typeTimer=setInterval(function(){if(i<text.length){el.textContent+=text.charAt(i);i++}else clearInterval(_typeTimer)},32)}
-function useSuggestion(text){var inp=$('composerInput');inp.value=text;updateComposer();inp.focus()}
+// ── Utility helpers ────────────────────────────────────────────────────────
+function cleanPhone(v){ return String(v||'').trim().replace(/\D/g,''); }
+function toApiMode(mode){ return mode==='dev'?'dev_af_ai':mode==='tapri'?'tapri_af_ai':'af_proguide_af_ai'; }
+function fromApiMode(mode){ return mode==='dev_af_ai'?'dev':mode==='tapri_af_ai'?'tapri':'af_proguide'; }
 
-var _pendingCreate=null,_resetStudent=null,_forgotOtpPassed=false;
-var MSG_ICONS={ok:'✓',err:'✕',info:'ℹ'};
-function showMsg(type,text){var box=$('authMsg');box.className='form-msg '+type;$('authMsgIcon').textContent=MSG_ICONS[type]||'';$('authMsgText').textContent=text||'';box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function clearMsg(){$('authMsg').className='form-msg';$('authMsgIcon').textContent='';$('authMsgText').textContent=''}
-
-function switchMode(mode){
-  clearMsg();_pendingCreate=null;_resetStudent=null;_forgotOtpPassed=false;
-  ['boxLogin','boxCreate','boxForgot'].forEach(function(id){var el=$(id);if(el)el.classList.add('hidden')});
-  ['createOtpArea','forgotOtpArea','resetPasswordArea'].forEach(function(id){$(id).classList.add('hidden')});
-  $('authTabs').classList.remove('hidden');
-  $('tabLogin').classList.remove('active');$('tabLogin').setAttribute('aria-selected','false');
-  $('tabCreate').classList.remove('active');$('tabCreate').setAttribute('aria-selected','false');
-  if(mode==='login'){$('boxLogin').classList.remove('hidden');$('tabLogin').classList.add('active');$('tabLogin').setAttribute('aria-selected','true');$('authSub').textContent='Sign in with your credentials to access your student workspace.'}
-  else if(mode==='create'){$('boxCreate').classList.remove('hidden');$('tabCreate').classList.add('active');$('tabCreate').setAttribute('aria-selected','true');$('authSub').textContent='Register your account to unlock the AI workspace.'}
-  else if(mode==='forgot'){$('boxForgot').classList.remove('hidden');$('authTabs').classList.add('hidden');$('authSub').textContent='Verify your identity to reset your password.'}
+function getDeviceId(){
+  var k='af_device_id', id=localStorage.getItem(k);
+  if(!id){ id='afdev_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,12); localStorage.setItem(k,id); }
+  return id;
+}
+function getDeviceName(){
+  var ua=navigator.userAgent||'';
+  if(/Android/i.test(ua)) return 'Android';
+  if(/iPhone|iPad/i.test(ua)) return 'iOS';
+  if(/Windows/i.test(ua)) return 'Windows';
+  if(/Mac/i.test(ua)) return 'Mac';
+  return 'Browser';
 }
 
-var _sb=null;
-async function getSb(){if(_sb)return _sb;if(typeof supabase==='undefined'){await new Promise(function(res,rej){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}_sb=supabase.createClient(SB_URL,SB_KEY);return _sb}
-async function edgeCall(fn,payload){try{if(!navigator.onLine)return{ok:false,message:'No internet connection.'};var sb=await getSb();var result=await sb.functions.invoke(fn,{body:payload||{}});if(result.error)return{ok:false,message:result.error.message||'Function error.'};return result.data||{ok:false,message:'Empty response.'}}catch(e){return{ok:false,message:e.message||'System error.'}}}
+// ══════════════════════════════════════════════════════════════════════════
+// SESSION MANAGEMENT
+// Key change: we now store only a session_token in localStorage.
+// email/mobile are stored only for display purposes — never sent to the AI
+// function. All AI calls authenticate via Authorization: Bearer <token>.
+// ══════════════════════════════════════════════════════════════════════════
+
+var SESSION_KEY = 'af_session_token_v2';   // v2 = new secure token
+
+function getSessionToken(){
+  return localStorage.getItem(SESSION_KEY) || '';
+}
+
+function saveSession(student, token, deviceId){
+  // SECURITY: Only the opaque session token is stored.
+  // Email/mobile stored only for UI display — never used for auth.
+  localStorage.setItem(SESSION_KEY, token || '');
+  localStorage.setItem('af_device_id',      deviceId || getDeviceId());
+  localStorage.setItem('af_student_uuid',   student.id || '');
+  localStorage.setItem('af_student_id',     student.student_id || student.mobile || '');
+  localStorage.setItem('af_student_mobile', student.mobile || '');
+  localStorage.setItem('af_student_name',   student.name || 'Student');
+  localStorage.setItem('af_student_email',  student.email || '');
+  // Clean up the old insecure key if it exists from a previous deployment
+  localStorage.removeItem('af_student_logged_in');
+  localStorage.removeItem('af_session_token');      // old v1 key (email/mobile based)
+}
+
+function clearSession(){
+  [SESSION_KEY,'af_device_id','af_student_uuid','af_student_id',
+   'af_student_mobile','af_student_name','af_student_email',
+   // also wipe old keys for a clean migration
+   'af_student_logged_in','af_session_token','af_student_phone'
+  ].forEach(function(k){ localStorage.removeItem(k); });
+}
+
+function isLoggedIn(){
+  var token = getSessionToken();
+  // A valid v2 token is 64 hex chars (32 bytes)
+  return typeof token === 'string' && token.length >= 64;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// API LAYER
+// All AI requests now use:  Authorization: Bearer <session_token>
+// The old x-af-ai-student-key header is gone.
+// ══════════════════════════════════════════════════════════════════════════
+
+var _sb = null;
+async function getSb(){
+  if(_sb) return _sb;
+  if(typeof supabase === 'undefined'){
+    await new Promise(function(res,rej){
+      var s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+      s.onload=res; s.onerror=rej; document.head.appendChild(s);
+    });
+  }
+  _sb = supabase.createClient(SB_URL, SB_KEY);
+  return _sb;
+}
+
+async function edgeCall(fn, payload){
+  try {
+    if(!navigator.onLine) return {ok:false, message:'No internet connection.'};
+    var sb = await getSb();
+    var result = await sb.functions.invoke(fn, {body: payload||{}});
+    if(result.error) return {ok:false, message: result.error.message||'Function error.'};
+    return result.data || {ok:false, message:'Empty response.'};
+  } catch(e){
+    return {ok:false, message: e.message||'System error.'};
+  }
+}
 
 async function aiCall(payload){
-  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  if(!key)return{error_af_ai:'Your session is missing. Please sign in again.',status_af_ai:401};
-  var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},60000);
-  try{
-    var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify(Object.assign({},payload,{student_key_af_ai:key})),signal:ctrl.signal});
-    var data=await resp.json().catch(function(){return{}});
-    if(!resp.ok)return Object.assign({error_af_ai:data.error_af_ai||('Server error '+resp.status),status_af_ai:resp.status},data);
+  var token = getSessionToken();
+  if(!token){
+    return {error_af_ai:'Your session is missing. Please sign in again.', status_af_ai:401};
+  }
+
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, 60000);
+
+  try {
+    var resp = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // ── SECURITY: Bearer token auth — no email/mobile in headers ──
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(payload),
+      signal: ctrl.signal
+    });
+
+    var data = await resp.json().catch(function(){ return {}; });
+
+    // 401 means session expired or revoked — force logout
+    if(resp.status === 401){
+      clearSession();
+      $('panelAI').classList.add('hidden');
+      $('panelAuth').classList.remove('hidden');
+      switchMode('login');
+      showToast('Your session has expired. Please sign in again.','err','Session Expired');
+      return {error_af_ai: data.error_af_ai||'Session expired.'};
+    }
+
+    if(!resp.ok) return Object.assign({error_af_ai: data.error_af_ai||('Server error '+resp.status), status_af_ai: resp.status}, data);
     return data;
-  }catch(e){
-    return{error_af_ai:e.name==='AbortError'?'Request timed out. Please try again.':'Network error. Check your connection.'};
-  }finally{clearTimeout(timer)}
+  } catch(e){
+    return {error_af_ai: e.name==='AbortError'?'Request timed out. Please try again.':'Network error. Check your connection.'};
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
-async function doLogin(){var loginId=($('loginPhone').value||'').trim(),cleanId=cleanPhone(loginId),password=($('loginPassword').value||'').trim();if(!loginId){showMsg('err','Please enter your Student ID or phone number.');return}if(!password){showMsg('err','Please enter your password.');return}showMsg('info','Verifying credentials…');var res=await edgeCall('student-login-af',{login_id:loginId,clean_login_id:cleanId,password:password,device_id:getDeviceId(),device_name:getDeviceName()});if(!res||!res.ok){showMsg('err',(res&&res.message)||'Login failed. Please check your credentials.');return}if(!res.student){showMsg('err','Profile load failed. Please try again.');return}var token=res.session_token||res.login_token||'';if(!token){showMsg('err','Authorization token missing. Please contact support.');return}saveSession(res.student,token,res.device_id||getDeviceId());openWorkspace(res.student)}
+// ══════════════════════════════════════════════════════════════════════════
+// AUTH FORMS
+// ══════════════════════════════════════════════════════════════════════════
 
-async function sendCreateOtp(){var name=($('createName').value||'').trim(),mobile=cleanPhone($('createPhone').value||''),email=($('createEmail').value||'').trim().toLowerCase(),password=($('createPassword').value||'').trim();if(!name||name.length<3){showMsg('err','Please enter your full name (min 3 characters).');return}if(!mobile||mobile.length<10){showMsg('err','Please enter a valid 10-digit mobile number.');return}if(!email||!email.includes('@')){showMsg('err','Please enter a valid email address.');return}if(!password||password.length<4){showMsg('err','Password must be at least 4 characters.');return}showMsg('info','Checking availability…');var check=await edgeCall('student-check-existing-af',{mobile:mobile,email:email});if(!check||!check.ok){showMsg('err',(check&&check.message)||'Check failed. Please try again.');return}if(check.mobile_exists||check.student_id_exists){showMsg('err','This mobile number is already registered. Please log in.');return}if(check.email_exists){showMsg('err','This email is already registered. Please log in.');return}_pendingCreate={student_id:mobile,name:name,mobile:mobile,email:email,password:password,status:'active',email_verified:false};showMsg('info','Sending OTP to your email…');var otpRes=await edgeCall('student-send-otp-af',{email:email,mobile:mobile,purpose:'create'});if(!otpRes||!otpRes.ok){showMsg('err','OTP delivery failed: '+((otpRes&&otpRes.message)||'Gateway error.'));return}$('createOtpArea').classList.remove('hidden');showMsg('ok','OTP sent! Check your inbox and enter it below.')}
+var MSG_ICONS = {ok:'✓', err:'✕', info:'ℹ'};
+function showMsg(type,text){ var b=$('authMsg'); b.className='form-msg '+type; $('authMsgIcon').textContent=MSG_ICONS[type]||''; $('authMsgText').textContent=text||''; b.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+function clearMsg(){ $('authMsg').className='form-msg'; $('authMsgIcon').textContent=''; $('authMsgText').textContent=''; }
 
-async function verifyCreateOtp(){var otp=($('createOtp').value||'').trim();if(!_pendingCreate){showMsg('err','Session expired. Please fill the form again.');return}if(!otp||otp.length<4){showMsg('err','Please enter the complete OTP.');return}showMsg('info','Verifying and creating your account…');var payload=Object.assign({},_pendingCreate,{otp:otp,purpose:'create'});var res=await edgeCall('student-create-af',payload);if(!res||!res.ok){showMsg('err',(res&&res.message)||'Account creation failed. Please try again.');return}if(!res.student){showMsg('err','Account created but failed to load profile.');return}_pendingCreate=null;$('createOtpArea').classList.add('hidden');$('createOtp').value='';saveSession(res.student,res.session_token||res.login_token||'',getDeviceId());showToast('Welcome to AcademeForge! 🎉','ok','Account Created');openWorkspace(res.student)}
+var _pendingCreate = null, _resetStudent = null, _forgotOtpPassed = false;
 
-async function findStudentForReset(){var value=($('forgotLogin').value||'').trim(),clean=cleanPhone(value);if(!value){showMsg('err','Please enter your ID, email, or phone number.');return}showMsg('info','Looking up your account…');var res=await edgeCall('student-find-reset-af',{value:value,clean_value:clean,email_value:value.toLowerCase()});if(!res||!res.ok){showMsg('err',(res&&res.message)||'No account found with that information.');return}if(!res.student||!res.student.email){showMsg('err','Account found but no email on file. Contact support.');return}_resetStudent=res.student;_forgotOtpPassed=false;showMsg('info','Sending reset OTP to your registered email…');var otpRes=await edgeCall('student-send-otp-af',{email:_resetStudent.email,mobile:_resetStudent.mobile||'',purpose:'reset'});if(!otpRes||!otpRes.ok){showMsg('err','OTP send failed: '+((otpRes&&otpRes.message)||'Error.'));return}$('forgotOtpArea').classList.remove('hidden');$('resetPasswordArea').classList.add('hidden');showMsg('ok','OTP sent! Check your registered email.')}
+function switchMode(mode){
+  clearMsg(); _pendingCreate=null; _resetStudent=null; _forgotOtpPassed=false;
+  ['boxLogin','boxCreate','boxForgot'].forEach(function(id){ var el=$(id); if(el) el.classList.add('hidden'); });
+  ['createOtpArea','forgotOtpArea','resetPasswordArea'].forEach(function(id){ $(id).classList.add('hidden'); });
+  $('authTabs').classList.remove('hidden');
+  $('tabLogin').classList.remove('active'); $('tabLogin').setAttribute('aria-selected','false');
+  $('tabCreate').classList.remove('active'); $('tabCreate').setAttribute('aria-selected','false');
+  if(mode==='login'){ $('boxLogin').classList.remove('hidden'); $('tabLogin').classList.add('active'); $('tabLogin').setAttribute('aria-selected','true'); $('authSub').textContent='Sign in with your credentials to access your student workspace.'; }
+  else if(mode==='create'){ $('boxCreate').classList.remove('hidden'); $('tabCreate').classList.add('active'); $('tabCreate').setAttribute('aria-selected','true'); $('authSub').textContent='Register your account to unlock the AI workspace.'; }
+  else if(mode==='forgot'){ $('boxForgot').classList.remove('hidden'); $('authTabs').classList.add('hidden'); $('authSub').textContent='Verify your identity to reset your password.'; }
+}
 
-async function verifyForgotOtp(){var otp=($('forgotOtp').value||'').trim();if(!_resetStudent){showMsg('err','Session expired. Please start again.');return}if(!otp||otp.length<4){showMsg('err','Please enter the complete OTP.');return}showMsg('info','Verifying code…');var res=await edgeCall('student-verify-otp-af',{email:_resetStudent.email,otp:otp,purpose:'reset'});if(!res||!res.ok){showMsg('err','Verification failed: '+((res&&res.message)||'Invalid code.'));return}_forgotOtpPassed=true;$('resetPasswordArea').classList.remove('hidden');showMsg('ok','Identity verified! Set your new password below.')}
+async function doLogin(){
+  var loginId   = ($('loginPhone').value||'').trim();
+  var cleanId   = cleanPhone(loginId);
+  var password  = ($('loginPassword').value||'').trim();
+  if(!loginId)  { showMsg('err','Please enter your Student ID or phone number.'); return; }
+  if(!password) { showMsg('err','Please enter your password.'); return; }
+  showMsg('info','Verifying credentials…');
 
-async function resetPassword(){var newPwd=($('newPassword').value||'').trim();if(!_resetStudent){showMsg('err','Session expired. Please start again.');return}if(!_forgotOtpPassed){showMsg('err','OTP not verified yet.');return}if(!newPwd||newPwd.length<4){showMsg('err','Password must be at least 4 characters.');return}showMsg('info','Updating your password…');var res=await edgeCall('student-reset-password-af',{id:_resetStudent.id,email:_resetStudent.email,new_password:newPwd});if(!res||!res.ok){showMsg('err',(res&&res.message)||'Password reset failed. Please try again.');return}_resetStudent=null;_forgotOtpPassed=false;$('forgotOtpArea').classList.add('hidden');$('resetPasswordArea').classList.add('hidden');$('forgotOtp').value='';$('newPassword').value='';showMsg('ok','Password updated successfully! Please sign in.');setTimeout(function(){switchMode('login')},1400)}
+  var res = await edgeCall('student-login-af', {
+    login_id:       loginId,
+    clean_login_id: cleanId,
+    password:       password,
+    device_id:      getDeviceId(),
+    device_name:    getDeviceName()
+  });
 
-function saveSession(student,token,deviceId){localStorage.setItem('af_student_logged_in','true');localStorage.setItem('af_session_token',token||'');localStorage.setItem('af_device_id',deviceId||getDeviceId());localStorage.setItem('af_student_uuid',student.id||'');localStorage.setItem('af_student_id',student.student_id||student.mobile||student.phone||'');localStorage.setItem('af_student_mobile',student.mobile||student.phone||'');localStorage.setItem('af_student_name',student.name||'Student');localStorage.setItem('af_student_email',student.email||'')}
+  if(!res || !res.ok){ showMsg('err',(res&&res.message)||'Login failed. Please check your credentials.'); return; }
+  if(!res.student)   { showMsg('err','Profile load failed. Please try again.'); return; }
+  if(!res.session_token){ showMsg('err','Authorization token missing. Please contact support.'); return; }
 
-function doLogout(){closeTopModal('accountModal');['af_student_logged_in','af_student_uuid','af_student_id','af_student_mobile','af_student_name','af_student_email','af_session_token','af_student_phone'].forEach(function(k){localStorage.removeItem(k)});$('panelAI').classList.add('hidden');$('panelAuth').classList.remove('hidden');switchMode('login');showToast('Signed out successfully.','ok','See you soon')}
-function confirmLogout(){closeTopModal('accountModal');showConfirm('Sign out','You will need to enter your credentials again to return to this workspace.','Sign out',doLogout)}
+  saveSession(res.student, res.session_token, getDeviceId());
+  openWorkspace(res.student);
+}
+
+async function sendCreateOtp(){
+  var name    = ($('createName').value||'').trim();
+  var mobile  = cleanPhone($('createPhone').value||'');
+  var email   = ($('createEmail').value||'').trim().toLowerCase();
+  var password = ($('createPassword').value||'').trim();
+  if(!name||name.length<3)         { showMsg('err','Please enter your full name (min 3 characters).'); return; }
+  if(!mobile||mobile.length<10)    { showMsg('err','Please enter a valid 10-digit mobile number.'); return; }
+  if(!email||!email.includes('@')) { showMsg('err','Please enter a valid email address.'); return; }
+  if(!password||password.length<4) { showMsg('err','Password must be at least 4 characters.'); return; }
+  showMsg('info','Checking availability…');
+  var check = await edgeCall('student-check-existing-af',{mobile,email});
+  if(!check||!check.ok){ showMsg('err',(check&&check.message)||'Check failed. Please try again.'); return; }
+  if(check.mobile_exists||check.student_id_exists){ showMsg('err','This mobile number is already registered. Please log in.'); return; }
+  if(check.email_exists){ showMsg('err','This email is already registered. Please log in.'); return; }
+  _pendingCreate = {student_id:mobile,name,mobile,email,password,status:'active',email_verified:false};
+  showMsg('info','Sending OTP to your email…');
+  var otpRes = await edgeCall('student-send-otp-af',{email,mobile,purpose:'create'});
+  if(!otpRes||!otpRes.ok){ showMsg('err','OTP delivery failed: '+((otpRes&&otpRes.message)||'Gateway error.')); return; }
+  $('createOtpArea').classList.remove('hidden');
+  showMsg('ok','OTP sent! Check your inbox and enter it below.');
+}
+
+async function verifyCreateOtp(){
+  var otp = ($('createOtp').value||'').trim();
+  if(!_pendingCreate){ showMsg('err','Session expired. Please fill the form again.'); return; }
+  if(!otp||otp.length<4){ showMsg('err','Please enter the complete OTP.'); return; }
+  showMsg('info','Verifying and creating your account…');
+  var payload = Object.assign({},_pendingCreate,{otp,purpose:'create'});
+  var res = await edgeCall('student-create-af', payload);
+  if(!res||!res.ok){ showMsg('err',(res&&res.message)||'Account creation failed. Please try again.'); return; }
+  if(!res.student)  { showMsg('err','Account created but failed to load profile.'); return; }
+  _pendingCreate = null;
+  $('createOtpArea').classList.add('hidden');
+  $('createOtp').value = '';
+  saveSession(res.student, res.session_token||res.login_token||'', getDeviceId());
+  showToast('Welcome to AcademeForge! 🎉','ok','Account Created');
+  openWorkspace(res.student);
+}
+
+async function findStudentForReset(){
+  var value = ($('forgotLogin').value||'').trim(), clean = cleanPhone(value);
+  if(!value){ showMsg('err','Please enter your ID, email, or phone number.'); return; }
+  showMsg('info','Looking up your account…');
+  var res = await edgeCall('student-find-reset-af',{value,clean_value:clean,email_value:value.toLowerCase()});
+  if(!res||!res.ok){ showMsg('err',(res&&res.message)||'No account found with that information.'); return; }
+  if(!res.student||!res.student.email){ showMsg('err','Account found but no email on file. Contact support.'); return; }
+  _resetStudent = res.student; _forgotOtpPassed = false;
+  showMsg('info','Sending reset OTP to your registered email…');
+  var otpRes = await edgeCall('student-send-otp-af',{email:_resetStudent.email,mobile:_resetStudent.mobile||'',purpose:'reset'});
+  if(!otpRes||!otpRes.ok){ showMsg('err','OTP send failed: '+((otpRes&&otpRes.message)||'Error.')); return; }
+  $('forgotOtpArea').classList.remove('hidden');
+  $('resetPasswordArea').classList.add('hidden');
+  showMsg('ok','OTP sent! Check your registered email.');
+}
+
+async function verifyForgotOtp(){
+  var otp = ($('forgotOtp').value||'').trim();
+  if(!_resetStudent){ showMsg('err','Session expired. Please start again.'); return; }
+  if(!otp||otp.length<4){ showMsg('err','Please enter the complete OTP.'); return; }
+  showMsg('info','Verifying code…');
+  var res = await edgeCall('student-verify-otp-af',{email:_resetStudent.email,otp,purpose:'reset'});
+  if(!res||!res.ok){ showMsg('err','Verification failed: '+((res&&res.message)||'Invalid code.')); return; }
+  _forgotOtpPassed = true;
+  $('resetPasswordArea').classList.remove('hidden');
+  showMsg('ok','Identity verified! Set your new password below.');
+}
+
+async function resetPassword(){
+  var newPwd = ($('newPassword').value||'').trim();
+  if(!_resetStudent)  { showMsg('err','Session expired. Please start again.'); return; }
+  if(!_forgotOtpPassed){ showMsg('err','OTP not verified yet.'); return; }
+  if(!newPwd||newPwd.length<4){ showMsg('err','Password must be at least 4 characters.'); return; }
+  showMsg('info','Updating your password…');
+  var res = await edgeCall('student-reset-password-af',{id:_resetStudent.id,email:_resetStudent.email,new_password:newPwd});
+  if(!res||!res.ok){ showMsg('err',(res&&res.message)||'Password reset failed. Please try again.'); return; }
+  _resetStudent = null; _forgotOtpPassed = false;
+  $('forgotOtpArea').classList.add('hidden');
+  $('resetPasswordArea').classList.add('hidden');
+  $('forgotOtp').value = ''; $('newPassword').value = '';
+  showMsg('ok','Password updated successfully! Please sign in.');
+  setTimeout(function(){ switchMode('login'); }, 1400);
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// WORKSPACE
+// ══════════════════════════════════════════════════════════════════════════
+
+function doLogout(){
+  closeTopModal('accountModal');
+  clearSession();   // wipes all session data
+  $('panelAI').classList.add('hidden');
+  $('panelAuth').classList.remove('hidden');
+  switchMode('login');
+  showToast('Signed out successfully.','ok','See you soon');
+}
+
+function confirmLogout(){ closeTopModal('accountModal'); showConfirm('Sign out','You will need to enter your credentials again to return to this workspace.','Sign out',doLogout); }
 
 function openWorkspace(student){
-  $('panelAuth').classList.add('hidden');$('panelAI').classList.remove('hidden');
-  var name=(student&&student.name)||localStorage.getItem('af_student_name')||'Student';
-  $('sbStudent').textContent=name+' · View account';
-  if($('mhdrSub'))$('mhdrSub').textContent=name+' · Active';
-  setMode('af_proguide');loadUsage();loadConvList();
+  $('panelAuth').classList.add('hidden');
+  $('panelAI').classList.remove('hidden');
+  var name = (student&&student.name) || localStorage.getItem('af_student_name') || 'Student';
+  $('sbStudent').textContent = name + ' · View account';
+  if($('mhdrSub')) $('mhdrSub').textContent = name + ' · Active';
+  setMode('af_proguide');
+  loadUsage();
+  loadConvList();
 }
 
-function updateComposer(){var inp=$('composerInput');inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';$('charCount').textContent=inp.value.length+' / '+MAX_CHARS;inp.disabled=usageLimited;$('sendBtn').disabled=isLoading||usageLimited||!inp.value.trim()}
-$('composerInput').addEventListener('input',updateComposer);
-$('composerInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
+// ── Mode switching (unchanged) ─────────────────────────────────────────────
+function setMode(mode){
+  if(!MODES[mode]) return;
+  currentMode = mode;
+  var m = MODES[mode];
+  document.querySelectorAll('.mode-tab').forEach(function(t){ var a=t.dataset.mode===mode; t.classList.toggle('active',a); t.setAttribute('aria-selected',a?'true':'false'); });
+  document.querySelectorAll('.mode-pill').forEach(function(t){ t.classList.toggle('active',t.dataset.mode===mode); });
+  var kicker = $('welcomeKicker');
+  kicker.textContent = m.kickerText;
+  kicker.className = 'welcome-kicker ' + m.kickerClass;
+  $('welcomeCursor').className = 'cursor ' + m.cursorClass;
+  var name = localStorage.getItem('af_student_name') || 'Student';
+  $('welcomeGreet').textContent = m.greetFn(name);
+  $('welcomeCopy').textContent = m.copy;
+  $('composerInput').placeholder = m.placeholder;
+  var pool = m.titlePool;
+  animateTitle(pool[Math.floor(Math.random()*pool.length)]);
+  $('suggestions').innerHTML = m.suggestions.map(function(s){
+    return '<button class="suggestion" onclick="useSuggestion(\''+esc(s).replace(/'/g,"\\'")+'\')">'+esc(s)+'</button>';
+  }).join('');
+}
 
+function animateTitle(text){ var el=$('welcomeTitleText'); if(!el)return; if(_typeTimer)clearInterval(_typeTimer); el.textContent=''; var i=0; _typeTimer=setInterval(function(){ if(i<text.length){el.textContent+=text.charAt(i);i++}else clearInterval(_typeTimer); },32); }
+function useSuggestion(text){ var inp=$('composerInput'); inp.value=text; updateComposer(); inp.focus(); }
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+function toggleSidebar(){ var sb=$('aiSidebar'),ov=$('aiOverlay'); if(window.innerWidth<=768){sb.classList.toggle('mobile-open');ov.classList.toggle('open')}else{sb.classList.toggle('collapsed')} }
+function closeSidebar(){ $('aiSidebar').classList.remove('mobile-open'); $('aiOverlay').classList.remove('open'); }
+
+// ── Composer ───────────────────────────────────────────────────────────────
+function updateComposer(){
+  var inp = $('composerInput');
+  inp.style.height = 'auto';
+  inp.style.height = Math.min(inp.scrollHeight,120)+'px';
+  $('charCount').textContent = inp.value.length + ' / ' + MAX_CHARS;
+  inp.disabled = usageLimited;
+  $('sendBtn').disabled = isLoading || usageLimited || !inp.value.trim();
+}
+$('composerInput').addEventListener('input', updateComposer);
+$('composerInput').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMessage(); } });
+
+// ── Send Message ───────────────────────────────────────────────────────────
 async function sendMessage(){
-  if(isLoading)return;
-  var inp=$('composerInput'),text=inp.value.trim();if(!text)return;
-  var usageCheck=await aiCall({action_af_ai:'usage_af_ai'});
-  if(usageCheck.error_af_ai){showToast(usageCheck.error_af_ai,'err','Usage check failed');return}
+  if(isLoading) return;
+  var inp = $('composerInput'), text = inp.value.trim();
+  if(!text) return;
+
+  var usageCheck = await aiCall({action_af_ai:'usage_af_ai'});
+  if(usageCheck.error_af_ai){ showToast(usageCheck.error_af_ai,'err','Usage check failed'); return; }
   applyUsage(usageCheck);
-  if(usageLimited){showToast('Your current AI limit has been reached. Open Usage Details for reset information.','err','Limit reached');return}
-  isLoading=true;$('welcomeBlock').classList.add('hidden');inp.value='';updateComposer();
-  appendMsg('user',text,currentMode);
-  
-  var thinking=document.createElement('div');
-  thinking.className='msg-row assistant mode-'+currentMode;
-  thinking.id='thinkingRow';
-  thinking.innerHTML='<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
-  $('messages').appendChild(thinking);scrollChat();
-  
-  var result=await aiCall({action_af_ai:'ask_af_ai',question_af_ai:text,mode_af_ai:toApiMode(currentMode),conversation_id_af_ai:currentConvId||undefined});
-  var thinkEl=$('thinkingRow');if(thinkEl)thinkEl.remove();isLoading=false;
-  if(result.session_request_limit_af_ai!==undefined)applyUsage(result);
-  if(result.error_af_ai){showToast(result.error_af_ai,'err',result.limit_reached_af_ai?'Limit reached':'AI error');updateComposer();return}
-  currentConvId=result.conversation_id_af_ai||currentConvId;
-  appendMsg('assistant',result.answer_af_ai||'No response received.',fromApiMode(result.mode_af_ai||toApiMode(currentMode)));
-  updateComposer();loadConvList();
+  if(usageLimited){ showToast('Your current AI limit has been reached. Open Usage Details for reset information.','err','Limit reached'); return; }
+
+  isLoading = true;
+  $('welcomeBlock').classList.add('hidden');
+  inp.value = '';
+  updateComposer();
+  appendMsg('user', text, currentMode);
+
+  var thinking = document.createElement('div');
+  thinking.className = 'msg-row assistant mode-' + currentMode;
+  thinking.id = 'thinkingRow';
+  thinking.innerHTML = '<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
+  $('messages').appendChild(thinking);
+  scrollChat();
+
+  var result = await aiCall({
+    action_af_ai:          'ask_af_ai',
+    question_af_ai:        text,
+    mode_af_ai:            toApiMode(currentMode),
+    conversation_id_af_ai: currentConvId || undefined
+  });
+
+  var thinkEl = $('thinkingRow');
+  if(thinkEl) thinkEl.remove();
+  isLoading = false;
+
+  if(result.session_request_limit_af_ai !== undefined) applyUsage(result);
+  if(result.error_af_ai){ showToast(result.error_af_ai,'err',result.limit_reached_af_ai?'Limit reached':'AI error'); updateComposer(); return; }
+
+  currentConvId = result.conversation_id_af_ai || currentConvId;
+  appendMsg('assistant', result.answer_af_ai||'No response received.', fromApiMode(result.mode_af_ai||toApiMode(currentMode)));
+  updateComposer();
+  loadConvList();
 }
 
-function appendMsg(role,content,mode){
-  var row=document.createElement('div');
-  // Secure dynamic class added for modal color code separation
-  row.className='msg-row '+(role==='user'?'user':'assistant')+' mode-'+(mode||currentMode);
-  var name=localStorage.getItem('af_student_name')||'Student';
-  var initials=name.trim().split(/\s+/).slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():''}).join('');
-  var avatarContent=role==='user'?(initials||'S'):'AI';
-  var bubbleContent=role==='user'?'<p>'+esc(content)+'</p>':renderMarkdown(content);
-  var m=MODES[mode]||MODES['af_proguide'];
-  var metaLabel=role==='user'?esc(name):esc(m.metaLabel);
-  row.innerHTML='<div class="avatar" aria-hidden="true">'+avatarContent+'</div><div class="msg-body"><div class="bubble">'+bubbleContent+'</div><div class="msg-meta"><span>'+metaLabel+'</span><button class="action-msg-btn copy-btn" data-plain="'+encodeURIComponent(content)+'">📋 Copy Text</button><button class="action-msg-btn share-btn" data-plain="'+encodeURIComponent(content)+'">🔗 Share</button></div></div>';
-  $('messages').appendChild(row);scrollChat();
+// ── Message rendering (unchanged, XSS-safe) ────────────────────────────────
+function appendMsg(role, content, mode){
+  var row = document.createElement('div');
+  row.className = 'msg-row '+(role==='user'?'user':'assistant')+' mode-'+(mode||currentMode);
+  var name     = localStorage.getItem('af_student_name') || 'Student';
+  var initials = name.trim().split(/\s+/).slice(0,2).map(function(p){ return p[0]?p[0].toUpperCase():''; }).join('');
+  var avatarContent  = role==='user'?(initials||'S'):'AI';
+  var bubbleContent  = role==='user'?'<p>'+esc(content)+'</p>':renderMarkdown(content);
+  var m = MODES[mode] || MODES['af_proguide'];
+  var metaLabel = role==='user'?esc(name):esc(m.metaLabel);
+  row.innerHTML = '<div class="avatar" aria-hidden="true">'+avatarContent+'</div>'
+    +'<div class="msg-body"><div class="bubble">'+bubbleContent+'</div>'
+    +'<div class="msg-meta"><span>'+metaLabel+'</span>'
+    +'<button class="action-msg-btn copy-btn" data-plain="'+encodeURIComponent(content)+'">📋 Copy Text</button>'
+    +'<button class="action-msg-btn share-btn" data-plain="'+encodeURIComponent(content)+'">🔗 Share</button>'
+    +'</div></div>';
+  $('messages').appendChild(row);
+  scrollChat();
 }
 
 function renderMarkdown(text){
   var parts=[],codeRegex=/```([\w+-]*)\n?([\s\S]*?)```/g,lastIndex=0,match;
   codeRegex.lastIndex=0;
-  while((match=codeRegex.exec(text))!==null){if(match.index>lastIndex)parts.push({type:'text',content:text.slice(lastIndex,match.index)});parts.push({type:'code',lang:match[1]||'code',code:match[2]});lastIndex=match.index+match[0].length}
-  if(lastIndex<text.length)parts.push({type:'text',content:text.slice(lastIndex)});
+  while((match=codeRegex.exec(text))!==null){
+    if(match.index>lastIndex) parts.push({type:'text',content:text.slice(lastIndex,match.index)});
+    parts.push({type:'code',lang:match[1]||'code',code:match[2]});
+    lastIndex=match.index+match[0].length;
+  }
+  if(lastIndex<text.length) parts.push({type:'text',content:text.slice(lastIndex)});
   return parts.map(function(part){
-    if(part.type==='code')return'<div class="code-wrap"><div class="code-head"><span class="code-lang">'+esc(part.lang||'code')+'</span><button class="code-copy-btn" data-code="'+encodeURIComponent(part.code)+'">Copy Code</button></div><pre class="code-pre">'+esc(part.code)+'</pre></div>';
-    return esc(part.content).replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*\n]+)\*/g,'<em>$1</em>').replace(/`([^`\n]+)`/g,'<code style="background:var(--inp);padding:2px 6px;border-radius:5px;font-size:12.5px;color:#f87171;font-family:monospace;">$1</code>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+    if(part.type==='code') return '<div class="code-wrap"><div class="code-head"><span class="code-lang">'+esc(part.lang||'code')+'</span><button class="code-copy-btn" data-code="'+encodeURIComponent(part.code)+'">Copy Code</button></div><pre class="code-pre">'+esc(part.code)+'</pre></div>';
+    return esc(part.content)
+      .replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*([^*\n]+)\*/g,'<em>$1</em>')
+      .replace(/`([^`\n]+)`/g,'<code style="background:var(--inp);padding:2px 6px;border-radius:5px;font-size:12.5px;color:#f87171;font-family:monospace;">$1</code>')
+      .replace(/\n\n+/g,'</p><p>')
+      .replace(/\n/g,'<br>');
   }).join('');
 }
 
-// Global Event Handler for Message controls (Copy, Code Copy, Native Share)
-$('messages').addEventListener('click',async function(e){
-  var codeBtn=e.target.closest('[data-code]');
-  if(codeBtn){try{await navigator.clipboard.writeText(decodeURIComponent(codeBtn.dataset.code));var o=codeBtn.textContent;codeBtn.textContent='✓ Copied!';setTimeout(function(){codeBtn.textContent=o},1500)}catch(err){showToast('Clipboard access failed.','err','Copy Failed')}return}
-  
-  var copyBtn=e.target.closest('.copy-btn');
-  if(copyBtn){try{await navigator.clipboard.writeText(decodeURIComponent(copyBtn.dataset.plain));var o2=copyBtn.textContent;copyBtn.textContent='✓ Copied!';setTimeout(function(){copyBtn.textContent=o2},1500)}catch(err){showToast('Clipboard access failed.','err','Copy Failed')}return}
-
-  var shareBtn=e.target.closest('.share-btn');
+$('messages').addEventListener('click', async function(e){
+  var codeBtn = e.target.closest('[data-code]');
+  if(codeBtn){ try{ await navigator.clipboard.writeText(decodeURIComponent(codeBtn.dataset.code)); var o=codeBtn.textContent; codeBtn.textContent='✓ Copied!'; setTimeout(function(){codeBtn.textContent=o;},1500); }catch(err){showToast('Clipboard access failed.','err','Copy Failed');} return; }
+  var copyBtn = e.target.closest('.copy-btn');
+  if(copyBtn){ try{ await navigator.clipboard.writeText(decodeURIComponent(copyBtn.dataset.plain)); var o2=copyBtn.textContent; copyBtn.textContent='✓ Copied!'; setTimeout(function(){copyBtn.textContent=o2;},1500); }catch(err){showToast('Clipboard access failed.','err','Copy Failed');} return; }
+  var shareBtn = e.target.closest('.share-btn');
   if(shareBtn){
-    var rawText=decodeURIComponent(shareBtn.dataset.plain);
-    if(navigator.share){
-      try{await navigator.share({title:'AcademeForge Session',text:rawText,url:window.location.href})}catch(err){}
-    }else{
-      try{await navigator.clipboard.writeText(rawText);showToast('Link & Session text copied to clipboard! Share anywhere.','ok','Shared Status')}catch(e){showToast('Share API error.','err','Failed')}
-    }
+    var rawText = decodeURIComponent(shareBtn.dataset.plain);
+    if(navigator.share){ try{await navigator.share({title:'AcademeForge Session',text:rawText,url:window.location.href})}catch(err){} }
+    else{ try{await navigator.clipboard.writeText(rawText);showToast('Session text copied to clipboard! Share anywhere.','ok','Copied');}catch(e){showToast('Share API error.','err','Failed');} }
   }
 });
 
-function scrollChat(){var s=$('chatScroll');requestAnimationFrame(function(){s.scrollTop=s.scrollHeight})}
+function scrollChat(){ var s=$('chatScroll'); requestAnimationFrame(function(){ s.scrollTop=s.scrollHeight; }); }
+function newChat(){ currentConvId=''; $('messages').innerHTML=''; $('welcomeBlock').classList.remove('hidden'); var pool=MODES[currentMode].titlePool; animateTitle(pool[Math.floor(Math.random()*pool.length)]); closeSidebar(); $('composerInput').focus(); }
 
-function newChat(){currentConvId='';$('messages').innerHTML='';$('welcomeBlock').classList.remove('hidden');var pool=MODES[currentMode].titlePool;animateTitle(pool[Math.floor(Math.random()*pool.length)]);closeSidebar();$('composerInput').focus()}
-
+// ── Conversations ─────────────────────────────────────────────────────────
 async function loadConvList(){
-  var data=await aiCall({action_af_ai:'list_conversations_af_ai'});
-  if(data.error_af_ai){showToast(data.error_af_ai,'err','History unavailable');return}
-  allConvs=Array.isArray(data.conversations_af_ai)?data.conversations_af_ai:[];
+  var data = await aiCall({action_af_ai:'list_conversations_af_ai'});
+  if(data.error_af_ai){ showToast(data.error_af_ai,'err','History unavailable'); return; }
+  allConvs = Array.isArray(data.conversations_af_ai) ? data.conversations_af_ai : [];
   renderConvList(allConvs);
 }
 
 function renderConvList(list){
   var el=$('convList');
-  if(!list.length){el.innerHTML='<div class="conv-empty">No sessions yet.<br>Start a new conversation!</div>';return}
+  if(!list.length){ el.innerHTML='<div class="conv-empty">No sessions yet.<br>Start a new conversation!</div>'; return; }
   el.innerHTML=list.map(function(c){
     var isActive=c.conversation_id_af_ai===currentConvId;
-    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem"><span class="conv-dot" aria-hidden="true"></span><button class="conv-open-btn" data-load-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;"><span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button><button class="conv-del-btn" data-delete-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" data-delete-title="'+encodeURIComponent(c.title_af_ai||'this session')+'" title="Delete session">✕</button></div>';
+    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem">'
+      +'<span class="conv-dot" aria-hidden="true"></span>'
+      +'<button class="conv-open-btn" data-load-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;">'
+      +'<span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button>'
+      +'<button class="conv-del-btn" data-delete-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" data-delete-title="'+encodeURIComponent(c.title_af_ai||'this session')+'" title="Delete session">✕</button>'
+      +'</div>';
   }).join('');
 }
 
-function filterConvs(q){var filtered=q.trim()?allConvs.filter(function(c){return(c.title_af_ai||'').toLowerCase().includes(q.toLowerCase())}):allConvs;renderConvList(filtered)}
+function filterConvs(q){ var filtered=q.trim()?allConvs.filter(function(c){return(c.title_af_ai||'').toLowerCase().includes(q.toLowerCase())}):allConvs; renderConvList(filtered); }
 
 async function loadConv(id){
-  currentConvId=id;$('welcomeBlock').classList.add('hidden');
+  currentConvId = id;
+  $('welcomeBlock').classList.add('hidden');
   $('messages').innerHTML='<div class="msg-row assistant"><div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div></div>';
   closeSidebar();
-  var data=await aiCall({action_af_ai:'load_conversation_af_ai',conversation_id_af_ai:id});
+  var data = await aiCall({action_af_ai:'load_conversation_af_ai', conversation_id_af_ai:id});
   $('messages').innerHTML='';
-  if(data.error_af_ai){showToast(data.error_af_ai,'err','Load Failed');return}
-  (data.messages_af_ai||[]).forEach(function(m){appendMsg(m.role_af_ai==='user_af_ai'?'user':'assistant',m.content_af_ai,fromApiMode(m.mode_af_ai))});
+  if(data.error_af_ai){ showToast(data.error_af_ai,'err','Load Failed'); return; }
+  (data.messages_af_ai||[]).forEach(function(m){ appendMsg(m.role_af_ai==='user_af_ai'?'user':'assistant',m.content_af_ai,fromApiMode(m.mode_af_ai)); });
   renderConvList(allConvs);
 }
 
-$('convList').addEventListener('click',function(e){
-  var openBtn=e.target.closest('[data-load-conv]');
-  if(openBtn){loadConv(decodeURIComponent(openBtn.dataset.loadConv));return}
-  var deleteBtn=e.target.closest('[data-delete-conv]');
-  if(deleteBtn){e.stopPropagation();confirmDeleteConv(decodeURIComponent(deleteBtn.dataset.deleteConv),decodeURIComponent(deleteBtn.dataset.deleteTitle))}
+$('convList').addEventListener('click', function(e){
+  var openBtn = e.target.closest('[data-load-conv]');
+  if(openBtn){ loadConv(decodeURIComponent(openBtn.dataset.loadConv)); return; }
+  var deleteBtn = e.target.closest('[data-delete-conv]');
+  if(deleteBtn){ e.stopPropagation(); confirmDeleteConv(decodeURIComponent(deleteBtn.dataset.deleteConv), decodeURIComponent(deleteBtn.dataset.deleteTitle)); }
 });
 
-/* ── CONFIRM MODAL CONTROLS ── */
-var _confirmCallback=null;
-function showConfirm(title,text,okLabel,callback){$('confirmTitle').textContent=title;$('confirmText').textContent=text;$('confirmOkBtn').textContent=okLabel;_confirmCallback=callback;$('confirmOverlay').classList.remove('hidden')}
-function closeConfirm(){$('confirmOverlay').classList.add('hidden');_confirmCallback=null}
-$('confirmOkBtn').addEventListener('click',function(){if(_confirmCallback)_confirmCallback();closeConfirm()});
+// ── Confirm modal ──────────────────────────────────────────────────────────
+var _confirmCallback = null;
+function showConfirm(title,text,okLabel,callback){ $('confirmTitle').textContent=title; $('confirmText').textContent=text; $('confirmOkBtn').textContent=okLabel; _confirmCallback=callback; $('confirmOverlay').classList.remove('hidden'); }
+function closeConfirm(){ $('confirmOverlay').classList.add('hidden'); _confirmCallback=null; }
+$('confirmOkBtn').addEventListener('click', function(){ if(_confirmCallback)_confirmCallback(); closeConfirm(); });
 
-function confirmDeleteConv(id,title){showConfirm('Delete Session','Delete "'+title+'"? This cannot be undone.','Delete',function(){deleteConv(id)})}
-function confirmClearAll(){if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return}showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All History',function(){clearAllConvs()})}
+function confirmDeleteConv(id,title){ showConfirm('Delete Session','Delete "'+title+'"? This cannot be undone.','Delete',function(){ deleteConv(id); }); }
+function confirmClearAll(){ if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return;} showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All History',function(){clearAllConvs();}); }
 
 async function deleteConv(id){
-  var data=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:id});
-  if(data.error_af_ai||!data.success_af_ai){showToast(data.error_af_ai||'Delete failed.','err','Delete failed');return}
-  allConvs=allConvs.filter(function(c){return c.conversation_id_af_ai!==id});
-  if(currentConvId===id)newChat();
-  renderConvList(allConvs);showToast('Session deleted successfully.','ok','Done');
+  var data = await aiCall({action_af_ai:'delete_conversation_af_ai', conversation_id_af_ai:id});
+  if(data.error_af_ai||!data.success_af_ai){ showToast(data.error_af_ai||'Delete failed.','err','Delete failed'); return; }
+  allConvs = allConvs.filter(function(c){ return c.conversation_id_af_ai!==id; });
+  if(currentConvId===id) newChat();
+  renderConvList(allConvs);
+  showToast('Session deleted successfully.','ok','Done');
 }
 
 async function clearAllConvs(){
-  var ids=allConvs.map(function(c){return c.conversation_id_af_ai}),failed=0;
+  var ids=allConvs.map(function(c){return c.conversation_id_af_ai;}), failed=0;
   for(var i=0;i<ids.length;i++){
-    var result=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:ids[i]});
-    if(result.error_af_ai||!result.success_af_ai)failed++;
+    var result = await aiCall({action_af_ai:'delete_conversation_af_ai', conversation_id_af_ai:ids[i]});
+    if(result.error_af_ai||!result.success_af_ai) failed++;
   }
   await loadConvList();
-  if(!failed){currentConvId='';newChat();showToast('All sessions cleared.','ok','Done')}
+  if(!failed){ currentConvId=''; newChat(); showToast('All sessions cleared.','ok','Done'); }
   else showToast(failed+' session(s) could not be deleted.','err','Partially cleared');
 }
 
-async function loadUsage(){var data=await aiCall({action_af_ai:'usage_af_ai'});if(!data.error_af_ai)applyUsage(data);else showToast(data.error_af_ai,'err','Usage unavailable')}
+// ── Usage ──────────────────────────────────────────────────────────────────
+async function loadUsage(){ var data=await aiCall({action_af_ai:'usage_af_ai'}); if(!data.error_af_ai) applyUsage(data); else showToast(data.error_af_ai,'err','Usage unavailable'); }
 
 function applyUsage(d){
-  if(d.session_request_limit_af_ai===undefined)return;
-  latestUsage=d;
+  if(d.session_request_limit_af_ai===undefined) return;
+  latestUsage = d;
   var sessReqUsed=Number(d.session_request_used_af_ai||0),sessReqLimit=Number(d.session_request_limit_af_ai||10),sessReqRem=Number(d.session_request_remaining_af_ai||0);
   var sessTokUsed=Number(d.session_token_used_af_ai||0),sessTokLimit=Number(d.session_token_limit_af_ai||15000),sessTokRem=Number(d.session_token_remaining_af_ai||0);
   var dailyUsed=Number(d.daily_request_used_af_ai||0),dailyLimit=Number(d.daily_request_limit_af_ai||20),dailyRem=Number(d.daily_request_remaining_af_ai||0);
-  $('uSessReq').textContent=sessReqRem+' / '+sessReqLimit;$('uSessTok').textContent=sessTokRem.toLocaleString()+' left';$('uDailyReq').textContent=dailyRem+' / '+dailyLimit;
-  function pct(u,m){return m>0?Math.min(100,Math.round((u/m)*100))+'%':'0%'}
-  $('uSessReqBar').style.width=pct(sessReqUsed,sessReqLimit);$('uSessTokBar').style.width=pct(sessTokUsed,sessTokLimit);$('uDailyReqBar').style.width=pct(dailyUsed,dailyLimit);
-  usageLimited=dailyRem<=0||Number(d.daily_token_remaining_af_ai||0)<=0||(Boolean(d.session_active_af_ai)&&(sessReqRem<=0||sessTokRem<=0));
-  $('composerInput').placeholder=usageLimited?'AI limit reached. Open Usage Details.':MODES[currentMode].placeholder;
+  $('uSessReq').textContent=sessReqRem+' / '+sessReqLimit;
+  $('uSessTok').textContent=sessTokRem.toLocaleString()+' left';
+  $('uDailyReq').textContent=dailyRem+' / '+dailyLimit;
+  function pct(u,m){ return m>0?Math.min(100,Math.round((u/m)*100))+'%':'0%'; }
+  $('uSessReqBar').style.width=pct(sessReqUsed,sessReqLimit);
+  $('uSessTokBar').style.width=pct(sessTokUsed,sessTokLimit);
+  $('uDailyReqBar').style.width=pct(dailyUsed,dailyLimit);
+  usageLimited = dailyRem<=0 || Number(d.daily_token_remaining_af_ai||0)<=0 || (Boolean(d.session_active_af_ai)&&(sessReqRem<=0||sessTokRem<=0));
+  $('composerInput').placeholder = usageLimited ? 'AI limit reached. Open Usage Details.' : MODES[currentMode].placeholder;
   updateComposer();
   renderUsageModal();
 }
 
-function closeTopModal(id){var modal=$(id);if(modal)modal.classList.add('hidden')}
-function closeModalOnBackdrop(e,id){if(e.target===e.currentTarget)closeTopModal(id)}
+// ── Account & Usage modals ─────────────────────────────────────────────────
+function closeTopModal(id){ var m=$(id); if(m) m.classList.add('hidden'); }
+function closeModalOnBackdrop(e,id){ if(e.target===e.currentTarget) closeTopModal(id); }
 function openAccountModal(){
-  var name=localStorage.getItem('af_student_name')||'Student',email=localStorage.getItem('af_student_email')||'No email',mobile=localStorage.getItem('af_student_mobile')||'-',studentId=localStorage.getItem('af_student_id')||mobile;
-  $('accountAvatar').textContent=name.trim().split(/\s+/).slice(0,2).map(function(p){return p.charAt(0).toUpperCase()}).join('')||'S';
-  $('accountName').textContent=name;$('accountEmail').textContent=email;$('accountStudentId').textContent=studentId;$('accountMobile').textContent=mobile;$('accountMode').textContent=MODES[currentMode].metaLabel;
+  var name=localStorage.getItem('af_student_name')||'Student';
+  var email=localStorage.getItem('af_student_email')||'No email';
+  var mobile=localStorage.getItem('af_student_mobile')||'-';
+  var studentId=localStorage.getItem('af_student_id')||mobile;
+  $('accountAvatar').textContent=name.trim().split(/\s+/).slice(0,2).map(function(p){return p.charAt(0).toUpperCase();}).join('')||'S';
+  $('accountName').textContent=name;
+  $('accountEmail').textContent=email;
+  $('accountStudentId').textContent=studentId;
+  $('accountMobile').textContent=mobile;
+  $('accountMode').textContent=MODES[currentMode].metaLabel;
   $('accountModal').classList.remove('hidden');
 }
+
 function renderUsageModal(){
-  if(!latestUsage)return;
-  var d=latestUsage,sru=Number(d.session_request_used_af_ai||0),srl=Number(d.session_request_limit_af_ai||10),srr=Number(d.session_request_remaining_af_ai||0),stu=Number(d.session_token_used_af_ai||0),stl=Number(d.session_token_limit_af_ai||15000),str=Number(d.session_token_remaining_af_ai||0),dru=Number(d.daily_request_used_af_ai||0),drl=Number(d.daily_request_limit_af_ai||20),drr=Number(d.daily_request_remaining_af_ai||0);
-  function width(u,l){return(Math.min(100,l?u/l*100:0))+'%'}
-  $('modalSessReq').textContent=srr+' left / '+srl;$('modalSessReqBar').style.width=width(sru,srl);
-  $('modalSessTok').textContent=str.toLocaleString()+' left';$('modalSessTokBar').style.width=width(stu,stl);
-  $('modalDailyReq').textContent=drr+' left / '+drl;$('modalDailyReqBar').style.width=width(dru,drl);
+  if(!latestUsage) return;
+  var d=latestUsage;
+  var sru=Number(d.session_request_used_af_ai||0),srl=Number(d.session_request_limit_af_ai||10),srr=Number(d.session_request_remaining_af_ai||0);
+  var stu=Number(d.session_token_used_af_ai||0),stl=Number(d.session_token_limit_af_ai||15000),str=Number(d.session_token_remaining_af_ai||0);
+  var dru=Number(d.daily_request_used_af_ai||0),drl=Number(d.daily_request_limit_af_ai||20),drr=Number(d.daily_request_remaining_af_ai||0);
+  function width(u,l){ return (Math.min(100,l?u/l*100:0))+'%'; }
+  $('modalSessReq').textContent=srr+' left / '+srl;
+  $('modalSessReqBar').style.width=width(sru,srl);
+  $('modalSessTok').textContent=str.toLocaleString()+' left';
+  $('modalSessTokBar').style.width=width(stu,stl);
+  $('modalDailyReq').textContent=drr+' left / '+drl;
+  $('modalDailyReqBar').style.width=width(dru,drl);
   $('modalUsageNote').textContent=usageLimited?(d.session_seconds_remaining_af_ai>0?'Session resets in '+formatSeconds(d.session_seconds_remaining_af_ai)+'.':'Daily usage resets tomorrow.'):'Limits are checked again before every AI request.';
 }
-function formatSeconds(seconds){var s=Math.max(0,Number(seconds||0)),h=Math.floor(s/3600),m=Math.ceil((s%3600)/60);return h?(h+'h '+m+'m'):(m+'m')}
-async function openUsageModal(){$('usageModal').classList.remove('hidden');await refreshUsageModal()}
-async function refreshUsageModal(){var data=await aiCall({action_af_ai:'usage_af_ai'});if(data.error_af_ai){showToast(data.error_af_ai,'err','Refresh failed');return}applyUsage(data)}
 
-var _toastTimer=null;
-function showToast(msg,type,title){type=type||'info';title=title||{ok:'Success',err:'Error',info:'Info'}[type]||'Info';var icon={ok:'✓',err:'✕',info:'ℹ'}[type]||'ℹ';var w=$('toastWrap');w.innerHTML='';if(_toastTimer){clearTimeout(_toastTimer);_toastTimer=null}var d=document.createElement('div');d.className='toast '+type;d.setAttribute('role','alert');d.innerHTML='<span class="toast-icon" aria-hidden="true">'+icon+'</span><div class="toast-body"><strong>'+esc(title)+'</strong><span>'+esc(msg)+'</span></div><span class="toast-close" role="button" tabindex="0" aria-label="Dismiss" onclick="this.parentElement.remove()">&times;</span>';w.appendChild(d);_toastTimer=setTimeout(function(){if(d.parentNode)d.remove()},3200)}
+function formatSeconds(seconds){ var s=Math.max(0,Number(seconds||0)),h=Math.floor(s/3600),m=Math.ceil((s%3600)/60); return h?(h+'h '+m+'m'):(m+'m'); }
+async function openUsageModal(){ $('usageModal').classList.remove('hidden'); await refreshUsageModal(); }
+async function refreshUsageModal(){ var data=await aiCall({action_af_ai:'usage_af_ai'}); if(data.error_af_ai){showToast(data.error_af_ai,'err','Refresh failed');return;} applyUsage(data); }
 
-document.addEventListener('DOMContentLoaded',function(){
-  var loggedIn=localStorage.getItem('af_student_logged_in')==='true';
-  if(loggedIn){openWorkspace({id:localStorage.getItem('af_student_uuid'),name:localStorage.getItem('af_student_name'),email:localStorage.getItem('af_student_email'),mobile:localStorage.getItem('af_student_mobile')})}
-  else{switchMode('login')}
-  ['loginPhone','loginPassword'].forEach(function(id){$(id).addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()})});
+// ── Toast ──────────────────────────────────────────────────────────────────
+var _toastTimer = null;
+function showToast(msg, type, title){
+  type  = type  || 'info';
+  title = title || {ok:'Success',err:'Error',info:'Info'}[type]||'Info';
+  var icon = {ok:'✓',err:'✕',info:'ℹ'}[type]||'ℹ';
+  var w = $('toastWrap');
+  w.innerHTML = '';
+  if(_toastTimer){ clearTimeout(_toastTimer); _toastTimer=null; }
+  var d = document.createElement('div');
+  d.className = 'toast '+type;
+  d.setAttribute('role','alert');
+  d.innerHTML = '<span class="toast-icon" aria-hidden="true">'+icon+'</span>'
+    +'<div class="toast-body"><strong>'+esc(title)+'</strong><span>'+esc(msg)+'</span></div>'
+    +'<span class="toast-close" role="button" tabindex="0" aria-label="Dismiss" onclick="this.parentElement.remove()">&times;</span>';
+  w.appendChild(d);
+  _toastTimer = setTimeout(function(){ if(d.parentNode) d.remove(); }, 3200);
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  if(isLoggedIn()){
+    openWorkspace({
+      id:     localStorage.getItem('af_student_uuid'),
+      name:   localStorage.getItem('af_student_name'),
+      email:  localStorage.getItem('af_student_email'),
+      mobile: localStorage.getItem('af_student_mobile')
+    });
+  } else {
+    switchMode('login');
+  }
+  ['loginPhone','loginPassword'].forEach(function(id){
+    $(id).addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  });
 });
-window.addEventListener('resize',function(){if(window.innerWidth>768){$('aiSidebar').classList.remove('mobile-open');$('aiOverlay').classList.remove('open')}});
+
+window.addEventListener('resize', function(){
+  if(window.innerWidth>768){ $('aiSidebar').classList.remove('mobile-open'); $('aiOverlay').classList.remove('open'); }
+});
+</script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').then(function(reg){
+      // Check for updates every 60 minutes
+      setInterval(function(){ reg.update(); }, 60 * 60 * 1000);
+    }).catch(function(err){
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
 </script>
 </body>
 </html>
