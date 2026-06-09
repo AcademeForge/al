@@ -520,14 +520,28 @@ var AI_ENDPOINT = SB_URL + "/functions/v1/academe-ai-af_ai";
 var MAX_CHARS = 800;
 
 /* ══ WELCOMING MESSAGE PATTERNS ARRAY ══ */
-var SYSTEM_PROMPTS_POOL = [
-  "What are we building today?",
-  "What code are we shipping next?",
-  "Bring the problem. Let's design the solution.",
-  "Which engineering concept are we mastering right now?",
-  "Let's map out your production architecture. Where should we start?",
-  "Ready to crush your engineering block? Describe the logic issue."
-];
+var MODE_PROMPTS = {
+  af_proguide: [
+    "What do you want to learn today?",
+    "Which concept are you working on?",
+    "Need help with studies, projects, or preparation?",
+    "Let's solve your academic challenge."
+  ],
+
+  dev: [
+    "What are we building today?",
+    "What code are we shipping next?",
+    "Bring the problem. Let's design the solution.",
+    "Let's map out your production architecture."
+  ],
+
+  tapri: [
+    "Bhai bol, kya scene hai?",
+    "Kya tension chal rahi hai?",
+    "Dimag mein jo hai seedha bol.",
+    "Career, life, placement ya padhai?"
+  ]
+};
 
 /* ══ HELPERS ══ */
 function $(id) { return document.getElementById(id); }
