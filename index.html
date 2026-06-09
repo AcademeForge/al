@@ -213,24 +213,47 @@
     .suggestion{text-align:left;border:1px solid var(--border);background:var(--surface);color:var(--t2);padding:13px 14px;border-radius:var(--r3);font-size:12.5px;font-weight:500;line-height:1.4;transition:all 0.2s var(--ease)}
     .suggestion:hover{border-color:var(--p-light);background:rgba(255,255,255,0.01);color:var(--t1);transform:translateY(-2px);box-shadow:var(--sh-sm)}
 
-    /* ── MESSAGES ── */
-    .messages{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-    .msg-row{display:flex;gap:12px;align-items:flex-start;animation:msgIn 0.2s var(--ease) both}
-    @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .msg-row.user{flex-direction:row-reverse}
-    .avatar{width:33px;height:33px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--inp);color:var(--t2);border:1px solid var(--border);flex:none}
-    .msg-row.user .avatar{background:var(--p-glow);color:var(--p-light);border-color:rgba(94,97,233,0.2)}
-    .msg-body{max-width:calc(100% - 45px)}
-    .bubble{padding:12px 16px;border-radius:var(--r3);border:1px solid var(--border);background:var(--surface);font-size:14px;line-height:1.65;overflow-wrap:anywhere;color:var(--t1)}
+    /* ── MESSAGES (UPDATED FOR UNIQUE LEFT/RIGHT DIALOGUES) ── */
+    .messages{max-width:680px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+    .msg-row{display:flex;gap:12px;align-items:flex-start;animation:msgIn 0.22s var(--ease) both;width:100%}
+    @keyframes msgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    
+    /* User Row Side Styling (Right Aligned) */
+    .msg-row.user{flex-direction:row-reverse;align-self:flex-end}
+    
+    /* Assistant Row Side Styling (Left Aligned) */
+    .msg-row.assistant{flex-direction:row;align-self:flex-start}
+
+    .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;transition:all 0.2s}
+    
+    /* User Avatar Specific style */
+    .msg-row.user .avatar{background:rgba(94,97,233,0.18);color:var(--p-light);border:1px solid rgba(94,97,233,0.35);box-shadow:0 2px 8px rgba(94,97,233,0.1)}
+    
+    /* AI Assistant Avatar Specific style */
+    .msg-row.assistant .avatar{background:rgba(6,182,212,0.15);color:var(--acc);border:1px solid rgba(6,182,212,0.35);box-shadow:0 2px 8px rgba(6,182,212,0.1)}
+    
+    .msg-body{max-width:calc(100% - 48px);display:flex;flex-direction:column}
+    .msg-row.user .msg-body{align-items:flex-end}
+    .msg-row.assistant .msg-body{align-items:flex-start}
+
+    .bubble{padding:12px 16px;border-radius:var(--r3);font-size:14px;line-height:1.6;overflow-wrap:anywhere}
     .bubble p+p{margin-top:8px}
-    .msg-row.user .bubble{background:var(--inp);border-color:transparent;border-top-right-radius:5px}
-    .msg-meta{font-size:10.5px;color:var(--t3);margin-top:5px;padding-left:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .msg-row.user .msg-meta{justify-content:flex-end;padding-right:2px;padding-left:0}
+    
+    /* User Bubble Specific Design */
+    .msg-row.user .bubble{background:var(--p);border:1px solid rgba(255,255,255,0.06);border-top-right-radius:4px;color:#ffffff;box-shadow:0 4px 14px rgba(94,97,233,0.15)}
+    
+    /* AI Assistant Bubble Specific Design */
+    .msg-row.assistant .bubble{background:var(--card);border:1px solid var(--border);border-top-left-radius:4px;color:var(--t1);box-shadow:var(--sh-sm)}
+
+    .msg-meta{font-size:10.5px;color:var(--t3);margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .msg-row.user .msg-meta{justify-content:flex-end;padding-right:2px}
+    .msg-row.assistant .msg-meta{justify-content:flex-start;padding-left:2px}
+    
     .copy-msg-btn{font-size:10.5px;font-weight:600;color:var(--t3);background:none;border:none;cursor:pointer;padding:2px 6px;border-radius:4px;transition:all 0.15s;display:inline-flex;align-items:center;gap:3px}
     .copy-msg-btn:hover{color:var(--p-light);background:var(--p-glow)}
 
     /* ── CODE BLOCKS ── */
-    .code-wrap{background:#0b0b0f;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:10px 0}
+    .code-wrap{background:#0b0b0f;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:12px 0;width:100%;max-width:100%}
     .code-head{display:flex;justify-content:space-between;align-items:center;padding:7px 13px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border);font-size:11px;color:var(--t2)}
     .code-lang{font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
     .code-copy-btn{font-size:11px;font-weight:600;color:var(--p-light);cursor:pointer;background:none;border:none;font-family:var(--fb);padding:2px 6px;border-radius:4px;transition:all 0.15s}
@@ -300,8 +323,8 @@
       .suggestion{font-size:11.5px;padding:10px 12px;border-radius:12px}
       .chat-scroll{padding:14px 12px 180px}
       .bubble{font-size:13.5px;padding:10px 13px}
-      .avatar{width:28px;height:28px;font-size:10px}
-      .msg-body{max-width:calc(100% - 40px)}
+      .avatar{width:30px;height:30px;font-size:10px}
+      .msg-body{max-width:calc(100% - 42px)}
       .composer-wrap{padding:10px 10px 14px}
       .composer{border-radius:14px}
     }
@@ -318,7 +341,6 @@
 </head>
 <body>
 
-<!-- AUTH PANEL -->
 <div id="panelAuth" aria-label="Authentication">
   <span class="auth-orb auth-orb-1" aria-hidden="true"></span>
   <span class="auth-orb auth-orb-2" aria-hidden="true"></span>
@@ -389,11 +411,9 @@
   </div>
 </div>
 
-<!-- AI WORKSPACE -->
 <div id="panelAI" class="ai-shell hidden" aria-label="AI Workspace">
   <div class="ai-overlay" id="aiOverlay" onclick="closeSidebar()" aria-hidden="true"></div>
 
-  <!-- SIDEBAR -->
   <aside class="ai-sidebar" id="aiSidebar" aria-label="Navigation">
     <div class="sb-head">
       <div class="sb-brand">
@@ -432,10 +452,8 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="ai-main">
 
-    <!-- Desktop Header -->
     <header class="ai-header">
       <button class="hdr-menu-btn" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
       <div class="hdr-brand">
@@ -452,7 +470,6 @@
       <button class="hdr-logout" onclick="doLogout()">Sign Out</button>
     </header>
 
-    <!-- Mobile Header -->
     <div class="mobile-header" id="mobileHeader">
       <div class="mhdr-row1">
         <button class="mhdr-menu" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
@@ -476,14 +493,12 @@
       </div>
     </div>
 
-    <!-- Desktop Mode Tabs -->
     <div class="mode-tabs" id="modeTabs" role="tablist" aria-label="AI Modes">
       <button class="mode-tab active" data-mode="af_proguide" role="tab" aria-selected="true" onclick="setMode('af_proguide')">🧑‍🏫 ProGuide</button>
       <button class="mode-tab" data-mode="dev" role="tab" aria-selected="false" onclick="setMode('dev')">⚡ Dev Eng</button>
       <button class="mode-tab" data-mode="tapri" role="tab" aria-selected="false" onclick="setMode('tapri')">☕ Tapri Core</button>
     </div>
 
-    <!-- Chat -->
     <div class="chat-scroll" id="chatScroll">
       <div class="welcome-block" id="welcomeBlock" aria-live="polite">
         <div class="welcome-greet" id="welcomeGreet">Hi, Student!</div>
@@ -498,7 +513,6 @@
       <div class="messages" id="messages" aria-label="Chat messages"></div>
     </div>
 
-    <!-- Composer -->
     <div class="composer-wrap">
       <div class="composer">
         <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask your academic question…" aria-label="Type your message"></textarea>
@@ -620,8 +634,10 @@ async function sendMessage(){
   var inp=$('composerInput'),text=inp.value.trim();if(!text)return;
   isLoading=true;$('welcomeBlock').classList.add('hidden');inp.value='';updateComposer();
   appendMsg('user',text,currentMode);
-  var thinking=document.createElement('div');thinking.className='msg-row';thinking.id='thinkingRow';
-  thinking.innerHTML='<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
+  var thinking = document.createElement('div');
+  thinking.className = 'msg-row assistant';
+  thinking.id = 'thinkingRow';
+  thinking.innerHTML = '<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
   $('messages').appendChild(thinking);scrollChat();
   var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
   var result;
@@ -635,7 +651,9 @@ async function sendMessage(){
 }
 
 function appendMsg(role,content,mode){
-  var row=document.createElement('div');row.className='msg-row'+(role==='user'?' user':'');
+  var row=document.createElement('div');
+  // AI ke liye assistant class append karega, user ke liye user class
+  row.className='msg-row ' + (role==='user'?'user':'assistant');
   var name=localStorage.getItem('af_student_name')||'Student';
   var initials=name.trim().split(/\s+/).slice(0,2).map(function(p){return p[0]?p[0].toUpperCase():''}).join('');
   var avatarContent=role==='user'?(initials||'S'):'AI';
@@ -685,7 +703,7 @@ function filterConvs(q){var filtered=q.trim()?allConvs.filter(function(c){return
 
 async function loadConv(id){
   currentConvId=id;$('welcomeBlock').classList.add('hidden');
-  $('messages').innerHTML='<div class="msg-row"><div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div></div>';
+  $('messages').innerHTML='<div class="msg-row assistant"><div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div></div>';
   closeSidebar();
   var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
   var data;try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'load_conversation_af_ai',conversation_id_af_ai:id,student_key_af_ai:key})});data=await resp.json().catch(function(){return{}})}catch(err){data={error_af_ai:'Network error.'}}
