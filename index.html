@@ -111,7 +111,7 @@
       padding: 36px 32px;
       position: relative;
       width: 100%;
-      min-height: 560px; /* Uniform base footprint setup */
+      min-height: 560px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -180,7 +180,6 @@
     
     .drawer-head { padding: 18px 16px; border-bottom: 1px solid var(--card-border); position: relative; }
     
-    /* Logo Integration inside Sidebar head */
     .drawer-brand-area { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
     .drawer-logo-img { width: 24px; height: 24px; object-fit: contain; border-radius: 6px; }
     .drawer-brand { font-family: var(--fd); font-size: 17px; font-weight: 700; color: var(--t1); }
@@ -205,7 +204,6 @@
     /* MAIN STREAM VIEW */
     .ai-main { flex: 1; display: flex; flex-direction: column; position: relative; height: 100%; overflow: hidden; background: var(--bg); }
     
-    /* NAVBAR SECTION WITH BALANCED ALIGNMENTS */
     .ai-header { height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: rgba(15, 15, 18, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
     .ai-menu-btn { width: 40px; height: 40px; border: 1px solid var(--card-border); background: var(--inp); border-radius: var(--r2); display: grid; place-items: center; font-size: 18px; color: var(--t1); }
     .ai-menu-btn:hover { background: rgba(255,255,255,0.06); }
@@ -214,13 +212,11 @@
     .ai-header-title { font-family: var(--fd); font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
     .nav-logo-fallback { width: 22px; height: 22px; object-fit: contain; border-radius: 5px; }
     
-    /* NOTIFICATION BLINKING BADGES */
     .header-badges { display: flex; align-items: center; gap: 8px; }
     .badge { display: flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--rf); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid transparent; }
     .badge.free { background: rgba(239, 44, 44, 0.08); color: #ffa3a3; border-color: rgba(239, 44, 44, 0.18); }
     .badge.beta { background: rgba(6, 182, 212, 0.08); color: #a5f3fc; border-color: rgba(6, 182, 212, 0.18); }
     
-    /* Global Dual Blinking Target System */
     .blink-dot { width: 6px; height: 6px; border-radius: 50%; position: relative; }
     .badge.free .blink-dot { background: var(--err); }
     .badge.free .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--err); animation: badgeBlink 1.6s infinite; }
@@ -244,7 +240,6 @@
     .chat-scroll::-webkit-scrollbar { width: 5px; }
     .chat-scroll::-webkit-scrollbar-thumb { background: var(--inp); border-radius: 99px; }
 
-    /* WATERMARK HEADER (TYPING + CUSTOM GREETINGS) */
     .welcome-block { max-width: 720px; width: 100%; margin: auto; padding: 40px 0; }
     .welcome-user-greet { font-size: 16px; font-weight: 600; color: var(--t2); margin-bottom: 4px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
     .welcome-kicker { font-size: 11px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; margin-top: 6px; }
@@ -256,10 +251,9 @@
       line-height: 1.25; 
       margin-bottom: 14px;
       color: var(--t1);
-      min-height: 50px; /* Layout displacement guard */
+      min-height: 50px;
     }
     
-    /* Smooth fading cursor layout indicator */
     .welcome-title::after {
       content: '|';
       margin-left: 4px;
@@ -274,7 +268,7 @@
     .suggestion { text-align: left; border: 1px solid var(--card-border); background: var(--surface); color: var(--t2); padding: 16px; border-radius: var(--r3); font-size: 13px; font-weight: 500; line-height: 1.4; }
     .suggestion:hover { border-color: var(--p); color: var(--t1); background: rgba(255,255,255,0.01); transform: translateY(-2px); }
 
-    /* STREAM BLOCKS setup */
+    /* STREAM BLOCKS */
     .messages { max-width: 720px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
     .msg-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 4px; }
     .msg-row.user { flex-direction: row-reverse; }
@@ -289,7 +283,13 @@
     .msg-meta { font-size: 11px; color: var(--tm); margin-top: 6px; padding-left: 2px; }
     .msg-row.user .msg-meta { text-align: right; padding-right: 2px; }
 
-    /* MULTI-TONE GLOWING LOADER FRAME */
+    /* CODE BLOCK STYLES */
+    .code-wrap { background: #0d0d10; border: 1px solid var(--card-border); border-radius: var(--r2); overflow: hidden; margin: 8px 0; }
+    .code-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--card-border); font-size: 11px; color: var(--t2); }
+    .code-copy-btn { font-size: 11px; font-weight: 600; color: var(--p); cursor: pointer; background: none; border: none; font-family: var(--fb); }
+    .code-pre { padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.6; color: #e2e8f0; font-family: 'Fira Code', 'Courier New', monospace; white-space: pre; }
+
+    /* LOADER */
     .thinking { display: flex; align-items: center; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--r3); width: 80px; justify-content: center; position: relative; overflow: hidden; }
     .thinking::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); transform: translateX(-100%); animation: flashShift 1.4s infinite; }
     @keyframes flashShift { 100% { transform: translateX(100%); } }
@@ -298,7 +298,7 @@
     .thinking-dot:nth-child(3) { animation-delay: 0.4s; background: #a855f7; }
     @keyframes pulseJump { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-6px); opacity: 1; } }
 
-    /* INTERACTIVE PULSE GLOWING COMPOSER INNER BOX */
+    /* COMPOSER */
     .composer-wrap { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 24px 20px 20px; background: linear-gradient(transparent 0%, var(--bg) 45%); }
     .composer { 
       display: flex; 
@@ -316,7 +316,6 @@
       animation: pulseBoxGlow 3.5s infinite ease-in-out;
     }
     
-    /* Adaptive continuous soft breath glow around prompt input box */
     @keyframes pulseBoxGlow {
       0%, 100% { border-color: var(--card-border); box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5); }
       50% { border-color: rgba(94, 97, 233, 0.35); box-shadow: 0 0 20px 2px rgba(94, 97, 233, 0.12); }
@@ -325,7 +324,7 @@
     .composer:focus-within { 
       border-color: var(--p) !important; 
       box-shadow: 0 0 25px 4px rgba(94, 97, 233, 0.2) !important;
-      animation: none; /* Disables ambient breathing on active interaction */
+      animation: none;
     }
     
     .composer-input { flex: 1; min-height: 40px; max-height: 120px; resize: none; border: 0; outline: 0; background: transparent; color: var(--t1); line-height: 1.5; padding: 8px 4px; font-size: 14.5px; }
@@ -333,7 +332,7 @@
     .send-btn:disabled { opacity: 0.2; cursor: not-allowed; background: var(--inp); color: var(--tm); }
     .composer-meta { display: flex; justify-content: space-between; color: var(--tm); font-size: 11px; max-width: 720px; margin: 8px auto 0; padding: 0 4px; }
 
-    /* OVERLAYS & LAYOUT RESOLUTIONS */
+    /* OVERLAYS */
     .ai-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 45; display: none; }
     .ai-overlay.open { display: block; }
 
@@ -361,7 +360,6 @@
       <div class="auth-card">
         
         <div class="auth-header-block">
-          <!-- Logo Asset Routing Integrated -->
           <img class="auth-logo-img" src="AF LOGO 2.jpeg" alt="AcademeForge" onerror="this.style.display='none';">
           <h2 class="auth-title" id="authTitle">AcademeForge AI</h2>
           <p class="auth-sub" id="authSub">Sign in with your verification key to enter your student workspace.</p>
@@ -423,7 +421,6 @@
 
         <div id="authMsg" class="msg-box"></div>
         
-        <!-- UPGRADED PROFESSIONAL SUPPORT FOOTER -->
         <div class="auth-note">
           Need assistance deploying or accessing your account? Contact our systems administration desk directly at <a href="mailto:help@academeforge.in">help@academeforge.in</a>.
         </div>
@@ -444,20 +441,20 @@
         <img class="drawer-logo-img" src="AF LOGO 2.jpeg" alt="AF Logo" onerror="this.style.display='none';">
         <div class="drawer-brand">AcademeForge AI</div>
       </div>
-      <div class="drawer-student" id="drawerStudent">Loading Workspace…</div>
+      <div class="drawer-student" id="drawerStudent">Loading Workspace&hellip;</div>
       <button class="drawer-new-btn" onclick="newChat()"><span>+</span> New Session</button>
     </div>
-    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search parameters…" oninput="filterConvs(this.value)">
+    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search parameters&hellip;" oninput="filterConvs(this.value)">
     <div class="conv-list" id="convList">
       <div class="conv-empty">No active parameters logged.</div>
     </div>
     <div class="drawer-usage">
       <div class="usage-heading">Resource Metrics</div>
-      <div class="usage-row"><span>Session Requests</span><strong id="uSessReq">—</strong></div>
+      <div class="usage-row"><span>Session Requests</span><strong id="uSessReq">&mdash;</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uSessReqBar"></div></div>
-      <div class="usage-row"><span>Session Tokens</span><strong id="uSessTok">—</strong></div>
+      <div class="usage-row"><span>Session Tokens</span><strong id="uSessTok">&mdash;</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uSessTokBar"></div></div>
-      <div class="usage-row"><span>Daily Requests</span><strong id="uDailyReq">—</strong></div>
+      <div class="usage-row"><span>Daily Requests</span><strong id="uDailyReq">&mdash;</strong></div>
       <div class="usage-bar"><div class="usage-fill" id="uDailyReqBar"></div></div>
     </div>
   </aside>
@@ -465,7 +462,7 @@
   <!-- CONTENT PANEL STREAM -->
   <div class="ai-main" id="aiMain">
     <header class="ai-header">
-      <button class="ai-menu-btn" id="aiMenuBtn" onclick="handleHamburgerClick()">☰</button>
+      <button class="ai-menu-btn" id="aiMenuBtn" onclick="handleHamburgerClick()">&#9776;</button>
       <div class="ai-header-copy">
         <div class="ai-header-title">
           <img class="nav-logo-fallback" src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';">
@@ -482,17 +479,15 @@
     </header>
 
     <div class="mode-tabs" id="modeTabs">
-      <button class="mode-tab active" data-mode="af_proguide" onclick="setMode('af_proguide')">🧑‍🏫 ProGuide</button>
-      <button class="mode-tab" data-mode="dev" onclick="setMode('dev')">⚡ Dev Eng</button>
-      <button class="mode-tab" data-mode="tapri" onclick="setMode('tapri')">☕ Tapri Core</button>
+      <button class="mode-tab active" data-mode="af_proguide" onclick="setMode('af_proguide')">&#x1F9D1;&#x200D;&#x1F3EB; ProGuide</button>
+      <button class="mode-tab" data-mode="dev" onclick="setMode('dev')">&#x26A1; Dev Eng</button>
+      <button class="mode-tab" data-mode="tapri" onclick="setMode('tapri')">&#x2615; Tapri Core</button>
     </div>
 
     <div class="chat-scroll" id="chatScroll">
       <div class="welcome-block" id="welcomeBlock">
-        <!-- Greeting Fields for User Inject Tracking -->
         <div class="welcome-user-greet" id="welcomeUserGreet">Hi, Student!</div>
         <div class="welcome-kicker" id="welcomeKicker">STUDENT MENTOR ENGINE</div>
-        <!-- Targeted Dynamic Text Loop Node -->
         <div class="welcome-title" id="welcomeTitle">What architecture are we building today?</div>
         <div class="welcome-copy" id="welcomeCopy">Query multi-agent pipelines, career roadmaps, or core code execution matrices.</div>
         <div class="suggestions" id="suggestions"></div>
@@ -502,8 +497,8 @@
 
     <div class="composer-wrap">
       <div class="composer">
-        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Compile instructions…"></textarea>
-        <button class="send-btn" id="sendBtn" disabled onclick="sendMessage()">➤</button>
+        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Compile instructions&hellip;"></textarea>
+        <button class="send-btn" id="sendBtn" disabled onclick="sendMessage()">&#x27A4;</button>
       </div>
       <div class="composer-meta">
         <span>Verify pipeline outputs before production runtime execution.</span>
@@ -519,13 +514,13 @@
 'use strict';
 
 /* ══ CONFIG DATA STRUCTURE ══ */
-const SB_URL = "https://afooyyydhlwngzssgqih.supabase.co";
-const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
-const AI_ENDPOINT = `${SB_URL}/functions/v1/academe-ai-af_ai`;
-const MAX_CHARS = 800;
+var SB_URL = "https://afooyyydhlwngzssgqih.supabase.co";
+var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
+var AI_ENDPOINT = SB_URL + "/functions/v1/academe-ai-af_ai";
+var MAX_CHARS = 800;
 
 /* ══ WELCOMING MESSAGE PATTERNS ARRAY ══ */
-const SYSTEM_PROMPTS_POOL = [
+var SYSTEM_PROMPTS_POOL = [
   "What are we building today?",
   "What code are we shipping next?",
   "Bring the problem. Let's design the solution.",
@@ -535,14 +530,18 @@ const SYSTEM_PROMPTS_POOL = [
 ];
 
 /* ══ HELPERS ══ */
-const $ = id => document.getElementById(id);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-const cleanPhone = v => String(v || '').trim().replace(/\D/g, '');
+function $(id) { return document.getElementById(id); }
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];
+  });
+}
+function cleanPhone(v) { return String(v || '').trim().replace(/\D/g, ''); }
 
 /* COLLAPSIBLE TOGGLING CONTROLLER */
 function handleHamburgerClick() {
-  const sidebar = $('aiDrawer');
-  const overlay = $('aiOverlay');
+  var sidebar = $('aiDrawer');
+  var overlay = $('aiOverlay');
   if (window.innerWidth <= 768) {
     sidebar.classList.toggle('open');
     overlay.classList.toggle('open');
@@ -551,56 +550,53 @@ function handleHamburgerClick() {
   }
 }
 
-/* TYPING ANIMATOR HOOK FOR VELOCITY LOOPS */
+/* TYPING ANIMATOR HOOK */
 function animateWelcomeText(targetText) {
-  const el = $('welcomeTitle');
-  if(!el) return;
+  var el = $('welcomeTitle');
+  if (!el) return;
   el.textContent = '';
-  let i = 0;
-  
-  // Clear any existing animation trackers on the object element
-  if(el.typeInterval) clearInterval(el.typeInterval);
-  
-  el.typeInterval = setInterval(() => {
+  var i = 0;
+  if (el.typeInterval) clearInterval(el.typeInterval);
+  el.typeInterval = setInterval(function() {
     if (i < targetText.length) {
       el.textContent += targetText.charAt(i);
       i++;
     } else {
       clearInterval(el.typeInterval);
     }
-  }, 35); // Smooth typewriter rhythm delay
+  }, 35);
 }
 
 /* ══ SYSTEM CONTROL MODE PROPERTIES ══ */
-const MODES = {
+var MODES = {
   af_proguide: {
     kicker: 'STUDENT MENTOR ENGINE',
     copy: 'Query multi-agent pipelines, career roadmaps, or core code execution matrices.',
     suggestions: ['Learn Python Frameworks', 'Build a Next.js Portfolio', 'Prepare Core Engineering Interviews', 'Structure Technical Strategy'],
-    placeholder: 'Ask AF ProGuide anything…'
+    placeholder: 'Ask AF ProGuide anything\u2026'
   },
   dev: {
     kicker: 'FOUNDER SYSTEM DIRECTIVES',
     copy: 'Direct systems compilation access. Optimize execution matrices, database schemas, and infrastructure scaling.',
     suggestions: ['Review Distributed Systems', 'Debug Multi-threaded Code', 'Draft architectural MVP', 'Refactor Core Database Indexes'],
-    placeholder: 'Ask Dev Anything…'
+    placeholder: 'Ask Dev Anything\u2026'
   },
   tapri: {
     kicker: 'BIG BROTHER PROTOCOLS',
     copy: 'Career confusion, engineering fatigue, or study stress? Open a thread to clear validation dependencies.',
     suggestions: ['Resolving Career Confusion', 'Effective Coding Roadmaps', 'Dealing with Burnout', 'Tech jobs vs placements advice'],
-    placeholder: 'Talk to Tapri Core…'
+    placeholder: 'Talk to Tapri Core\u2026'
   }
 };
 
-let currentMode = 'af_proguide';
+var currentMode = 'af_proguide';
 
 function setMode(mode) {
   if (!MODES[mode]) return;
   currentMode = mode;
-  const m = MODES[mode];
+  var m = MODES[mode];
 
-  document.querySelectorAll('.mode-tab').forEach(t => {
+  document.querySelectorAll('.mode-tab').forEach(function(t) {
     t.classList.toggle('active', t.dataset.mode === mode);
   });
 
@@ -608,13 +604,12 @@ function setMode(mode) {
   $('welcomeCopy').textContent = m.copy;
   $('composerInput').placeholder = m.placeholder;
 
-  // Render a random welcome string from pool when toggling profiles
-  const randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
+  var randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
   animateWelcomeText(randomTitle);
 
-  $('suggestions').innerHTML = m.suggestions.map(s =>
-    `<button class="suggestion" onclick="useSuggestion('${esc(s)}')">${esc(s)}</button>`
-  ).join('');
+  $('suggestions').innerHTML = m.suggestions.map(function(s) {
+    return '<button class="suggestion" onclick="useSuggestion(\'' + esc(s) + '\')">' + esc(s) + '</button>';
+  }).join('');
 }
 
 function useSuggestion(text) {
@@ -624,14 +619,14 @@ function useSuggestion(text) {
 }
 
 /* ══ AUTH MANAGEMENT ══ */
-let _pendingCreate = null, _resetStudent = null, _forgotOtpPassed = false;
+var _pendingCreate = null, _resetStudent = null, _forgotOtpPassed = false;
 
 function switchMode(mode) {
   clearMsg();
   _pendingCreate = null; _resetStudent = null; _forgotOtpPassed = false;
 
-  ['Login','Create','Forgot'].forEach(m => {
-    const box = $('box' + m);
+  ['Login','Create','Forgot'].forEach(function(m) {
+    var box = $('box' + m);
     if (box) box.classList.add('hidden');
   });
   $('createOtpArea').classList.add('hidden');
@@ -657,24 +652,24 @@ function switchMode(mode) {
 }
 
 function showMsg(type, text) {
-  const b = $('authMsg');
+  var b = $('authMsg');
   b.className = 'msg-box ' + type;
   b.textContent = text || '';
   b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 function clearMsg() {
-  const b = $('authMsg');
+  var b = $('authMsg');
   b.className = 'msg-box';
   b.textContent = '';
 }
 
 /* ══ SUPABASE INFRASTRUCTURE LAYER ══ */
-let _sb = null;
+var _sb = null;
 async function getSb() {
   if (_sb) return _sb;
   if (typeof supabase === 'undefined') {
-    await new Promise((res, rej) => {
-      const s = document.createElement('script');
+    await new Promise(function(res, rej) {
+      var s = document.createElement('script');
       s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
       s.onload = res; s.onerror = rej;
       document.head.appendChild(s);
@@ -687,8 +682,10 @@ async function getSb() {
 async function edgeCall(fn, payload) {
   try {
     if (!navigator.onLine) return { ok: false, message: 'Terminal disconnected. Check physical networking interfaces.' };
-    const sb = await getSb();
-    const { data, error } = await sb.functions.invoke(fn, { body: payload || {} });
+    var sb = await getSb();
+    var result = await sb.functions.invoke(fn, { body: payload || {} });
+    var data = result.data;
+    var error = result.error;
     if (error) return { ok: false, message: error.message || 'Function endpoint returned exceptions.' };
     return data || { ok: false, message: 'Null transaction payload signature.' };
   } catch (e) {
@@ -698,25 +695,25 @@ async function edgeCall(fn, payload) {
 
 /* ══ AUTH RUNTIME METHODS ══ */
 async function doLogin() {
-  const loginId = ($('loginPhone').value || '').trim();
-  const cleanId = cleanPhone(loginId);
-  const password = ($('loginPassword').value || '').trim();
+  var loginId = ($('loginPhone').value || '').trim();
+  var cleanId = cleanPhone(loginId);
+  var password = ($('loginPassword').value || '').trim();
 
   if (!loginId) { showMsg('err', 'Verification mismatch. Identity key required.'); return; }
   if (!password) { showMsg('err', 'Identity validation parameters missing.'); return; }
 
-  showMsg('info', 'Compiling profile verification nodes…');
-  const res = await edgeCall('student-login-af', {
+  showMsg('info', 'Compiling profile verification nodes\u2026');
+  var res = await edgeCall('student-login-af', {
     login_id: loginId,
     clean_login_id: cleanId,
-    password,
+    password: password,
     device_id: getDeviceId(),
     device_name: getDeviceName()
   });
 
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Authentication mismatch. Confirm active database hashes.'); return; }
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Authentication mismatch. Confirm active database hashes.'); return; }
   if (!res.student)    { showMsg('err', 'Telemetry load failed. Profile configuration node unreadable.'); return; }
-  const token = res.session_token || res.login_token || '';
+  var token = res.session_token || res.login_token || '';
   if (!token)          { showMsg('err', 'Authorization initialization rejected. Missing signature token.'); return; }
 
   saveSession(res.student, token, res.device_id || getDeviceId());
@@ -724,40 +721,41 @@ async function doLogin() {
 }
 
 async function sendCreateOtp() {
-  const name     = ($('createName').value || '').trim();
-  const mobile   = cleanPhone($('createPhone').value || '');
-  const email    = ($('createEmail').value || '').trim().toLowerCase();
-  const password = ($('createPassword').value || '').trim();
+  var name     = ($('createName').value || '').trim();
+  var mobile   = cleanPhone($('createPhone').value || '');
+  var email    = ($('createEmail').value || '').trim().toLowerCase();
+  var password = ($('createPassword').value || '').trim();
 
   if (!name || name.length < 3) { showMsg('err', 'String structure invalid. Provide absolute system name.'); return; }
   if (!mobile || mobile.length < 10) { showMsg('err', 'Identity tracking validation require full length phone signature.'); return; }
   if (!email || !email.includes('@')) { showMsg('err', 'Routing network failure. Invalid standard formatting pattern.'); return; }
   if (!password || password.length < 4) { showMsg('err', 'Security arrays require minimum configuration size >= 4.'); return; }
 
-  showMsg('info', 'Scanning data blocks for duplicate entries…');
-  const check = await edgeCall('student-check-existing-af', { mobile, email });
-  if (!check || !check.ok) { showMsg('err', check?.message || 'Data stream scanning exception encountered.'); return; }
+  showMsg('info', 'Scanning data blocks for duplicate entries\u2026');
+  var check = await edgeCall('student-check-existing-af', { mobile: mobile, email: email });
+  if (!check || !check.ok) { showMsg('err', (check && check.message) || 'Data stream scanning exception encountered.'); return; }
   if (check.mobile_exists || check.student_id_exists) { showMsg('err', 'Identity already maps to existing system node.'); return; }
   if (check.email_exists)  { showMsg('err', 'Communication node routing map matches duplicate entity records.'); return; }
 
-  _pendingCreate = { student_id: mobile, name, mobile, email, password, status: 'active', email_verified: false };
+  _pendingCreate = { student_id: mobile, name: name, mobile: mobile, email: email, password: password, status: 'active', email_verified: false };
 
-  showMsg('info', 'Dispatching secure verification string to communication hub…');
-  const otpRes = await edgeCall('student-send-otp-af', { email, mobile, purpose: 'create' });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'Dispatch sequence failed: ' + (otpRes?.message || 'Gateway offline.')); return; }
+  showMsg('info', 'Dispatching secure verification string to communication hub\u2026');
+  var otpRes = await edgeCall('student-send-otp-af', { email: email, mobile: mobile, purpose: 'create' });
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'Dispatch sequence failed: ' + ((otpRes && otpRes.message) || 'Gateway offline.')); return; }
 
   $('createOtpArea').classList.remove('hidden');
   showMsg('ok', 'Telemetry string dispatched successfully. Verify target inbox.');
 }
 
 async function verifyCreateOtp() {
-  const otp = ($('createOtp').value || '').trim();
+  var otp = ($('createOtp').value || '').trim();
   if (!_pendingCreate) { showMsg('err', 'Execution loop empty. Compile profile block data arrays first.'); return; }
   if (!otp || otp.length < 4) { showMsg('err', 'Verification code matching parameters are incomplete.'); return; }
 
-  showMsg('info', 'Validating verification parameter keys & writing blocks…');
-  const res = await edgeCall('student-create-af', Object.assign({}, _pendingCreate, { otp, purpose: 'create' }));
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Account database instantiation script failed.'); return; }
+  showMsg('info', 'Validating verification parameter keys & writing blocks\u2026');
+  var payload = Object.assign({}, _pendingCreate, { otp: otp, purpose: 'create' });
+  var res = await edgeCall('student-create-af', payload);
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Account database instantiation script failed.'); return; }
   if (!res.student)    { showMsg('err', 'Workspace initialized but failed to extract data configuration nodes.'); return; }
 
   _pendingCreate = null;
@@ -765,34 +763,34 @@ async function verifyCreateOtp() {
   $('createOtp').value = '';
 
   saveSession(res.student, res.session_token || res.login_token || '', getDeviceId());
-  showToast('Student Workspace Instantiated! Welcome 🎉', 'ok');
+  showToast('Student Workspace Instantiated! Welcome \uD83C\uDF89', 'ok');
   openWorkspace(res.student);
 }
 
 async function findStudentForReset() {
-  const value = ($('forgotLogin').value || '').trim();
-  const clean = cleanPhone(value);
+  var value = ($('forgotLogin').value || '').trim();
+  var clean = cleanPhone(value);
   if (!value) { showMsg('err', 'Provide search tracking keys to scan database clusters.'); return; }
 
-  showMsg('info', 'Mapping account references…');
-  const res = await edgeCall('student-find-reset-af', {
-    value,
+  showMsg('info', 'Mapping account references\u2026');
+  var res = await edgeCall('student-find-reset-af', {
+    value: value,
     clean_value: clean,
     email_value: value.toLowerCase()
   });
-  if (!res || !res.ok)       { showMsg('err', res?.message || 'No registered structure matches the criteria search key.'); return; }
-  if (!res.student?.email)   { showMsg('err', 'Cluster reference found but matching email routing maps are empty.'); return; }
+  if (!res || !res.ok)       { showMsg('err', (res && res.message) || 'No registered structure matches the criteria search key.'); return; }
+  if (!res.student || !res.student.email) { showMsg('err', 'Cluster reference found but matching email routing maps are empty.'); return; }
 
   _resetStudent = res.student;
   _forgotOtpPassed = false;
 
-  showMsg('info', 'Dispatching authorization reset validation tokens…');
-  const otpRes = await edgeCall('student-send-otp-af', {
+  showMsg('info', 'Dispatching authorization reset validation tokens\u2026');
+  var otpRes = await edgeCall('student-send-otp-af', {
     email: _resetStudent.email,
     mobile: _resetStudent.mobile || '',
     purpose: 'reset'
   });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'Token dispatch sequence threw system alerts: ' + (otpRes?.message || 'Internal exception.')); return; }
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'Token dispatch sequence threw system alerts: ' + ((otpRes && otpRes.message) || 'Internal exception.')); return; }
 
   $('forgotOtpArea').classList.remove('hidden');
   $('resetPasswordArea').classList.add('hidden');
@@ -800,17 +798,17 @@ async function findStudentForReset() {
 }
 
 async function verifyForgotOtp() {
-  const otp = ($('forgotOtp').value || '').trim();
+  var otp = ($('forgotOtp').value || '').trim();
   if (!_resetStudent)        { showMsg('err', 'Missing entity context. Scan structural identity registries first.'); return; }
   if (!otp || otp.length < 4){ showMsg('err', 'Parameter verification keys require complete characters layout.'); return; }
 
   showMsg('info', 'Checking structural telemetry keys...');
-  const res = await edgeCall('student-verify-otp-af', {
+  var res = await edgeCall('student-verify-otp-af', {
     email: _resetStudent.email,
-    otp,
+    otp: otp,
     purpose: 'reset'
   });
-  if (!res || !res.ok) { showMsg('err', 'Validation fail: ' + (res?.message || 'Parameters unverified.')); return; }
+  if (!res || !res.ok) { showMsg('err', 'Validation fail: ' + ((res && res.message) || 'Parameters unverified.')); return; }
 
   _forgotOtpPassed = true;
   $('resetPasswordArea').classList.remove('hidden');
@@ -818,18 +816,18 @@ async function verifyForgotOtp() {
 }
 
 async function resetPassword() {
-  const newPwd = ($('newPassword').value || '').trim();
+  var newPwd = ($('newPassword').value || '').trim();
   if (!_resetStudent)       { showMsg('err', 'Entity missing configuration initialization contexts.'); return; }
   if (!_forgotOtpPassed)    { showMsg('err', 'Token validation layer check dependencies unresolved.'); return; }
   if (!newPwd || newPwd.length < 4) { showMsg('err', 'Security keys criteria must be >= 4 characters.'); return; }
 
-  showMsg('info', 'Updating production cryptographic database records…');
-  const res = await edgeCall('student-reset-password-af', {
+  showMsg('info', 'Updating production cryptographic database records\u2026');
+  var res = await edgeCall('student-reset-password-af', {
     id: _resetStudent.id,
     email: _resetStudent.email,
     new_password: newPwd
   });
-  if (!res || !res.ok) { showMsg('err', res?.message || 'Database commit rejected updates.'); return; }
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Database commit rejected updates.'); return; }
 
   _resetStudent = null; _forgotOtpPassed = false;
   $('forgotOtpArea').classList.add('hidden');
@@ -838,7 +836,7 @@ async function resetPassword() {
   $('newPassword').value = '';
 
   showMsg('ok', 'Database updated. Re-authenticate using the new parameter criteria.');
-  setTimeout(() => switchMode('login'), 1200);
+  setTimeout(function() { switchMode('login'); }, 1200);
 }
 
 /* ══ PERSISTENCE LAYERS ══ */
@@ -855,20 +853,26 @@ function saveSession(student, token, deviceId) {
 
 function doLogout() {
   ['af_student_logged_in','af_student_uuid','af_student_id','af_student_mobile',
-   'af_student_name','af_student_email','af_session_token','af_student_phone'].forEach(k => localStorage.removeItem(k));
+   'af_student_name','af_student_email','af_session_token','af_student_phone'].forEach(function(k) {
+    localStorage.removeItem(k);
+  });
   $('panelAI').classList.add('hidden');
   $('panelAuth').classList.remove('hidden');
   switchMode('login');
-  showToast('Terminal Session Terminated 👋', 'ok');
+  showToast('Terminal Session Terminated \uD83D\uDC4B', 'ok');
 }
 
 function getDeviceId() {
-  const k = 'af_device_id'; let id = localStorage.getItem(k);
-  if (!id) { id = 'afdev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 12); localStorage.setItem(k, id); }
+  var k = 'af_device_id';
+  var id = localStorage.getItem(k);
+  if (!id) {
+    id = 'afdev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 12);
+    localStorage.setItem(k, id);
+  }
   return id;
 }
 function getDeviceName() {
-  const ua = navigator.userAgent || '';
+  var ua = navigator.userAgent || '';
   if (/Android/i.test(ua)) return 'Android Telemetry Client';
   if (/iPhone|iPad/i.test(ua)) return 'iOS Systems Interface';
   if (/Windows/i.test(ua)) return 'NT Arch Framework OS';
@@ -879,12 +883,9 @@ function getDeviceName() {
 function openWorkspace(student) {
   $('panelAuth').classList.add('hidden');
   $('panelAI').classList.remove('hidden');
-  const name = student?.name || localStorage.getItem('af_student_name') || 'Student';
-  $('drawerStudent').textContent = name + ' · Active Terminal';
-  
-  // Dynamic Greeting injection point mapped above welcome-title block
+  var name = (student && student.name) || localStorage.getItem('af_student_name') || 'Student';
+  $('drawerStudent').textContent = name + ' \u00B7 Active Terminal';
   $('welcomeUserGreet').textContent = 'Hi, ' + name + '!';
-  
   setMode('af_proguide');
   loadUsage();
   loadConvList();
@@ -892,7 +893,7 @@ function openWorkspace(student) {
 
 /* ══ COMPOSER SYSTEMS ══ */
 function updateComposer() {
-  const inp = $('composerInput');
+  var inp = $('composerInput');
   inp.style.height = 'auto';
   inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
   $('charCount').textContent = inp.value.length + ' / ' + MAX_CHARS;
@@ -900,18 +901,18 @@ function updateComposer() {
 }
 
 $('composerInput').addEventListener('input', updateComposer);
-$('composerInput').addEventListener('keydown', e => {
+$('composerInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
 /* ══ PIPELINE STREAM CORE ══ */
-let isLoading = false;
-let currentConvId = '';
+var isLoading = false;
+var currentConvId = '';
 
 async function sendMessage() {
   if (isLoading) return;
-  const inp = $('composerInput');
-  const text = inp.value.trim();
+  var inp = $('composerInput');
+  var text = inp.value.trim();
   if (!text) return;
 
   isLoading = true;
@@ -921,18 +922,19 @@ async function sendMessage() {
 
   appendMsg('user', text, currentMode);
 
-  const thinking = document.createElement('div');
-  thinking.className = 'thinking'; thinking.id = 'thinking';
+  var thinking = document.createElement('div');
+  thinking.className = 'thinking';
+  thinking.id = 'thinking';
   thinking.innerHTML = '<div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div>';
   $('messages').appendChild(thinking);
   scrollChat();
 
-  const key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
-  let result;
+  var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
+  var result;
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 60000);
-    const resp = await fetch(AI_ENDPOINT, {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function() { ctrl.abort(); }, 60000);
+    var resp = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-af-ai-student-key': key },
       body: JSON.stringify({
@@ -945,18 +947,20 @@ async function sendMessage() {
       signal: ctrl.signal
     });
     clearTimeout(timer);
-    result = await resp.json().catch(() => ({}));
-    if (!resp.ok) result = { error_af_ai: result.error_af_ai || 'Server cluster processing failure status ' + resp.status };
+    result = await resp.json().catch(function() { return {}; });
+    if (!resp.ok) result = { error_af_ai: (result && result.error_af_ai) || 'Server cluster processing failure status ' + resp.status };
   } catch (e) {
     result = { error_af_ai: e.name === 'AbortError' ? 'Execution runtime timeout threshold breached.' : 'Network cluster link disconnection.' };
   }
 
-  $('thinking')?.remove();
+  var thinkEl = $('thinking');
+  if (thinkEl) thinkEl.remove();
   isLoading = false;
 
   if (result.error_af_ai) {
     showToast(result.error_af_ai, 'err');
-    updateComposer(); return;
+    updateComposer();
+    return;
   }
 
   if (result.session_request_limit_af_ai !== undefined) applyUsage(result);
@@ -967,55 +971,73 @@ async function sendMessage() {
 }
 
 function appendMsg(role, content, mode) {
-  const row = document.createElement('div');
+  var row = document.createElement('div');
   row.className = 'msg-row' + (role === 'user' ? ' user' : '') + (role === 'user' && mode !== 'af_proguide' ? ' ' + mode : '');
-  const name = localStorage.getItem('af_student_name') || 'Student';
-  const initials = name.trim().split(/\s+/).slice(0,2).map(p => p[0].toUpperCase()).join('');
-  const avatarContent = role === 'user' ? initials : 'AI';
-  const bubbleContent = role === 'user' ? esc(content) : renderMarkdown(content);
+  var name = localStorage.getItem('af_student_name') || 'Student';
+  var initials = name.trim().split(/\s+/).slice(0,2).map(function(p) { return p[0].toUpperCase(); }).join('');
+  var avatarContent = role === 'user' ? initials : 'AI';
+  var bubbleContent = role === 'user' ? esc(content) : renderMarkdown(content);
   
-  let labelConfig = 'AcademeForge Engine';
-  if(mode === 'dev') labelConfig = 'Dev Core v1.3';
-  if(mode === 'tapri') labelConfig = 'Tapri Protocol v7.9';
+  var labelConfig = 'AcademeForge Engine';
+  if (mode === 'dev') labelConfig = 'Dev Core v1.3';
+  if (mode === 'tapri') labelConfig = 'Tapri Protocol v7.9';
 
-  const metaLabel = role === 'user' ? esc(name) : labelConfig;
+  var metaLabel = role === 'user' ? esc(name) : labelConfig;
 
-  row.innerHTML = `
-    <div class="avatar">${avatarContent}</div>
-    <div class="msg-body">
-      <div class="bubble">${bubbleContent}</div>
-      <div class="msg-meta">${metaLabel}</div>
-    </div>`;
+  row.innerHTML = '<div class="avatar">' + avatarContent + '</div>' +
+    '<div class="msg-body">' +
+      '<div class="bubble">' + bubbleContent + '</div>' +
+      '<div class="msg-meta">' + metaLabel + '</div>' +
+    '</div>';
   $('messages').appendChild(row);
   scrollChat();
 }
 
+/* FIX: renderMarkdown — replaced broken template literal regex with a safe string-based split */
 function renderMarkdown(text) {
-  return text.split(/(```[\s\S]*?
-```)/g).map(chunk => {
-    const m = chunk.match(/^```([\w+-]*)\n?([\s\S]*?)```$/);
-    if (m) {
-      const lang = m[1] || 'Code Block', code = m[2];
-      return `<div class="code-wrap"><div class="code-head"><span>${esc(lang)}</span><button class="code-copy-btn" data-code="${encodeURIComponent(code)}">Copy</button></div><pre class="code-pre">${esc(code)}</pre></div>`;
+  var parts = [];
+  var remaining = text;
+  var codeBlockRegex = /```([\w+-]*)\n?([\s\S]*?)```/g;
+  var lastIndex = 0;
+  var match;
+
+  codeBlockRegex.lastIndex = 0;
+  while ((match = codeBlockRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', content: text.slice(lastIndex, match.index) });
     }
-    return esc(chunk)
+    parts.push({ type: 'code', lang: match[1] || 'Code Block', code: match[2] });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parts.push({ type: 'text', content: text.slice(lastIndex) });
+  }
+
+  return parts.map(function(part) {
+    if (part.type === 'code') {
+      return '<div class="code-wrap"><div class="code-head"><span>' + esc(part.lang) + '</span>' +
+        '<button class="code-copy-btn" data-code="' + encodeURIComponent(part.code) + '">Copy</button></div>' +
+        '<pre class="code-pre">' + esc(part.code) + '</pre></div>';
+    }
+    return esc(part.content)
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/`([^`]+)`/g, '<code style="background:var(--inp);padding:2px 5px;border-radius:4px;font-size:12px;color:#f43f5e;">$1</code>')
       .replace(/\n/g, '<br>');
   }).join('');
 }
 
-$('messages').addEventListener('click', async e => {
-  const btn = e.target.closest('[data-code]'); if (!btn) return;
+$('messages').addEventListener('click', async function(e) {
+  var btn = e.target.closest('[data-code]');
+  if (!btn) return;
   try {
     await navigator.clipboard.writeText(decodeURIComponent(btn.dataset.code));
     btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
-  } catch(_) {}
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  } catch(err) {}
 });
 
 function scrollChat() {
-  const s = $('chatScroll');
+  var s = $('chatScroll');
   s.scrollTop = s.scrollHeight;
 }
 
@@ -1023,12 +1045,9 @@ function newChat() {
   currentConvId = '';
   $('messages').innerHTML = '';
   $('welcomeBlock').classList.remove('hidden');
-  
-  // Generate random prompt statement animation on explicit new clean thread allocation
-  const randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
+  var randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
   animateWelcomeText(randomTitle);
-
-  if(window.innerWidth <= 768) {
+  if (window.innerWidth <= 768) {
     $('aiDrawer').classList.remove('open');
     $('aiOverlay').classList.remove('open');
   }
@@ -1036,36 +1055,39 @@ function newChat() {
 }
 
 /* ══ TELEMETRY ENGINE LOGGER ══ */
-let allConvs = [];
+var allConvs = [];
 
 async function loadConvList() {
   try {
-    const key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
-    const resp = await fetch(AI_ENDPOINT, {
+    var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
+    var resp = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-af-ai-student-key': key },
       body: JSON.stringify({ action_af_ai: 'list_conversations_af_ai', student_key_af_ai: key })
     });
-    const data = await resp.json().catch(() => ({}));
+    var data = await resp.json().catch(function() { return {}; });
     if (data.error_af_ai) return;
     allConvs = Array.isArray(data.conversations_af_ai) ? data.conversations_af_ai : [];
     renderConvList(allConvs);
-  } catch(_) {}
+  } catch(err) {}
 }
 
 function renderConvList(list) {
-  const el = $('convList');
+  var el = $('convList');
   if (!list.length) { el.innerHTML = '<div class="conv-empty">No active parameters logged.</div>'; return; }
-  el.innerHTML = list.map(c => `
-    <button class="conv-row${c.conversation_id_af_ai === currentConvId ? ' active' : ''}"
-      onclick="loadConv('${esc(c.conversation_id_af_ai)}')">
-      <span class="conv-dot"></span>
-      <span class="conv-title">${esc(c.title_af_ai || 'Thread Node Cluster')}</span>
-    </button>`).join('');
+  el.innerHTML = list.map(function(c) {
+    return '<button class="conv-row' + (c.conversation_id_af_ai === currentConvId ? ' active' : '') + '"' +
+      ' onclick="loadConv(\'' + esc(c.conversation_id_af_ai) + '\')">' +
+      '<span class="conv-dot"></span>' +
+      '<span class="conv-title">' + esc(c.title_af_ai || 'Thread Node Cluster') + '</span>' +
+      '</button>';
+  }).join('');
 }
 
 function filterConvs(q) {
-  const filtered = q.trim() ? allConvs.filter(c => (c.title_af_ai || '').toLowerCase().includes(q.toLowerCase())) : allConvs;
+  var filtered = q.trim()
+    ? allConvs.filter(function(c) { return (c.title_af_ai || '').toLowerCase().includes(q.toLowerCase()); })
+    : allConvs;
   renderConvList(filtered);
 }
 
@@ -1073,83 +1095,89 @@ async function loadConv(id) {
   currentConvId = id;
   $('welcomeBlock').classList.add('hidden');
   $('messages').innerHTML = '<div class="thinking" id="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>';
-  if(window.innerWidth <= 768) {
+  if (window.innerWidth <= 768) {
     $('aiDrawer').classList.remove('open');
     $('aiOverlay').classList.remove('open');
   }
 
-  const key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
-  let data;
+  var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
+  var data;
   try {
-    const resp = await fetch(AI_ENDPOINT, {
+    var resp = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-af-ai-student-key': key },
       body: JSON.stringify({ action_af_ai: 'load_conversation_af_ai', conversation_id_af_ai: id, student_key_af_ai: key })
     });
-    data = await resp.json().catch(() => ({}));
-  } catch(_) { data = { error_af_ai: 'Network framework read block failure.' }; }
+    data = await resp.json().catch(function() { return {}; });
+  } catch(err) { data = { error_af_ai: 'Network framework read block failure.' }; }
 
-  $('thinking')?.remove();
+  var thinkEl = $('thinking');
+  if (thinkEl) thinkEl.remove();
   if (data.error_af_ai) { showToast(data.error_af_ai, 'err'); return; }
 
   $('messages').innerHTML = '';
-  (data.messages_af_ai || []).forEach(m => appendMsg(m.role_af_ai, m.content_af_ai, m.mode_af_ai || 'af_proguide'));
+  (data.messages_af_ai || []).forEach(function(m) {
+    appendMsg(m.role_af_ai, m.content_af_ai, m.mode_af_ai || 'af_proguide');
+  });
   renderConvList(allConvs);
 }
 
 async function loadUsage() {
-  const key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
+  var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
   try {
-    const resp = await fetch(AI_ENDPOINT, {
+    var resp = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-af-ai-student-key': key },
       body: JSON.stringify({ action_af_ai: 'usage_af_ai', student_key_af_ai: key })
     });
-    const data = await resp.json().catch(() => ({}));
+    var data = await resp.json().catch(function() { return {}; });
     if (!data.error_af_ai) applyUsage(data);
-  } catch(_) {}
+  } catch(err) {}
 }
 
 function applyUsage(d) {
   if (d.session_request_limit_af_ai === undefined) return;
-  const sessReqUsed  = Number(d.session_request_used_af_ai  || 0);
-  const sessReqLimit = Number(d.session_request_limit_af_ai || 10);
-  const sessReqRem   = Number(d.session_request_remaining_af_ai || 0);
-  const sessTokUsed  = Number(d.session_token_used_af_ai    || 0);
-  const sessTokLimit = Number(d.session_token_limit_af_ai   || 15000);
-  const sessTokRem   = Number(d.session_token_remaining_af_ai || 0);
-  const dailyUsed    = Number(d.daily_request_used_af_ai    || 0);
-  const dailyLimit   = Number(d.daily_request_limit_af_ai   || 20);
-  const dailyRem     = Number(d.daily_request_remaining_af_ai || 0);
+  var sessReqUsed  = Number(d.session_request_used_af_ai  || 0);
+  var sessReqLimit = Number(d.session_request_limit_af_ai || 10);
+  var sessReqRem   = Number(d.session_request_remaining_af_ai || 0);
+  var sessTokUsed  = Number(d.session_token_used_af_ai    || 0);
+  var sessTokLimit = Number(d.session_token_limit_af_ai   || 15000);
+  var sessTokRem   = Number(d.session_token_remaining_af_ai || 0);
+  var dailyUsed    = Number(d.daily_request_used_af_ai    || 0);
+  var dailyLimit   = Number(d.daily_request_limit_af_ai   || 20);
+  var dailyRem     = Number(d.daily_request_remaining_af_ai || 0);
 
   $('uSessReq').textContent  = sessReqRem + ' left / ' + sessReqLimit;
   $('uSessTok').textContent  = sessTokRem.toLocaleString() + ' left';
   $('uDailyReq').textContent = dailyRem + ' left / ' + dailyLimit;
 
-  const pct = (used, max) => max > 0 ? Math.min(100, (used / max) * 100) + '%' : '0%';
+  function pct(used, max) { return max > 0 ? Math.min(100, (used / max) * 100) + '%' : '0%'; }
   $('uSessReqBar').style.width  = pct(sessReqUsed,  sessReqLimit);
   $('uSessTokBar').style.width  = pct(sessTokUsed,  sessTokLimit);
   $('uDailyReqBar').style.width = pct(dailyUsed,    dailyLimit);
 }
 
 /* ══ TOAST NOTIFICATIONS ══ */
-let _tt = null;
-function showToast(msg, type = 'info', title = '') {
-  const w = $('toastWrap'); w.innerHTML = '';
+var _tt = null;
+function showToast(msg, type, title) {
+  type = type || 'info';
+  var w = $('toastWrap');
+  w.innerHTML = '';
   if (_tt) { clearTimeout(_tt); _tt = null; }
-  const labels = { ok: 'Done', info: 'Info', err: 'Critical Failure' };
-  const d = document.createElement('div');
+  var labels = { ok: 'Done', info: 'Info', err: 'Critical Failure' };
+  var d = document.createElement('div');
   d.className = 'toast ' + type;
-  d.innerHTML = `<div class="toast-body"><p>${esc(title || labels[type] || 'Info')}</p><p>${esc(msg)}</p></div><span class="toast-x" onclick="this.parentElement.remove()">×</span>`;
+  d.innerHTML = '<div class="toast-body"><p>' + esc(title || labels[type] || 'Info') + '</p><p>' + esc(msg) + '</p></div>' +
+    '<span class="toast-x" onclick="this.parentElement.remove()">\u00D7</span>';
   w.appendChild(d);
-  _tt = setTimeout(() => d.remove(), 2800);
+  _tt = setTimeout(function() { if (d.parentNode) d.remove(); }, 2800);
 }
 
 /* ══ MAIN DETECTOR ENGINE INIT ══ */
-document.addEventListener('DOMContentLoaded', () => {
-  const loggedIn = localStorage.getItem('af_student_logged_in') === 'true';
+document.addEventListener('DOMContentLoaded', function() {
+  var loggedIn = localStorage.getItem('af_student_logged_in') === 'true';
   if (loggedIn) {
-    const student = {
+    var student = {
       id:    localStorage.getItem('af_student_uuid'),
       name:  localStorage.getItem('af_student_name'),
       email: localStorage.getItem('af_student_email'),
