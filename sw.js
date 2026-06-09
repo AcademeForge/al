@@ -1,16 +1,12 @@
 // sw.js
-
-const CACHE_NAME = "academeforge-v2";
-
+const CACHE_NAME = "academeforge-v3";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
-  "/AF%20LOGO%201.jpeg",
-  "/AF%20LOGO%202.jpeg",
-  "/AF%20LOGO%203.png"
+  "/AF%20LOGO%202.jpeg"
 ];
 
-// INSTALL
+// ── INSTALL ────────────────────────────────────────────────────────────────
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -20,78 +16,86 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// ACTIVATE
+// ── ACTIVATE ───────────────────────────────────────────────────────────────
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
       .then((keys) =>
         Promise.all(
-          keys.map((key) => {
-            if (key !== CACHE_NAME) {
-              return caches.delete(key);
-            }
-          })
+          keys
+            .filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key))
         )
       )
       .then(() => self.clients.claim())
   );
 });
 
-// FETCH
+// ── FETCH ──────────────────────────────────────────────────────────────────
 self.addEventListener("fetch", (event) => {
   const request = event.request;
+  const url = request.url;
 
-  // NEVER cache non-GET requests
+  // ── 1. NEVER intercept non-GET requests — pass straight through ──────
+  // This is the PRIMARY fix: POST/PUT/DELETE/OPTIONS must never touch the
+  // Cache API because cache.put() does not support them.
   if (request.method !== "GET") {
-    event.respondWith(fetch(request));
-    return;
+    return; // let the browser handle it natively — no event.respondWith()
   }
 
-  // NEVER cache Supabase Functions/API requests
+  // ── 2. NEVER cache Supabase or any API/auth requests ─────────────────
   if (
-    request.url.includes("/functions/v1/") ||
-    request.url.includes(".supabase.co") ||
-    request.headers.has("authorization")
+    url.includes(".supabase.co") ||
+    url.includes("/functions/v1/") ||
+    url.includes("/rest/v1/") ||
+    url.includes("/auth/v1/") ||
+    url.includes("supabase.in") ||
+    request.headers.get("authorization")
   ) {
     event.respondWith(fetch(request));
     return;
   }
 
-  // HTML Pages → Network First
+  // ── 3. NEVER cache third-party CDN requests (fonts, scripts) ─────────
+  if (
+    url.includes("fonts.googleapis.com") ||
+    url.includes("fonts.gstatic.com") ||
+    url.includes("cdn.jsdelivr.net") ||
+    url.includes("esm.sh")
+  ) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // ── 4. HTML navigation → Network First, fall back to cache ───────────
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
         .then((response) => {
           if (response && response.ok) {
             const clone = response.clone();
-
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, clone);
-            });
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
-
           return response;
         })
         .catch(() => caches.match(request))
     );
-
     return;
   }
 
-  // Static Assets → Cache First + Background Update
+  // ── 5. Static assets → Cache First, background revalidate ────────────
   event.respondWith(
     caches.match(request).then((cached) => {
       const networkFetch = fetch(request)
         .then((response) => {
-          if (response && response.ok) {
+          if (response && response.ok && response.status < 400) {
             const clone = response.clone();
-
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, clone);
-            });
+            caches
+              .open(CACHE_NAME)
+              .then((cache) => cache.put(request, clone))
+              .catch(() => {}); // silently ignore cache write errors
           }
-
           return response;
         })
         .catch(() => cached);
