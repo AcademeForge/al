@@ -626,7 +626,6 @@ var currentMode = 'af_proguide';
 
 function setMode(mode) {
   if (!MODES[mode]) return;
-
   currentMode = mode;
 
   var m = MODES[mode];
@@ -639,20 +638,27 @@ function setMode(mode) {
   $('welcomeCopy').textContent = m.copy;
   $('composerInput').placeholder = m.placeholder;
 
-  var pool = MODE_PROMPTS[mode] || [];
-  var title = pool[Math.floor(Math.random() * pool.length)];
+  // MODE SPECIFIC GREETING
+  if (mode === "tapri") {
+    $('welcomeUserGreet').textContent = "Kya haal hai bhai?";
+  } else if (mode === "dev") {
+    $('welcomeUserGreet').textContent = "Ready to build?";
+  } else {
+    $('welcomeUserGreet').textContent = "Hi, Student!";
+  }
 
-  animateWelcomeText(title);
+  var randomTitle =
+    SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
 
-  $('suggestions').innerHTML =
-    m.suggestions.map(function(s) {
-      return `
-        <button class="suggestion"
-          onclick="useSuggestion('${s.replace(/'/g, "\\'")}')">
-          ${s}
-        </button>
-      `;
-    }).join('');
+  animateWelcomeText(randomTitle);
+
+  $('suggestions').innerHTML = m.suggestions.map(function(s) {
+    return '<button class="suggestion" onclick="useSuggestion(\'' +
+      esc(s) +
+      '\')">' +
+      esc(s) +
+      '</button>';
+  }).join('');
 }
 function useSuggestion(text) {
   $('composerInput').value = text;
