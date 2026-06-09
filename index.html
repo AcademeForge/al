@@ -302,14 +302,37 @@
     .toast-close:hover{color:var(--t1)}
 
     /* ── CONFIRM MODAL ── */
-    .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}
-    .confirm-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:24px;max-width:340px;width:100%;box-shadow:var(--sh-lg)}
-    .confirm-title{font-family:var(--fd);font-size:16px;font-weight:700;margin-bottom:8px}
-    .confirm-text{font-size:13px;color:var(--t2);line-height:1.55;margin-bottom:20px}
+    .confirm-overlay,.top-modal-overlay{position:fixed;inset:0;background:rgba(1,2,6,.78);z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:modalFade .18s ease}
+    .confirm-box,.top-modal{background:linear-gradient(160deg,rgba(28,29,38,.98),rgba(13,14,20,.98));border:1px solid rgba(255,255,255,.11);border-radius:22px;padding:24px;max-width:390px;width:100%;box-shadow:0 30px 100px rgba(0,0,0,.72),inset 0 1px rgba(255,255,255,.06);animation:modalRise .25s var(--ease)}
+    @keyframes modalFade{from{opacity:0}to{opacity:1}}
+    @keyframes modalRise{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+    .confirm-icon,.top-modal-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;margin-bottom:16px;background:rgba(239,68,68,.11);border:1px solid rgba(239,68,68,.22);color:#fca5a5;font-size:22px;font-weight:700}
+    .confirm-title,.top-modal-title{font-family:var(--fd);font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
+    .confirm-text,.top-modal-text{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:20px}
     .confirm-btns{display:flex;gap:8px}
     .confirm-btn{flex:1;height:40px;border-radius:var(--r2);font-size:13px;font-weight:600}
     .confirm-btn.cancel{background:var(--inp);color:var(--t1);border:1px solid var(--border)}
     .confirm-btn.danger{background:var(--err);color:#fff}
+    .confirm-btn.primary{background:linear-gradient(135deg,var(--p),#7477ff);color:#fff;box-shadow:0 8px 24px var(--p-glow-str)}
+    .top-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .top-modal-close{width:34px;height:34px;border-radius:10px;background:var(--inp);border:1px solid var(--border);font-size:20px;color:var(--t2);flex:none}
+    .top-modal-close:hover{color:var(--t1);background:rgba(255,255,255,.08)}
+    .modal-profile{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:14px;margin:8px 0 16px}
+    .modal-avatar{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--p),var(--acc));color:#fff;font-weight:800}
+    .modal-profile-name{font-weight:700;font-size:14px}.modal-profile-sub{font-size:11.5px;color:var(--t2);margin-top:3px;word-break:break-all}
+    .modal-data-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .modal-data-card{padding:12px;border:1px solid var(--border);background:rgba(255,255,255,.025);border-radius:13px}
+    .modal-data-card span{display:block;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+    .modal-data-card strong{font-size:13px;font-weight:700}
+    .modal-usage-row{margin-top:14px}.modal-usage-copy{display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:7px}
+    .modal-usage-copy strong{color:var(--t1)}
+    .modal-usage-track{height:7px;background:rgba(255,255,255,.055);border-radius:99px;overflow:hidden}
+    .modal-usage-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--acc));border-radius:99px;transition:width .4s var(--ease)}
+    .modal-footnote{font-size:11px;color:var(--t3);line-height:1.55;margin-top:16px}
+    .sb-student{cursor:pointer;border:0;background:none;text-align:left;width:100%}.sb-student:hover{color:var(--p-light)}
+    .usage-heading{display:flex;align-items:center;justify-content:space-between}
+    .usage-detail-btn{font-size:10px;color:var(--p-light);padding:3px 6px;border-radius:6px}
+    .usage-detail-btn:hover{background:var(--p-glow)}
 
     /* ── RESPONSIVE MOBILE ── */
     @media(max-width:768px){
@@ -429,7 +452,7 @@
         </div>
         <span class="sb-brand-name">AcademeForge AI</span>
       </div>
-      <div class="sb-student" id="sbStudent">Loading workspace…</div>
+      <button class="sb-student" id="sbStudent" onclick="openAccountModal()">Loading workspace...</button>
       <button class="sb-new-btn" onclick="newChat()">
         <span class="sb-new-icon">+</span>New Session
       </button>
@@ -442,7 +465,7 @@
       <div class="conv-empty">No sessions yet.</div>
     </div>
     <div class="sb-usage" aria-label="Usage statistics">
-      <div class="usage-heading">Resource Usage</div>
+      <div class="usage-heading"><span>Resource Usage</span><button class="usage-detail-btn" onclick="openUsageModal()">Details</button></div>
       <div class="usage-item">
         <div class="usage-row"><span>Session Requests</span><strong id="uSessReq">—</strong></div>
         <div class="usage-bar"><div class="usage-fill" id="uSessReqBar"></div></div>
@@ -541,7 +564,8 @@
 <div class="toast-wrap" id="toastWrap" aria-live="assertive"></div>
 
 <div class="confirm-overlay hidden" id="confirmOverlay">
-  <div class="confirm-box">
+  <div class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-icon">!</div>
     <div class="confirm-title" id="confirmTitle">Are you sure?</div>
     <div class="confirm-text" id="confirmText">This action cannot be undone.</div>
     <div class="confirm-btns">
@@ -549,6 +573,44 @@
       <button class="confirm-btn danger" id="confirmOkBtn">Delete</button>
     </div>
   </div>
+</div>
+
+<div class="top-modal-overlay hidden" id="accountModal" onclick="closeModalOnBackdrop(event,'accountModal')">
+  <section class="top-modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <div class="top-modal-head">
+      <div><div class="top-modal-icon">AF</div><h2 class="top-modal-title" id="accountModalTitle">Student account</h2></div>
+      <button class="top-modal-close" onclick="closeTopModal('accountModal')" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-profile">
+      <div class="modal-avatar" id="accountAvatar">S</div>
+      <div><div class="modal-profile-name" id="accountName">Student</div><div class="modal-profile-sub" id="accountEmail">AcademeForge student</div></div>
+    </div>
+    <div class="modal-data-grid">
+      <div class="modal-data-card"><span>Student ID</span><strong id="accountStudentId">-</strong></div>
+      <div class="modal-data-card"><span>Mobile</span><strong id="accountMobile">-</strong></div>
+      <div class="modal-data-card"><span>AI mode</span><strong id="accountMode">ProGuide</strong></div>
+      <div class="modal-data-card"><span>Status</span><strong style="color:var(--ok)">Active</strong></div>
+    </div>
+    <div class="confirm-btns" style="margin-top:18px">
+      <button class="confirm-btn cancel" onclick="closeTopModal('accountModal')">Close</button>
+      <button class="confirm-btn danger" onclick="confirmLogout()">Sign out</button>
+    </div>
+  </section>
+</div>
+
+<div class="top-modal-overlay hidden" id="usageModal" onclick="closeModalOnBackdrop(event,'usageModal')">
+  <section class="top-modal" role="dialog" aria-modal="true" aria-labelledby="usageModalTitle">
+    <div class="top-modal-head">
+      <div><div class="top-modal-icon" style="background:var(--p-glow);border-color:rgba(94,97,233,.25);color:var(--p-light)">AI</div><h2 class="top-modal-title" id="usageModalTitle">AI usage</h2></div>
+      <button class="top-modal-close" onclick="closeTopModal('usageModal')" aria-label="Close">&times;</button>
+    </div>
+    <p class="top-modal-text">Live request and token availability from AcademeForge AI.</p>
+    <div class="modal-usage-row"><div class="modal-usage-copy"><span>Session requests</span><strong id="modalSessReq">-</strong></div><div class="modal-usage-track"><div class="modal-usage-fill" id="modalSessReqBar"></div></div></div>
+    <div class="modal-usage-row"><div class="modal-usage-copy"><span>Session tokens</span><strong id="modalSessTok">-</strong></div><div class="modal-usage-track"><div class="modal-usage-fill" id="modalSessTokBar"></div></div></div>
+    <div class="modal-usage-row"><div class="modal-usage-copy"><span>Daily requests</span><strong id="modalDailyReq">-</strong></div><div class="modal-usage-track"><div class="modal-usage-fill" id="modalDailyReqBar"></div></div></div>
+    <div class="modal-footnote" id="modalUsageNote">Usage refreshes whenever you send a message.</div>
+    <div class="confirm-btns" style="margin-top:18px"><button class="confirm-btn primary" onclick="refreshUsageModal()">Refresh usage</button></div>
+  </section>
 </div>
 
 <script>
@@ -564,11 +626,13 @@ var MODES={
   tapri:{kickerText:"BIG BRO MODE — REAL TALK",kickerClass:"kicker-tapri",cursorClass:"cursor-tapri",metaLabel:"Tapri Core",greetFn:function(){return"Kya haal hai bhai? ☕"},copy:"No formal advice. No corporate talk. Just real, honest conversations about career stress, placement anxiety, life confusion, and finding your way.",titlePool:["Bata, kya chal raha hai?","Bol bhai, kya hua?","Kya soch raha hai aajkal?","Tension mat le, baat kar.","Yaar, sab theek hoga — bata toh.","Aaj kya dil mein hai?"],placeholder:"Bol bhai — career, placement, life, kuch bhi…",suggestions:["Career path hi decide nahi ho raha","Padhai mein mann nahi lag raha","Mujhe motivate kar bhai","Life mein direction chahiye"]}
 };
 
-var currentMode='af_proguide',isLoading=false,currentConvId='',_typeTimer=null,allConvs=[];
+var currentMode='af_proguide',isLoading=false,currentConvId='',_typeTimer=null,allConvs=[],latestUsage=null,usageLimited=false;
 
 function $(id){return document.getElementById(id)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
 function cleanPhone(v){return String(v||'').trim().replace(/\D/g,'')}
+function toApiMode(mode){return mode==='dev'?'dev_af_ai':mode==='tapri'?'tapri_af_ai':'af_proguide_af_ai'}
+function fromApiMode(mode){return mode==='dev_af_ai'?'dev':mode==='tapri_af_ai'?'tapri':'af_proguide'}
 function getDeviceId(){var k='af_device_id',id=localStorage.getItem(k);if(!id){id='afdev_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,12);localStorage.setItem(k,id)}return id}
 function getDeviceName(){var ua=navigator.userAgent||'';if(/Android/i.test(ua))return'Android';if(/iPhone|iPad/i.test(ua))return'iOS';if(/Windows/i.test(ua))return'Windows';if(/Mac/i.test(ua))return'Mac';return'Browser'}
 
@@ -613,6 +677,20 @@ var _sb=null;
 async function getSb(){if(_sb)return _sb;if(typeof supabase==='undefined'){await new Promise(function(res,rej){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}_sb=supabase.createClient(SB_URL,SB_KEY);return _sb}
 async function edgeCall(fn,payload){try{if(!navigator.onLine)return{ok:false,message:'No internet connection.'};var sb=await getSb();var result=await sb.functions.invoke(fn,{body:payload||{}});if(result.error)return{ok:false,message:result.error.message||'Function error.'};return result.data||{ok:false,message:'Empty response.'}}catch(e){return{ok:false,message:e.message||'System error.'}}}
 
+async function aiCall(payload){
+  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
+  if(!key)return{error_af_ai:'Your session is missing. Please sign in again.',status_af_ai:401};
+  var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},60000);
+  try{
+    var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify(Object.assign({},payload,{student_key_af_ai:key})),signal:ctrl.signal});
+    var data=await resp.json().catch(function(){return{}});
+    if(!resp.ok)return Object.assign({error_af_ai:data.error_af_ai||('Server error '+resp.status),status_af_ai:resp.status},data);
+    return data;
+  }catch(e){
+    return{error_af_ai:e.name==='AbortError'?'Request timed out. Please try again.':'Network error. Check your connection.'};
+  }finally{clearTimeout(timer)}
+}
+
 async function doLogin(){var loginId=($('loginPhone').value||'').trim(),cleanId=cleanPhone(loginId),password=($('loginPassword').value||'').trim();if(!loginId){showMsg('err','Please enter your Student ID or phone number.');return}if(!password){showMsg('err','Please enter your password.');return}showMsg('info','Verifying credentials…');var res=await edgeCall('student-login-af',{login_id:loginId,clean_login_id:cleanId,password:password,device_id:getDeviceId(),device_name:getDeviceName()});if(!res||!res.ok){showMsg('err',(res&&res.message)||'Login failed. Please check your credentials.');return}if(!res.student){showMsg('err','Profile load failed. Please try again.');return}var token=res.session_token||res.login_token||'';if(!token){showMsg('err','Authorization token missing. Please contact support.');return}saveSession(res.student,token,res.device_id||getDeviceId());openWorkspace(res.student)}
 
 async function sendCreateOtp(){var name=($('createName').value||'').trim(),mobile=cleanPhone($('createPhone').value||''),email=($('createEmail').value||'').trim().toLowerCase(),password=($('createPassword').value||'').trim();if(!name||name.length<3){showMsg('err','Please enter your full name (min 3 characters).');return}if(!mobile||mobile.length<10){showMsg('err','Please enter a valid 10-digit mobile number.');return}if(!email||!email.includes('@')){showMsg('err','Please enter a valid email address.');return}if(!password||password.length<4){showMsg('err','Password must be at least 4 characters.');return}showMsg('info','Checking availability…');var check=await edgeCall('student-check-existing-af',{mobile:mobile,email:email});if(!check||!check.ok){showMsg('err',(check&&check.message)||'Check failed. Please try again.');return}if(check.mobile_exists||check.student_id_exists){showMsg('err','This mobile number is already registered. Please log in.');return}if(check.email_exists){showMsg('err','This email is already registered. Please log in.');return}_pendingCreate={student_id:mobile,name:name,mobile:mobile,email:email,password:password,status:'active',email_verified:false};showMsg('info','Sending OTP to your email…');var otpRes=await edgeCall('student-send-otp-af',{email:email,mobile:mobile,purpose:'create'});if(!otpRes||!otpRes.ok){showMsg('err','OTP delivery failed: '+((otpRes&&otpRes.message)||'Gateway error.'));return}$('createOtpArea').classList.remove('hidden');showMsg('ok','OTP sent! Check your inbox and enter it below.')}
@@ -627,23 +705,28 @@ async function resetPassword(){var newPwd=($('newPassword').value||'').trim();if
 
 function saveSession(student,token,deviceId){localStorage.setItem('af_student_logged_in','true');localStorage.setItem('af_session_token',token||'');localStorage.setItem('af_device_id',deviceId||getDeviceId());localStorage.setItem('af_student_uuid',student.id||'');localStorage.setItem('af_student_id',student.student_id||student.mobile||student.phone||'');localStorage.setItem('af_student_mobile',student.mobile||student.phone||'');localStorage.setItem('af_student_name',student.name||'Student');localStorage.setItem('af_student_email',student.email||'')}
 
-function doLogout(){['af_student_logged_in','af_student_uuid','af_student_id','af_student_mobile','af_student_name','af_student_email','af_session_token','af_student_phone'].forEach(function(k){localStorage.removeItem(k)});$('panelAI').classList.add('hidden');$('panelAuth').classList.remove('hidden');switchMode('login');showToast('Signed out successfully 👋','ok','See you soon')}
+function doLogout(){closeTopModal('accountModal');['af_student_logged_in','af_student_uuid','af_student_id','af_student_mobile','af_student_name','af_student_email','af_session_token','af_student_phone'].forEach(function(k){localStorage.removeItem(k)});$('panelAI').classList.add('hidden');$('panelAuth').classList.remove('hidden');switchMode('login');showToast('Signed out successfully.','ok','See you soon')}
+function confirmLogout(){closeTopModal('accountModal');showConfirm('Sign out','You will need to enter your credentials again to return to this workspace.','Sign out',doLogout)}
 
 function openWorkspace(student){
   $('panelAuth').classList.add('hidden');$('panelAI').classList.remove('hidden');
   var name=(student&&student.name)||localStorage.getItem('af_student_name')||'Student';
-  $('sbStudent').textContent='AcademeForge · Active Terminal';
+  $('sbStudent').textContent=name+' · View account';
   if($('mhdrSub'))$('mhdrSub').textContent=name+' · Active';
   setMode('af_proguide');loadUsage();loadConvList();
 }
 
-function updateComposer(){var inp=$('composerInput');inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';$('charCount').textContent=inp.value.length+' / '+MAX_CHARS;$('sendBtn').disabled=isLoading||!inp.value.trim()}
+function updateComposer(){var inp=$('composerInput');inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,120)+'px';$('charCount').textContent=inp.value.length+' / '+MAX_CHARS;inp.disabled=usageLimited;$('sendBtn').disabled=isLoading||usageLimited||!inp.value.trim()}
 $('composerInput').addEventListener('input',updateComposer);
 $('composerInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
 
 async function sendMessage(){
   if(isLoading)return;
   var inp=$('composerInput'),text=inp.value.trim();if(!text)return;
+  var usageCheck=await aiCall({action_af_ai:'usage_af_ai'});
+  if(usageCheck.error_af_ai){showToast(usageCheck.error_af_ai,'err','Usage check failed');return}
+  applyUsage(usageCheck);
+  if(usageLimited){showToast('Your current AI limit has been reached. Open Usage Details for reset information.','err','Limit reached');return}
   isLoading=true;$('welcomeBlock').classList.add('hidden');inp.value='';updateComposer();
   appendMsg('user',text,currentMode);
   
@@ -653,14 +736,12 @@ async function sendMessage(){
   thinking.innerHTML='<div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
   $('messages').appendChild(thinking);scrollChat();
   
-  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  var result;
-  try{var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},60000);var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'ask_af_ai',question_af_ai:text,mode_af_ai:currentMode,conversation_id_af_ai:currentConvId||undefined,student_key_af_ai:key}),signal:ctrl.signal});clearTimeout(timer);result=await resp.json().catch(function(){return{}});if(!resp.ok)result={error_af_ai:(result&&result.error_af_ai)||'Server error '+resp.status}}catch(e){result={error_af_ai:e.name==='AbortError'?'Request timed out. Please try again.':'Network error. Check your connection.'}}
+  var result=await aiCall({action_af_ai:'ask_af_ai',question_af_ai:text,mode_af_ai:toApiMode(currentMode),conversation_id_af_ai:currentConvId||undefined});
   var thinkEl=$('thinkingRow');if(thinkEl)thinkEl.remove();isLoading=false;
-  if(result.error_af_ai){showToast(result.error_af_ai,'err','Error');updateComposer();return}
   if(result.session_request_limit_af_ai!==undefined)applyUsage(result);
+  if(result.error_af_ai){showToast(result.error_af_ai,'err',result.limit_reached_af_ai?'Limit reached':'AI error');updateComposer();return}
   currentConvId=result.conversation_id_af_ai||currentConvId;
-  appendMsg('assistant',result.answer_af_ai||'No response received.',result.mode_af_ai||currentMode);
+  appendMsg('assistant',result.answer_af_ai||'No response received.',fromApiMode(result.mode_af_ai||toApiMode(currentMode)));
   updateComposer();loadConvList();
 }
 
@@ -679,8 +760,7 @@ function appendMsg(role,content,mode){
 }
 
 function renderMarkdown(text){
-  var parts=[],codeRegex=/```([\w+-]*)\n?([\s\S]*?)
-```/g,lastIndex=0,match;
+  var parts=[],codeRegex=/```([\w+-]*)\n?([\s\S]*?)```/g,lastIndex=0,match;
   codeRegex.lastIndex=0;
   while((match=codeRegex.exec(text))!==null){if(match.index>lastIndex)parts.push({type:'text',content:text.slice(lastIndex,match.index)});parts.push({type:'code',lang:match[1]||'code',code:match[2]});lastIndex=match.index+match[0].length}
   if(lastIndex<text.length)parts.push({type:'text',content:text.slice(lastIndex)});
@@ -714,7 +794,10 @@ function scrollChat(){var s=$('chatScroll');requestAnimationFrame(function(){s.s
 function newChat(){currentConvId='';$('messages').innerHTML='';$('welcomeBlock').classList.remove('hidden');var pool=MODES[currentMode].titlePool;animateTitle(pool[Math.floor(Math.random()*pool.length)]);closeSidebar();$('composerInput').focus()}
 
 async function loadConvList(){
-  try{var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'list_conversations_af_ai',student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(data.error_af_ai)return;allConvs=Array.isArray(data.conversations_af_ai)?data.conversations_af_ai:[];renderConvList(allConvs)}catch(err){}
+  var data=await aiCall({action_af_ai:'list_conversations_af_ai'});
+  if(data.error_af_ai){showToast(data.error_af_ai,'err','History unavailable');return}
+  allConvs=Array.isArray(data.conversations_af_ai)?data.conversations_af_ai:[];
+  renderConvList(allConvs);
 }
 
 function renderConvList(list){
@@ -722,7 +805,7 @@ function renderConvList(list){
   if(!list.length){el.innerHTML='<div class="conv-empty">No sessions yet.<br>Start a new conversation!</div>';return}
   el.innerHTML=list.map(function(c){
     var isActive=c.conversation_id_af_ai===currentConvId;
-    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem"><span class="conv-dot" aria-hidden="true"></span><button style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;" onclick="loadConv(\''+esc(c.conversation_id_af_ai)+'\')"><span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button><button class="conv-del-btn" onclick="event.stopPropagation(); confirmDeleteConv(\''+esc(c.conversation_id_af_ai)+'\',\''+esc(c.title_af_ai||'this session')+'\')" title="Delete session">✕</button></div>';
+    return'<div class="conv-row'+(isActive?' active':'')+'" role="listitem"><span class="conv-dot" aria-hidden="true"></span><button class="conv-open-btn" data-load-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" style="flex:1;text-align:left;min-width:0;background:none;border:none;padding:0;color:inherit;"><span class="conv-title">'+esc(c.title_af_ai||'Untitled Session')+'</span></button><button class="conv-del-btn" data-delete-conv="'+encodeURIComponent(c.conversation_id_af_ai)+'" data-delete-title="'+encodeURIComponent(c.title_af_ai||'this session')+'" title="Delete session">✕</button></div>';
   }).join('');
 }
 
@@ -732,54 +815,85 @@ async function loadConv(id){
   currentConvId=id;$('welcomeBlock').classList.add('hidden');
   $('messages').innerHTML='<div class="msg-row assistant"><div class="avatar">AI</div><div class="msg-body"><div class="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div></div>';
   closeSidebar();
-  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  var data;try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'load_conversation_af_ai',conversation_id_af_ai:id,student_key_af_ai:key})});data=await resp.json().catch(function(){return{}})}catch(err){data={error_af_ai:'Network error.'}}
+  var data=await aiCall({action_af_ai:'load_conversation_af_ai',conversation_id_af_ai:id});
   $('messages').innerHTML='';
   if(data.error_af_ai){showToast(data.error_af_ai,'err','Load Failed');return}
-  (data.messages_af_ai||[]).forEach(function(m){appendMsg(m.role_af_ai,m.content_af_ai,m.mode_af_ai||'af_proguide')});
+  (data.messages_af_ai||[]).forEach(function(m){appendMsg(m.role_af_ai==='user_af_ai'?'user':'assistant',m.content_af_ai,fromApiMode(m.mode_af_ai))});
   renderConvList(allConvs);
 }
+
+$('convList').addEventListener('click',function(e){
+  var openBtn=e.target.closest('[data-load-conv]');
+  if(openBtn){loadConv(decodeURIComponent(openBtn.dataset.loadConv));return}
+  var deleteBtn=e.target.closest('[data-delete-conv]');
+  if(deleteBtn){e.stopPropagation();confirmDeleteConv(decodeURIComponent(deleteBtn.dataset.deleteConv),decodeURIComponent(deleteBtn.dataset.deleteTitle))}
+});
 
 /* ── CONFIRM MODAL CONTROLS ── */
 var _confirmCallback=null;
 function showConfirm(title,text,okLabel,callback){$('confirmTitle').textContent=title;$('confirmText').textContent=text;$('confirmOkBtn').textContent=okLabel;_confirmCallback=callback;$('confirmOverlay').classList.remove('hidden')}
-function closeConfirm()){$('confirmOverlay').classList.add('hidden');_confirmCallback=null}
+function closeConfirm(){$('confirmOverlay').classList.add('hidden');_confirmCallback=null}
 $('confirmOkBtn').addEventListener('click',function(){if(_confirmCallback)_confirmCallback();closeConfirm()});
 
 function confirmDeleteConv(id,title){showConfirm('Delete Session','Delete "'+title+'"? This cannot be undone.','Delete',function(){deleteConv(id)})}
 function confirmClearAll(){if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return}showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All History',function(){clearAllConvs()})}
 
 async function deleteConv(id){
-  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:id,student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(data.error_af_ai){showToast(data.error_af_ai,'err','Delete Failed');return}}catch(err){}
+  var data=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:id});
+  if(data.error_af_ai||!data.success_af_ai){showToast(data.error_af_ai||'Delete failed.','err','Delete failed');return}
   allConvs=allConvs.filter(function(c){return c.conversation_id_af_ai!==id});
   if(currentConvId===id)newChat();
   renderConvList(allConvs);showToast('Session deleted successfully.','ok','Done');
 }
 
-// Bulk history cleaner action fix
 async function clearAllConvs(){
-  var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';
-  try{
-    var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'clear_all_conversations_af_ai',student_key_af_ai:key})});
-    var data=await resp.json().catch(function(){return{}});
-    if(data.error_af_ai){showToast(data.error_af_ai,'err','Clear History Failed');return}
-  }catch(err){showToast('Network sync lost. Failed bulk operations.','err','Error')}
-  allConvs=[];currentConvId='';renderConvList(allConvs);newChat();showToast('All sessions cleared.','ok','Done');
+  var ids=allConvs.map(function(c){return c.conversation_id_af_ai}),failed=0;
+  for(var i=0;i<ids.length;i++){
+    var result=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:ids[i]});
+    if(result.error_af_ai||!result.success_af_ai)failed++;
+  }
+  await loadConvList();
+  if(!failed){currentConvId='';newChat();showToast('All sessions cleared.','ok','Done')}
+  else showToast(failed+' session(s) could not be deleted.','err','Partially cleared');
 }
 
-async function loadUsage(){var key=localStorage.getItem('af_student_email')||localStorage.getItem('af_student_mobile')||'';try{var resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-af-ai-student-key':key},body:JSON.stringify({action_af_ai:'usage_af_ai',student_key_af_ai:key})});var data=await resp.json().catch(function(){return{}});if(!data.error_af_ai)applyUsage(data)}catch(err){}
-}
+async function loadUsage(){var data=await aiCall({action_af_ai:'usage_af_ai'});if(!data.error_af_ai)applyUsage(data);else showToast(data.error_af_ai,'err','Usage unavailable')}
 
 function applyUsage(d){
   if(d.session_request_limit_af_ai===undefined)return;
+  latestUsage=d;
   var sessReqUsed=Number(d.session_request_used_af_ai||0),sessReqLimit=Number(d.session_request_limit_af_ai||10),sessReqRem=Number(d.session_request_remaining_af_ai||0);
   var sessTokUsed=Number(d.session_token_used_af_ai||0),sessTokLimit=Number(d.session_token_limit_af_ai||15000),sessTokRem=Number(d.session_token_remaining_af_ai||0);
   var dailyUsed=Number(d.daily_request_used_af_ai||0),dailyLimit=Number(d.daily_request_limit_af_ai||20),dailyRem=Number(d.daily_request_remaining_af_ai||0);
   $('uSessReq').textContent=sessReqRem+' / '+sessReqLimit;$('uSessTok').textContent=sessTokRem.toLocaleString()+' left';$('uDailyReq').textContent=dailyRem+' / '+dailyLimit;
   function pct(u,m){return m>0?Math.min(100,Math.round((u/m)*100))+'%':'0%'}
   $('uSessReqBar').style.width=pct(sessReqUsed,sessReqLimit);$('uSessTokBar').style.width=pct(sessTokUsed,sessTokLimit);$('uDailyReqBar').style.width=pct(dailyUsed,dailyLimit);
+  usageLimited=dailyRem<=0||Number(d.daily_token_remaining_af_ai||0)<=0||(Boolean(d.session_active_af_ai)&&(sessReqRem<=0||sessTokRem<=0));
+  $('composerInput').placeholder=usageLimited?'AI limit reached. Open Usage Details.':MODES[currentMode].placeholder;
+  updateComposer();
+  renderUsageModal();
 }
+
+function closeTopModal(id){var modal=$(id);if(modal)modal.classList.add('hidden')}
+function closeModalOnBackdrop(e,id){if(e.target===e.currentTarget)closeTopModal(id)}
+function openAccountModal(){
+  var name=localStorage.getItem('af_student_name')||'Student',email=localStorage.getItem('af_student_email')||'No email',mobile=localStorage.getItem('af_student_mobile')||'-',studentId=localStorage.getItem('af_student_id')||mobile;
+  $('accountAvatar').textContent=name.trim().split(/\s+/).slice(0,2).map(function(p){return p.charAt(0).toUpperCase()}).join('')||'S';
+  $('accountName').textContent=name;$('accountEmail').textContent=email;$('accountStudentId').textContent=studentId;$('accountMobile').textContent=mobile;$('accountMode').textContent=MODES[currentMode].metaLabel;
+  $('accountModal').classList.remove('hidden');
+}
+function renderUsageModal(){
+  if(!latestUsage)return;
+  var d=latestUsage,sru=Number(d.session_request_used_af_ai||0),srl=Number(d.session_request_limit_af_ai||10),srr=Number(d.session_request_remaining_af_ai||0),stu=Number(d.session_token_used_af_ai||0),stl=Number(d.session_token_limit_af_ai||15000),str=Number(d.session_token_remaining_af_ai||0),dru=Number(d.daily_request_used_af_ai||0),drl=Number(d.daily_request_limit_af_ai||20),drr=Number(d.daily_request_remaining_af_ai||0);
+  function width(u,l){return(Math.min(100,l?u/l*100:0))+'%'}
+  $('modalSessReq').textContent=srr+' left / '+srl;$('modalSessReqBar').style.width=width(sru,srl);
+  $('modalSessTok').textContent=str.toLocaleString()+' left';$('modalSessTokBar').style.width=width(stu,stl);
+  $('modalDailyReq').textContent=drr+' left / '+drl;$('modalDailyReqBar').style.width=width(dru,drl);
+  $('modalUsageNote').textContent=usageLimited?(d.session_seconds_remaining_af_ai>0?'Session resets in '+formatSeconds(d.session_seconds_remaining_af_ai)+'.':'Daily usage resets tomorrow.'):'Limits are checked again before every AI request.';
+}
+function formatSeconds(seconds){var s=Math.max(0,Number(seconds||0)),h=Math.floor(s/3600),m=Math.ceil((s%3600)/60);return h?(h+'h '+m+'m'):(m+'m')}
+async function openUsageModal(){$('usageModal').classList.remove('hidden');await refreshUsageModal()}
+async function refreshUsageModal(){var data=await aiCall({action_af_ai:'usage_af_ai'});if(data.error_af_ai){showToast(data.error_af_ai,'err','Refresh failed');return}applyUsage(data)}
 
 var _toastTimer=null;
 function showToast(msg,type,title){type=type||'info';title=title||{ok:'Success',err:'Error',info:'Info'}[type]||'Info';var icon={ok:'✓',err:'✕',info:'ℹ'}[type]||'ℹ';var w=$('toastWrap');w.innerHTML='';if(_toastTimer){clearTimeout(_toastTimer);_toastTimer=null}var d=document.createElement('div');d.className='toast '+type;d.setAttribute('role','alert');d.innerHTML='<span class="toast-icon" aria-hidden="true">'+icon+'</span><div class="toast-body"><strong>'+esc(title)+'</strong><span>'+esc(msg)+'</span></div><span class="toast-close" role="button" tabindex="0" aria-label="Dismiss" onclick="this.parentElement.remove()">&times;</span>';w.appendChild(d);_toastTimer=setTimeout(function(){if(d.parentNode)d.remove()},3200)}
