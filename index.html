@@ -8,13 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <script>
-    !function(){
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }();
-  </script>
   <style>
-    /* ── DESIGN TOKENS & SYSTEM VARIABLES ── */
+    /* ── DESIGN TOKENS ── */
     :root {
       --bg: #07070a;
       --surface: #0f0f12;
@@ -29,7 +24,6 @@
       --t2: #a1a1aa;
       --tm: #61616a;
       --inp: #1b1b1f;
-      
       --fd: 'Space Grotesk', sans-serif;
       --fb: 'Plus Jakarta Sans', sans-serif;
       --r2: 12px;
@@ -44,310 +38,360 @@
     button { font-family: var(--fb); cursor: pointer; border: none; background: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     input, textarea, select { font-family: var(--fb); }
     .hidden { display: none !important; }
-    
     html, body, * { -webkit-user-select: none; user-select: none; }
     input, textarea, select { -webkit-user-select: text; user-select: text; }
 
-    /* ── HYPER-ANIMATED SPACE GRADIENT BG ── */
+    /* ── ANIMATED BG ── */
     .auth-bg-animation {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: #060609;
-      overflow: hidden;
+      position: fixed; inset: 0; z-index: 0; background: #060609; overflow: hidden;
     }
     .auth-bg-animation::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      left: -20%;
-      width: 80%;
-      height: 80%;
+      content: ''; position: absolute; top: -30%; left: -20%; width: 80%; height: 80%;
       background: radial-gradient(circle, rgba(94,97,233,0.18) 0%, transparent 65%);
       animation: ambientMotion 15s infinite alternate ease-in-out;
     }
     .auth-bg-animation::after {
-      content: '';
-      position: absolute;
-      bottom: -20%;
-      right: -25%;
-      width: 75%;
-      height: 75%;
+      content: ''; position: absolute; bottom: -20%; right: -25%; width: 75%; height: 75%;
       background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
       animation: ambientMotion 22s infinite alternate-reverse ease-in-out;
     }
     @keyframes ambientMotion {
-      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-      50% { transform: translate(5%, 8%) scale(1.08) rotate(45deg); }
-      100% { transform: translate(-3%, -5%) scale(0.95) rotate(90deg); }
+      0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+      50%  { transform: translate(5%,8%) scale(1.08) rotate(45deg); }
+      100% { transform: translate(-3%,-5%) scale(0.95) rotate(90deg); }
     }
 
-    /* ── UNIFIED SCROLL FRAME ── */
+    /* ── AUTH WRAPPER ── */
     .auth-wrapper {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-y: auto;
-      padding: 40px 16px;
+      position: relative; z-index: 1; width: 100%; height: 100%;
+      display: flex; justify-content: center; align-items: center;
+      overflow-y: auto; padding: 24px 16px;
     }
-    .auth-shell {
-      width: 100%;
-      max-width: 450px;
-      margin: auto;
-    }
+    .auth-shell { width: 100%; max-width: 440px; margin: auto; }
 
-    /* ── UNIFIED FIXED SIZE BOX (PROPRIETARY SYMMETRY) ── */
+    /* ── FIXED HEIGHT AUTH CARD ── */
     .auth-card {
       border-radius: var(--r4);
-      background: rgba(20, 20, 23, 0.65);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(20, 20, 23, 0.72);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--card-border);
       box-shadow: var(--sh);
-      padding: 36px 32px;
-      position: relative;
+      padding: 28px 28px 24px;
       width: 100%;
-      min-height: 560px;
+      height: 580px; /* FIXED HEIGHT — same for all tabs */
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      overflow: hidden;
     }
-    
+
+    /* ── HEADER (logo + title + sub) ── */
     .auth-header-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      flex-shrink: 0;
     }
-    
-    .auth-logo-img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
+
+    /* LOGO — SVG fallback when image fails */
+    .auth-logo-wrap {
+      width: 56px; height: 56px; margin-bottom: 12px;
       border-radius: var(--r2);
-      margin-bottom: 16px;
-      filter: drop-shadow(0 4px 12px rgba(94, 97, 233, 0.3));
+      overflow: hidden;
+      background: linear-gradient(135deg, #5e61e9 0%, #06b6d4 100%);
+      display: grid; place-items: center;
+      box-shadow: 0 4px 16px rgba(94,97,233,0.35);
+      flex-shrink: 0;
     }
-    
-    .auth-title { font-family: var(--fd); font-size: 25px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--t1); }
-    .auth-sub { font-size: 13.5px; color: var(--t2); line-height: 1.5; margin-bottom: 24px; max-width: 320px; }
-    
-    .tab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border-radius: var(--r3); background: rgba(0,0,0,0.25); border: 1px solid var(--card-border); margin-bottom: 20px; width: 100%; }
-    .tab-btn { padding: 11px; border-radius: var(--r2); font-size: 13px; font-weight: 600; color: var(--t2); }
-    .tab-btn.active { background: var(--p); color: #fff; box-shadow: 0 4px 12px rgba(94, 97, 233, 0.35); }
+    .auth-logo-wrap img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: var(--r2);
+    }
+    .auth-logo-fallback {
+      font-family: var(--fd); font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.02em;
+    }
 
-    .form-container-box { flex: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; }
-    .form-label { display: block; font-size: 12.5px; font-weight: 600; color: #e4e4e7; margin: 12px 0 6px; }
-    .form-input { width: 100%; min-height: 46px; padding: 12px 14px; border-radius: var(--r2); border: 1px solid var(--card-border); background: var(--inp); color: var(--t1); font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; outline: none; }
-    .form-input:focus { border-color: var(--p); box-shadow: 0 0 0 3px var(--p-glow); background: rgba(0,0,0,0.2); }
+    .auth-title { font-family: var(--fd); font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 5px; color: var(--t1); }
+    .auth-sub { font-size: 12px; color: var(--t2); line-height: 1.5; margin-bottom: 14px; max-width: 320px; }
 
-    .main-btn { width: 100%; min-height: 46px; padding: 12px; border-radius: var(--r2); margin-top: 24px; font-size: 14px; font-weight: 700; color: #fff; background: var(--p); box-shadow: 0 4px 14px rgba(94, 97, 233, 0.35); }
+    /* ── TABS ── */
+    .tab-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5px;
+      padding: 4px; border-radius: var(--r2);
+      background: rgba(0,0,0,0.3); border: 1px solid var(--card-border);
+      margin-bottom: 14px; width: 100%; flex-shrink: 0;
+    }
+    .tab-btn { padding: 9px; border-radius: 9px; font-size: 12.5px; font-weight: 600; color: var(--t2); }
+    .tab-btn.active { background: var(--p); color: #fff; box-shadow: 0 4px 12px rgba(94,97,233,0.35); }
+
+    /* ── SCROLLABLE FORM AREA ── */
+    .form-container-box {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      padding-right: 4px;
+      display: flex; flex-direction: column;
+    }
+    .form-container-box::-webkit-scrollbar { width: 4px; }
+    .form-container-box::-webkit-scrollbar-thumb { background: var(--inp); border-radius: 99px; }
+
+    .form-label { display: block; font-size: 11.5px; font-weight: 600; color: #e4e4e7; margin: 10px 0 5px; }
+    .form-input {
+      width: 100%; min-height: 42px; padding: 10px 13px;
+      border-radius: var(--r2); border: 1px solid var(--card-border);
+      background: var(--inp); color: var(--t1);
+      font-size: 13px; font-weight: 500; transition: all 0.2s ease; outline: none;
+    }
+    .form-input:focus { border-color: var(--p); box-shadow: 0 0 0 3px var(--p-glow); }
+
+    .main-btn {
+      width: 100%; min-height: 42px; padding: 10px;
+      border-radius: var(--r2); margin-top: 18px;
+      font-size: 13.5px; font-weight: 700; color: #fff;
+      background: var(--p); box-shadow: 0 4px 14px rgba(94,97,233,0.35);
+      flex-shrink: 0;
+    }
     .main-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
     .main-btn:active { transform: translateY(0); }
-    
-    .danger-btn { width: 100%; min-height: 38px; padding: 8px; border-radius: var(--r2); margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--t2); }
-    .danger-btn:hover { color: #fca5a5; background: rgba(239, 68, 68, 0.06); }
 
-    .msg-box { display: none; margin-top: 16px; padding: 12px 14px; border-radius: var(--r2); font-size: 13px; font-weight: 500; line-height: 1.4; }
-    .msg-box.ok { display: block; background: rgba(16, 185, 129, 0.08); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.2); }
-    .msg-box.err { display: block; background: rgba(239, 68, 68, 0.08); color: var(--err); border: 1px solid rgba(239, 68, 68, 0.2); }
-    .msg-box.info { display: block; background: var(--p-glow); color: #cbd5e1; border: 1px solid rgba(94, 97, 233, 0.25); }
-    
-    /* PROFESSIONAL FOOTER SYSTEM */
-    .auth-note { margin-top: 24px; padding: 14px; border-radius: var(--r2); background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); font-size: 12px; color: var(--t2); line-height: 1.6; text-align: center; width: 100%; }
-    .auth-note a { color: var(--p); font-weight: 600; text-decoration: none; border-bottom: 1px dashed var(--p); transition: all 0.2s; }
+    .danger-btn {
+      width: 100%; min-height: 36px; padding: 7px;
+      border-radius: var(--r2); margin-top: 8px;
+      font-size: 12.5px; font-weight: 600; color: var(--t2); flex-shrink: 0;
+    }
+    .danger-btn:hover { color: #fca5a5; background: rgba(239,68,68,0.06); }
+
+    .msg-box { display: none; margin-top: 12px; padding: 10px 13px; border-radius: var(--r2); font-size: 12.5px; font-weight: 500; line-height: 1.4; flex-shrink: 0; }
+    .msg-box.ok  { display: block; background: rgba(16,185,129,0.08); color: var(--ok); border: 1px solid rgba(16,185,129,0.2); }
+    .msg-box.err { display: block; background: rgba(239,68,68,0.08);  color: var(--err); border: 1px solid rgba(239,68,68,0.2); }
+    .msg-box.info{ display: block; background: var(--p-glow); color: #cbd5e1; border: 1px solid rgba(94,97,233,0.25); }
+
+    .auth-note {
+      margin-top: 14px; padding: 11px 13px; border-radius: var(--r2);
+      background: rgba(255,255,255,0.02); border: 1px solid var(--card-border);
+      font-size: 11.5px; color: var(--t2); line-height: 1.5; text-align: center;
+      flex-shrink: 0;
+    }
+    .auth-note a { color: var(--p); font-weight: 600; text-decoration: none; border-bottom: 1px dashed var(--p); }
     .auth-note a:hover { color: #818cf8; border-bottom-style: solid; }
 
-    /* ── AI DASHBOARD FRAME ── */
+    /* small hint text in create form */
+    .form-hint { margin-top: 10px; font-size: 11px; color: var(--tm); font-weight: 500; text-align: center; }
+
+    /* ── AI DASHBOARD ── */
     .ai-shell { width: 100%; height: 100%; display: flex; overflow: hidden; background: var(--bg); }
-    
-    /* COLLAPSIBLE SIDEBAR CONFIGURATION */
+
+    /* SIDEBAR */
     .ai-drawer {
-      width: 280px;
-      background: var(--surface);
-      border-right: 1px solid var(--card-border);
-      display: flex;
-      flex-direction: column;
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      flex-shrink: 0;
-      z-index: 50;
+      width: 264px; background: var(--surface); border-right: 1px solid var(--card-border);
+      display: flex; flex-direction: column;
+      transition: width 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      flex-shrink: 0; z-index: 50; overflow: hidden;
     }
-    .ai-drawer.collapsed-sidebar { width: 0px; overflow: hidden; border-right: none; }
-    
-    .drawer-head { padding: 18px 16px; border-bottom: 1px solid var(--card-border); position: relative; }
-    
-    .drawer-brand-area { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-    .drawer-logo-img { width: 24px; height: 24px; object-fit: contain; border-radius: 6px; }
-    .drawer-brand { font-family: var(--fd); font-size: 17px; font-weight: 700; color: var(--t1); }
-    .drawer-student { color: var(--t2); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding-left: 34px; }
-    
-    .drawer-new-btn { width: 100%; margin-top: 16px; padding: 11px; border: 1px solid var(--card-border); background: rgba(255,255,255,0.03); border-radius: var(--r2); text-align: left; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .ai-drawer.collapsed-sidebar { width: 0; border-right: none; }
+
+    .drawer-head { padding: 16px 14px; border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
+
+    /* LOGO ROW IN SIDEBAR — full left, no centering */
+    .drawer-brand-area { display: flex; align-items: center; gap: 9px; margin-bottom: 3px; }
+
+    .drawer-logo-wrap {
+      width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #5e61e9 0%, #06b6d4 100%);
+      display: grid; place-items: center;
+    }
+    .drawer-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .drawer-logo-fallback { font-family: var(--fd); font-size: 11px; font-weight: 700; color: #fff; }
+
+    .drawer-brand { font-family: var(--fd); font-size: 15px; font-weight: 700; color: var(--t1); white-space: nowrap; }
+
+    /* STUDENT NAME — full left under logo row */
+    .drawer-student {
+      color: var(--t2); font-size: 11.5px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      padding-left: 0; /* FIXED: was 34px, now truly left-aligned */
+      margin-top: 2px;
+    }
+
+    .drawer-new-btn {
+      width: 100%; margin-top: 12px; padding: 10px;
+      border: 1px solid var(--card-border); background: rgba(255,255,255,0.03);
+      border-radius: var(--r2); text-align: left; font-size: 12.5px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
     .drawer-new-btn:hover { background: var(--inp); border-color: var(--tm); }
-    
-    .drawer-search { margin: 12px; width: calc(100% - 24px); border: 1px solid var(--card-border); background: var(--inp); color: var(--t1); border-radius: var(--r2); padding: 10px 12px; outline: none; font-size: 13px; }
+
+    .drawer-search {
+      margin: 10px; width: calc(100% - 20px);
+      border: 1px solid var(--card-border); background: var(--inp); color: var(--t1);
+      border-radius: var(--r2); padding: 9px 12px; outline: none; font-size: 12.5px;
+    }
     .conv-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
-    .conv-row { width: 100%; display: flex; gap: 10px; align-items: center; border-radius: var(--r2); padding: 10px 12px; color: var(--t2); text-align: left; margin-bottom: 2px; }
+    .conv-row {
+      width: 100%; display: flex; gap: 10px; align-items: center;
+      border-radius: var(--r2); padding: 9px 11px; color: var(--t2);
+      text-align: left; margin-bottom: 2px;
+    }
     .conv-row:hover, .conv-row.active { background: rgba(255,255,255,0.04); color: var(--t1); }
     .conv-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p); flex: none; }
-    .conv-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 500; }
+    .conv-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12.5px; font-weight: 500; }
 
-    .drawer-usage { border-top: 1px solid var(--card-border); padding: 16px; background: rgba(0,0,0,0.15); }
-    .usage-heading { font-size: 11px; color: var(--tm); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
-    .usage-row { display: flex; justify-content: space-between; font-size: 12px; margin: 6px 0; color: var(--t2); }
-    .usage-bar { height: 6px; background: rgba(255,255,255,0.04); border-radius: 99px; overflow: hidden; }
+    .drawer-usage { border-top: 1px solid var(--card-border); padding: 14px; background: rgba(0,0,0,0.15); flex-shrink: 0; }
+    .usage-heading { font-size: 10.5px; color: var(--tm); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 9px; }
+    .usage-row { display: flex; justify-content: space-between; font-size: 11.5px; margin: 5px 0; color: var(--t2); }
+    .usage-bar { height: 5px; background: rgba(255,255,255,0.04); border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
     .usage-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--p), var(--acc)); transition: width 0.4s ease; }
 
-    /* MAIN STREAM VIEW */
+    /* MAIN */
     .ai-main { flex: 1; display: flex; flex-direction: column; position: relative; height: 100%; overflow: hidden; background: var(--bg); }
-    
-    .ai-header { height: 64px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: rgba(15, 15, 18, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--card-border); flex-shrink: 0; }
-    .ai-menu-btn { width: 40px; height: 40px; border: 1px solid var(--card-border); background: var(--inp); border-radius: var(--r2); display: grid; place-items: center; font-size: 18px; color: var(--t1); }
+
+    .ai-header {
+      height: 60px; display: flex; align-items: center; gap: 12px; padding: 0 18px;
+      background: rgba(15,15,18,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border); flex-shrink: 0;
+    }
+    .ai-menu-btn {
+      width: 38px; height: 38px; border: 1px solid var(--card-border);
+      background: var(--inp); border-radius: var(--r2);
+      display: grid; place-items: center; font-size: 17px; color: var(--t1);
+    }
     .ai-menu-btn:hover { background: rgba(255,255,255,0.06); }
-    
-    .ai-header-copy { flex: 1; display: flex; align-items: center; gap: 14px; min-width: 0; }
-    .ai-header-title { font-family: var(--fd); font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
-    .nav-logo-fallback { width: 22px; height: 22px; object-fit: contain; border-radius: 5px; }
-    
-    .header-badges { display: flex; align-items: center; gap: 8px; }
-    .badge { display: flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--rf); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid transparent; }
-    .badge.free { background: rgba(239, 44, 44, 0.08); color: #ffa3a3; border-color: rgba(239, 44, 44, 0.18); }
-    .badge.beta { background: rgba(6, 182, 212, 0.08); color: #a5f3fc; border-color: rgba(6, 182, 212, 0.18); }
-    
-    .blink-dot { width: 6px; height: 6px; border-radius: 50%; position: relative; }
+
+    .ai-header-copy { flex: 1; display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .ai-header-title { font-family: var(--fd); font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+
+    /* NAV LOGO IN HEADER */
+    .nav-logo-wrap {
+      width: 22px; height: 22px; border-radius: 5px; overflow: hidden; flex-shrink: 0;
+      background: linear-gradient(135deg, #5e61e9 0%, #06b6d4 100%);
+      display: grid; place-items: center;
+    }
+    .nav-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-logo-fallback-text { font-family: var(--fd); font-size: 9px; font-weight: 700; color: #fff; }
+
+    .header-badges { display: flex; align-items: center; gap: 7px; }
+    .badge {
+      display: flex; align-items: center; gap: 5px; padding: 4px 9px;
+      border-radius: var(--rf); font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid transparent;
+    }
+    .badge.free { background: rgba(239,44,44,0.08); color: #ffa3a3; border-color: rgba(239,44,44,0.18); }
+    .badge.beta { background: rgba(6,182,212,0.08); color: #a5f3fc; border-color: rgba(6,182,212,0.18); }
+    .blink-dot { width: 5px; height: 5px; border-radius: 50%; position: relative; }
     .badge.free .blink-dot { background: var(--err); }
     .badge.free .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--err); animation: badgeBlink 1.6s infinite; }
     .badge.beta .blink-dot { background: var(--acc); }
     .badge.beta .blink-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--acc); animation: badgeBlink 1.6s infinite; }
     @keyframes badgeBlink { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.6); opacity: 0; } }
 
-    .hdr-logout { padding: 8px 14px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.18); border-radius: var(--r2); font-size: 12px; font-weight: 600; color: var(--err); }
+    .hdr-logout {
+      padding: 7px 12px; background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.18); border-radius: var(--r2);
+      font-size: 11.5px; font-weight: 600; color: var(--err); white-space: nowrap;
+    }
     .hdr-logout:hover { background: var(--err); color: #fff; }
 
-    /* MODE BUTTON BAR */
-    .mode-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 20px auto 4px; padding: 5px; border: 1px solid var(--card-border); background: var(--surface); border-radius: var(--r3); flex-shrink: 0; width: calc(100% - 40px); max-width: 600px; }
-    .mode-tab { border: 0; background: transparent; color: var(--t2); padding: 10px 4px; border-radius: var(--r2); font-weight: 600; font-size: 13px; }
+    /* MODE TABS */
+    .mode-tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;
+      margin: 16px auto 4px; padding: 5px;
+      border: 1px solid var(--card-border); background: var(--surface); border-radius: var(--r3);
+      flex-shrink: 0; width: calc(100% - 32px); max-width: 580px;
+    }
+    .mode-tab { border: 0; background: transparent; color: var(--t2); padding: 9px 4px; border-radius: var(--r2); font-weight: 600; font-size: 12.5px; }
     .mode-tab.active { background: var(--inp); color: var(--t1); }
-    .mode-tab[data-mode="af_proguide"].active { color: #818cf8; border: 1px solid rgba(94, 97, 233, 0.2); }
-    .mode-tab[data-mode="dev"].active { color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.2); }
-    .mode-tab[data-mode="tapri"].active { color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.2); }
+    .mode-tab[data-mode="af_proguide"].active { color: #818cf8; border: 1px solid rgba(94,97,233,0.2); }
+    .mode-tab[data-mode="dev"].active { color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+    .mode-tab[data-mode="tapri"].active { color: #c084fc; border: 1px solid rgba(192,132,252,0.2); }
 
-    /* STREAM SCROLL VIEW */
-    .chat-scroll { flex: 1; overflow-y: auto; padding: 24px 20px 180px; display: flex; flex-direction: column; }
+    /* CHAT */
+    .chat-scroll { flex: 1; overflow-y: auto; padding: 20px 16px 180px; display: flex; flex-direction: column; }
     .chat-scroll::-webkit-scrollbar { width: 5px; }
     .chat-scroll::-webkit-scrollbar-thumb { background: var(--inp); border-radius: 99px; }
 
-    .welcome-block { max-width: 720px; width: 100%; margin: auto; padding: 40px 0; }
-    .welcome-user-greet { font-size: 16px; font-weight: 600; color: var(--t2); margin-bottom: 4px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
-    .welcome-kicker { font-size: 11px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; margin-top: 6px; }
-    
-    .welcome-title { 
-      font-family: var(--fd); 
-      font-size: 38px; 
-      font-weight: 700; 
-      line-height: 1.25; 
-      margin-bottom: 14px;
-      color: var(--t1);
-      min-height: 50px;
-    }
-    
-    .welcome-title::after {
-      content: '|';
-      margin-left: 4px;
-      color: var(--p);
-      animation: cursorBlink 0.8s infinite;
-    }
+    .welcome-block { max-width: 700px; width: 100%; margin: auto; padding: 36px 0; }
+    .welcome-user-greet { font-size: 15px; font-weight: 600; color: var(--t2); margin-bottom: 4px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
+    .welcome-kicker { font-size: 10.5px; font-weight: 700; color: var(--p); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; margin-top: 5px; }
+    .welcome-title { font-family: var(--fd); font-size: 34px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; color: var(--t1); min-height: 48px; }
+    .welcome-title::after { content: '|'; margin-left: 3px; color: var(--p); animation: cursorBlink 0.8s infinite; }
     @keyframes cursorBlink { 50% { opacity: 0; } }
+    .welcome-copy { font-size: 14px; color: var(--t2); line-height: 1.6; }
 
-    .welcome-copy { font-size: 14.5px; color: var(--t2); line-height: 1.6; }
-    
-    .suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 32px; }
-    .suggestion { text-align: left; border: 1px solid var(--card-border); background: var(--surface); color: var(--t2); padding: 16px; border-radius: var(--r3); font-size: 13px; font-weight: 500; line-height: 1.4; }
+    .suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 10px; margin-top: 26px; }
+    .suggestion {
+      text-align: left; border: 1px solid var(--card-border); background: var(--surface);
+      color: var(--t2); padding: 14px; border-radius: var(--r3); font-size: 12.5px; font-weight: 500; line-height: 1.4;
+    }
     .suggestion:hover { border-color: var(--p); color: var(--t1); background: rgba(255,255,255,0.01); transform: translateY(-2px); }
 
-    /* STREAM BLOCKS */
-    .messages { max-width: 720px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-    .msg-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 4px; }
+    /* MESSAGES */
+    .messages { max-width: 700px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+    .msg-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 4px; }
     .msg-row.user { flex-direction: row-reverse; }
-    
-    .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--inp); color: var(--t2); border: 1px solid var(--card-border); flex: none; }
-    .msg-row.user .avatar { background: var(--p-glow); color: #818cf8; border-color: rgba(94, 97, 233, 0.25); }
-    
-    .msg-body { max-width: calc(100% - 48px); }
-    .bubble { padding: 12px 16px; border-radius: var(--r3); border: 1px solid var(--card-border); background: var(--surface); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; color: #e4e4e7; }
+
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 11px; font-weight: 700; background: var(--inp); color: var(--t2);
+      border: 1px solid var(--card-border); flex: none;
+    }
+    .msg-row.user .avatar { background: var(--p-glow); color: #818cf8; border-color: rgba(94,97,233,0.25); }
+
+    .msg-body { max-width: calc(100% - 44px); }
+    .bubble {
+      padding: 11px 15px; border-radius: var(--r3); border: 1px solid var(--card-border);
+      background: var(--surface); font-size: 14px; line-height: 1.6;
+      overflow-wrap: anywhere; color: #e4e4e7;
+    }
     .msg-row.user .bubble { background: var(--inp); border-color: transparent; color: #fff; border-top-right-radius: 4px; }
-    
-    .msg-meta { font-size: 11px; color: var(--tm); margin-top: 6px; padding-left: 2px; }
+    .msg-meta { font-size: 10.5px; color: var(--tm); margin-top: 5px; padding-left: 2px; }
     .msg-row.user .msg-meta { text-align: right; padding-right: 2px; }
 
-    /* CODE BLOCK STYLES */
     .code-wrap { background: #0d0d10; border: 1px solid var(--card-border); border-radius: var(--r2); overflow: hidden; margin: 8px 0; }
-    .code-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--card-border); font-size: 11px; color: var(--t2); }
+    .code-head { display: flex; justify-content: space-between; align-items: center; padding: 7px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--card-border); font-size: 11px; color: var(--t2); }
     .code-copy-btn { font-size: 11px; font-weight: 600; color: var(--p); cursor: pointer; background: none; border: none; font-family: var(--fb); }
-    .code-pre { padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.6; color: #e2e8f0; font-family: 'Fira Code', 'Courier New', monospace; white-space: pre; }
+    .code-pre { padding: 11px 13px; overflow-x: auto; font-size: 12.5px; line-height: 1.6; color: #e2e8f0; font-family: 'Fira Code','Courier New',monospace; white-space: pre; }
 
-    /* LOADER */
-    .thinking { display: flex; align-items: center; gap: 6px; padding: 16px; background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--r3); width: 80px; justify-content: center; position: relative; overflow: hidden; }
+    .thinking { display: flex; align-items: center; gap: 6px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--r3); width: 76px; justify-content: center; position: relative; overflow: hidden; }
     .thinking::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); transform: translateX(-100%); animation: flashShift 1.4s infinite; }
     @keyframes flashShift { 100% { transform: translateX(100%); } }
-    .thinking-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p); animation: pulseJump 1.2s infinite ease-in-out; }
+    .thinking-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--p); animation: pulseJump 1.2s infinite ease-in-out; }
     .thinking-dot:nth-child(2) { animation-delay: 0.2s; background: var(--acc); }
     .thinking-dot:nth-child(3) { animation-delay: 0.4s; background: #a855f7; }
-    @keyframes pulseJump { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-6px); opacity: 1; } }
+    @keyframes pulseJump { 0%,100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-5px); opacity: 1; } }
 
     /* COMPOSER */
-    .composer-wrap { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 24px 20px 20px; background: linear-gradient(transparent 0%, var(--bg) 45%); }
-    .composer { 
-      display: flex; 
-      align-items: flex-end; 
-      gap: 10px; 
-      border: 1px solid var(--card-border); 
-      background: rgba(20, 20, 23, 0.85); 
-      backdrop-filter: blur(20px); 
-      -webkit-backdrop-filter: blur(20px); 
-      border-radius: var(--r3); 
-      padding: 10px 12px; 
-      max-width: 720px; 
-      margin: 0 auto; 
-      box-shadow: var(--sh);
+    .composer-wrap { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 20px 16px 18px; background: linear-gradient(transparent 0%, var(--bg) 45%); }
+    .composer {
+      display: flex; align-items: flex-end; gap: 9px;
+      border: 1px solid var(--card-border); background: rgba(20,20,23,0.88);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--r3); padding: 9px 11px;
+      max-width: 700px; margin: 0 auto; box-shadow: var(--sh);
       animation: pulseBoxGlow 3.5s infinite ease-in-out;
     }
-    
     @keyframes pulseBoxGlow {
-      0%, 100% { border-color: var(--card-border); box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5); }
-      50% { border-color: rgba(94, 97, 233, 0.35); box-shadow: 0 0 20px 2px rgba(94, 97, 233, 0.12); }
+      0%,100% { border-color: var(--card-border); box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5); }
+      50% { border-color: rgba(94,97,233,0.35); box-shadow: 0 0 20px 2px rgba(94,97,233,0.12); }
     }
-    
-    .composer:focus-within { 
-      border-color: var(--p) !important; 
-      box-shadow: 0 0 25px 4px rgba(94, 97, 233, 0.2) !important;
-      animation: none;
-    }
-    
-    .composer-input { flex: 1; min-height: 40px; max-height: 120px; resize: none; border: 0; outline: 0; background: transparent; color: var(--t1); line-height: 1.5; padding: 8px 4px; font-size: 14.5px; }
-    .send-btn { width: 40px; height: 40px; border: 0; border-radius: var(--r2); background: var(--p); color: #fff; font-size: 15px; display: grid; place-items: center; flex: none; }
+    .composer:focus-within { border-color: var(--p) !important; box-shadow: 0 0 25px 4px rgba(94,97,233,0.2) !important; animation: none; }
+
+    .composer-input { flex: 1; min-height: 38px; max-height: 120px; resize: none; border: 0; outline: 0; background: transparent; color: var(--t1); line-height: 1.5; padding: 7px 4px; font-size: 14px; }
+    .send-btn { width: 38px; height: 38px; border: 0; border-radius: var(--r2); background: var(--p); color: #fff; font-size: 14px; display: grid; place-items: center; flex: none; }
     .send-btn:disabled { opacity: 0.2; cursor: not-allowed; background: var(--inp); color: var(--tm); }
-    .composer-meta { display: flex; justify-content: space-between; color: var(--tm); font-size: 11px; max-width: 720px; margin: 8px auto 0; padding: 0 4px; }
+    .composer-meta { display: flex; justify-content: space-between; color: var(--tm); font-size: 11px; max-width: 700px; margin: 7px auto 0; padding: 0 4px; }
 
     /* OVERLAYS */
     .ai-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 45; display: none; }
     .ai-overlay.open { display: block; }
 
-    .toast-wrap { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%); z-index: 99999; width: min(calc(100vw - 32px), 380px); pointer-events: none; }
-    .toast { display: flex; align-items: flex-start; gap: 12px; background: #18181c; color: var(--t1); border: 1px solid var(--card-border); border-radius: var(--r3); padding: 14px; box-shadow: var(--sh); pointer-events: auto; }
-    .toast.ok { border-left: 4px solid var(--ok); }
+    .toast-wrap { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 99999; width: min(calc(100vw - 32px), 370px); pointer-events: none; }
+    .toast { display: flex; align-items: flex-start; gap: 11px; background: #18181c; color: var(--t1); border: 1px solid var(--card-border); border-radius: var(--r3); padding: 13px; box-shadow: var(--sh); pointer-events: auto; }
+    .toast.ok  { border-left: 4px solid var(--ok); }
     .toast.err { border-left: 4px solid var(--err); }
-    .toast-body p:first-child { font-size: 13px; font-weight: 700; }
-    .toast-body p:last-child { font-size: 12px; color: var(--t2); margin-top: 2px; }
-    .toast-x { font-size: 18px; color: var(--tm); cursor: pointer; margin-left: auto; padding-left: 8px; line-height: 1; }
+    .toast-body p:first-child { font-size: 12.5px; font-weight: 700; }
+    .toast-body p:last-child { font-size: 11.5px; color: var(--t2); margin-top: 2px; }
+    .toast-x { font-size: 17px; color: var(--tm); cursor: pointer; margin-left: auto; padding-left: 8px; line-height: 1; }
 
     @media(max-width: 768px) {
-      .ai-drawer { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); width: 280px; }
+      .ai-drawer { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); width: 270px; }
       .ai-drawer.open { transform: translateX(0); }
-      .ai-drawer.collapsed-sidebar { width: 280px; transform: translateX(-100%); }
+      .ai-drawer.collapsed-sidebar { width: 270px; transform: translateX(-100%); }
+      .header-badges { display: none; }
     }
   </style>
 </head>
@@ -358,10 +402,15 @@
   <div class="auth-wrapper">
     <div class="auth-shell">
       <div class="auth-card">
-        
+
         <div class="auth-header-block">
-          <img class="auth-logo-img" src="AF LOGO 2.jpeg" alt="AcademeForge" onerror="this.style.display='none';">
-          <h2 class="auth-title" id="authTitle">AcademeForge AI</h2>
+          <!-- Logo with image + SVG/text fallback -->
+          <div class="auth-logo-wrap" id="authLogoWrap">
+            <img src="AF LOGO 2.jpeg" alt="AcademeForge"
+                 onerror="this.style.display='none'; document.getElementById('authLogoFallback').style.display='block';">
+            <span class="auth-logo-fallback" id="authLogoFallback" style="display:none;">AF</span>
+          </div>
+          <h2 class="auth-title">AcademeForge AI</h2>
           <p class="auth-sub" id="authSub">Sign in with your verification key to enter your student workspace.</p>
         </div>
 
@@ -370,8 +419,10 @@
           <button class="tab-btn" id="tabCreate" onclick="switchMode('create')">Create ID</button>
         </div>
 
-        <div class="form-container-box">
-          <!-- LOGIN VIEW -->
+        <!-- SCROLLABLE FORM AREA -->
+        <div class="form-container-box" id="formContainerBox">
+
+          <!-- LOGIN -->
           <div id="boxLogin" class="form-box">
             <label class="form-label">Student ID / Registered Phone</label>
             <input id="loginPhone" class="form-input" type="tel" placeholder="Enter your identity or number"/>
@@ -381,7 +432,7 @@
             <button class="danger-btn" onclick="switchMode('forgot')">Forgot Password?</button>
           </div>
 
-          <!-- CREATE ACCOUNT VIEW -->
+          <!-- CREATE -->
           <div id="boxCreate" class="form-box hidden">
             <label class="form-label">Full Name</label>
             <input id="createName" class="form-input" type="text" placeholder="Enter your official name"/>
@@ -392,20 +443,20 @@
             <label class="form-label">Create Security Code</label>
             <input id="createPassword" class="form-input" type="password" placeholder="Minimum 4 characters alphanumeric"/>
             <button class="main-btn" onclick="sendCreateOtp()">Send Email OTP</button>
-            <div id="createOtpArea" class="otp-area hidden">
+            <div id="createOtpArea" class="hidden">
               <label class="form-label">Email Security OTP</label>
               <input id="createOtp" class="form-input" type="text" maxlength="6" placeholder="Verification code"/>
               <button class="main-btn" onclick="verifyCreateOtp()">Verify OTP &amp; Initialize Account</button>
             </div>
-            <p style="margin-top:14px;font-size:12px;color:var(--tm);font-weight:500;text-align:center;">Your phone registration code acts as your global Student ID.</p>
+            <p class="form-hint">Your phone registration code acts as your global Student ID.</p>
           </div>
 
-          <!-- RECOVERY ACCOUNT VIEW -->
+          <!-- FORGOT -->
           <div id="boxForgot" class="form-box hidden">
             <label class="form-label">Account Identity (ID / Email / Phone)</label>
             <input id="forgotLogin" class="form-input" type="text" placeholder="Enter structural credentials"/>
             <button class="main-btn" onclick="findStudentForReset()">Send Email OTP</button>
-            <div id="forgotOtpArea" class="otp-area hidden">
+            <div id="forgotOtpArea" class="hidden">
               <label class="form-label">Email Security OTP</label>
               <input id="forgotOtp" class="form-input" type="text" maxlength="6" placeholder="Verification token"/>
               <button class="main-btn" onclick="verifyForgotOtp()">Verify Code</button>
@@ -417,36 +468,41 @@
             </div>
             <button class="danger-btn" onclick="switchMode('login')">Return to Authentication Screen</button>
           </div>
+
+          <div id="authMsg" class="msg-box"></div>
         </div>
 
-        <div id="authMsg" class="msg-box"></div>
-        
         <div class="auth-note">
-          Need assistance deploying or accessing your account? Contact our systems administration desk directly at <a href="mailto:help@academeforge.in">help@academeforge.in</a>.
+          Need assistance? Contact <a href="mailto:help@academeforge.in">help@academeforge.in</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ AI WORKSPACE DASHBOARD ══════════════ -->
+<!-- ══════════════ AI WORKSPACE ══════════════ -->
 <div id="panelAI" class="ai-shell hidden">
 
   <div class="ai-overlay" id="aiOverlay" onclick="handleHamburgerClick()"></div>
 
-  <!-- COLLAPSIBLE HISTORY DRAWER -->
+  <!-- SIDEBAR -->
   <aside class="ai-drawer" id="aiDrawer">
     <div class="drawer-head">
       <div class="drawer-brand-area">
-        <img class="drawer-logo-img" src="AF LOGO 2.jpeg" alt="AF Logo" onerror="this.style.display='none';">
+        <div class="drawer-logo-wrap">
+          <img src="AF LOGO 2.jpeg" alt="AF"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <span class="drawer-logo-fallback" style="display:none;">AF</span>
+        </div>
         <div class="drawer-brand">AcademeForge AI</div>
       </div>
+      <!-- Student name — left aligned, no indent -->
       <div class="drawer-student" id="drawerStudent">Loading Workspace&hellip;</div>
       <button class="drawer-new-btn" onclick="newChat()"><span>+</span> New Session</button>
     </div>
-    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search parameters&hellip;" oninput="filterConvs(this.value)">
+    <input class="drawer-search" id="drawerSearch" type="search" placeholder="Search sessions&hellip;" oninput="filterConvs(this.value)">
     <div class="conv-list" id="convList">
-      <div class="conv-empty">No active parameters logged.</div>
+      <div style="padding:10px 12px;font-size:12px;color:var(--tm);">No sessions yet.</div>
     </div>
     <div class="drawer-usage">
       <div class="usage-heading">Resource Metrics</div>
@@ -459,23 +515,25 @@
     </div>
   </aside>
 
-  <!-- CONTENT PANEL STREAM -->
+  <!-- MAIN CONTENT -->
   <div class="ai-main" id="aiMain">
     <header class="ai-header">
       <button class="ai-menu-btn" id="aiMenuBtn" onclick="handleHamburgerClick()">&#9776;</button>
       <div class="ai-header-copy">
         <div class="ai-header-title">
-          <img class="nav-logo-fallback" src="AF LOGO 2.jpeg" alt="AF" onerror="this.style.display='none';">
+          <div class="nav-logo-wrap">
+            <img src="AF LOGO 2.jpeg" alt="AF"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="nav-logo-fallback-text" style="display:none;">AF</span>
+          </div>
           AcademeForge
         </div>
         <div class="header-badges">
           <div class="badge free"><span class="blink-dot"></span>Free Layer</div>
-          <div class="badge beta"><span class="blink-dot"></span>Beta Stream</div>
+          <div class="badge beta"><span class="blink-dot"></span>Beta</div>
         </div>
       </div>
-      <div class="ai-header-actions">
-        <button class="hdr-logout" onclick="doLogout()">Terminal Signout</button>
-      </div>
+      <button class="hdr-logout" onclick="doLogout()">Sign Out</button>
     </header>
 
     <div class="mode-tabs" id="modeTabs">
@@ -488,7 +546,7 @@
       <div class="welcome-block" id="welcomeBlock">
         <div class="welcome-user-greet" id="welcomeUserGreet">Hi, Student!</div>
         <div class="welcome-kicker" id="welcomeKicker">STUDENT MENTOR ENGINE</div>
-        <div class="welcome-title" id="welcomeTitle">What architecture are we building today?</div>
+        <div class="welcome-title" id="welcomeTitle">What are we learning today?</div>
         <div class="welcome-copy" id="welcomeCopy">Query multi-agent pipelines, career roadmaps, or core code execution matrices.</div>
         <div class="suggestions" id="suggestions"></div>
       </div>
@@ -497,11 +555,11 @@
 
     <div class="composer-wrap">
       <div class="composer">
-        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Compile instructions&hellip;"></textarea>
+        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask anything..."></textarea>
         <button class="send-btn" id="sendBtn" disabled onclick="sendMessage()">&#x27A4;</button>
       </div>
       <div class="composer-meta">
-        <span>Verify pipeline outputs before production runtime execution.</span>
+        <span>Verify outputs before production runtime.</span>
         <span id="charCount">0 / 800</span>
       </div>
     </div>
@@ -513,37 +571,42 @@
 <script>
 'use strict';
 
-/* ══ CONFIG DATA STRUCTURE ══ */
 var SB_URL = "https://afooyyydhlwngzssgqih.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
 var AI_ENDPOINT = SB_URL + "/functions/v1/academe-ai-af_ai";
 var MAX_CHARS = 800;
 
-/* ══ WELCOMING MESSAGE PATTERNS ARRAY ══ */
-var MODE_PROMPTS = {
-  af_proguide: [
-    "What do you want to learn today?",
-    "Which concept are you working on?",
-    "Need help with studies, projects, or preparation?",
-    "Let's solve your academic challenge."
-  ],
+var SYSTEM_PROMPTS_POOL = [
+  "What are we learning today?",
+  "Which concept shall we tackle?",
+  "Ready to level up your skills?",
+  "What problem are we solving?",
+  "Let's build something great.",
+  "Ask me anything, I'm here."
+];
 
-  dev: [
-    "What are we building today?",
-    "What code are we shipping next?",
-    "Bring the problem. Let's design the solution.",
-    "Let's map out your production architecture."
-  ],
-
-  tapri: [
-    "Bhai bol, kya scene hai?",
-    "Kya tension chal rahi hai?",
-    "Dimag mein jo hai seedha bol.",
-    "Career, life, placement ya padhai?"
-  ]
+var MODES = {
+  af_proguide: {
+    kicker: "STUDENT MENTOR ENGINE",
+    copy: "Learn concepts, prepare for exams, build projects, and improve skills.",
+    placeholder: "Ask your academic question...",
+    suggestions: ["Explain OOP concepts","Help me prepare for interviews","Create a study plan","Teach me React.js"]
+  },
+  dev: {
+    kicker: "FOUNDER MODE",
+    copy: "Build products. Validate ideas. Ship faster.",
+    placeholder: "Describe the startup or product...",
+    suggestions: ["Validate my startup idea","Build MVP roadmap","Growth strategy","Monetization plan"]
+  },
+  tapri: {
+    kicker: "BIG BRO MODE",
+    copy: "No formal advice. Just real talk.",
+    placeholder: "Bol bhai...",
+    suggestions: ["Career confusion","Placement tension","Padhai nahi ho rahi","Bas baat karni hai"]
+  }
 };
+var currentMode = 'af_proguide';
 
-/* ══ HELPERS ══ */
 function $(id) { return document.getElementById(id); }
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
@@ -552,7 +615,6 @@ function esc(s) {
 }
 function cleanPhone(v) { return String(v || '').trim().replace(/\D/g, ''); }
 
-/* COLLAPSIBLE TOGGLING CONTROLLER */
 function handleHamburgerClick() {
   var sidebar = $('aiDrawer');
   var overlay = $('aiOverlay');
@@ -564,7 +626,6 @@ function handleHamburgerClick() {
   }
 }
 
-/* TYPING ANIMATOR HOOK */
 function animateWelcomeText(targetText) {
   var el = $('welcomeTitle');
   if (!el) return;
@@ -572,110 +633,47 @@ function animateWelcomeText(targetText) {
   var i = 0;
   if (el.typeInterval) clearInterval(el.typeInterval);
   el.typeInterval = setInterval(function() {
-    if (i < targetText.length) {
-      el.textContent += targetText.charAt(i);
-      i++;
-    } else {
-      clearInterval(el.typeInterval);
-    }
+    if (i < targetText.length) { el.textContent += targetText.charAt(i); i++; }
+    else clearInterval(el.typeInterval);
   }, 35);
 }
-
-/* ══ SYSTEM CONTROL MODE PROPERTIES ══ */
-
-var MODES = {
-
-  af_proguide: {
-    kicker: "STUDENT MENTOR ENGINE",
-    copy: "Learn concepts, prepare for exams, build projects, and improve skills.",
-    placeholder: "Ask your academic question...",
-    suggestions: [
-      "Explain OOP concepts",
-      "Help me prepare for interviews",
-      "Create a study plan",
-      "Teach me React.js"
-    ]
-  },
-
-  dev: {
-    kicker: "FOUNDER MODE",
-    copy: "Build products. Validate ideas. Ship faster.",
-    placeholder: "Describe the startup or product...",
-    suggestions: [
-      "Validate my startup idea",
-      "Build MVP roadmap",
-      "Growth strategy",
-      "Monetization plan"
-    ]
-  },
-
-  tapri: {
-    kicker: "BIG BRO MODE",
-    copy: "No formal advice. Just real talk.",
-    placeholder: "Bol bhai...",
-    suggestions: [
-      "Career confusion",
-      "Placement tension",
-      "Padhai nahi ho rahi",
-      "Bas baat karni hai"
-    ]
-  }
-
-};
-var currentMode = 'af_proguide';
 
 function setMode(mode) {
   if (!MODES[mode]) return;
   currentMode = mode;
-
   var m = MODES[mode];
-
   document.querySelectorAll('.mode-tab').forEach(function(t) {
     t.classList.toggle('active', t.dataset.mode === mode);
   });
-
   $('welcomeKicker').textContent = m.kicker;
   $('welcomeCopy').textContent = m.copy;
   $('composerInput').placeholder = m.placeholder;
-
-  // MODE SPECIFIC GREETING
-  if (mode === "tapri") {
-    $('welcomeUserGreet').textContent = "Kya haal hai bhai?";
-  } else if (mode === "dev") {
-    $('welcomeUserGreet').textContent = "Ready to build?";
-  } else {
-    $('welcomeUserGreet').textContent = "Hi, Student!";
+  if (mode === 'tapri') $('welcomeUserGreet').textContent = 'Kya haal hai bhai?';
+  else if (mode === 'dev') $('welcomeUserGreet').textContent = 'Ready to build?';
+  else {
+    var n = localStorage.getItem('af_student_name') || 'Student';
+    $('welcomeUserGreet').textContent = 'Hi, ' + n + '!';
   }
-
-  var randomTitle =
-    SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
-
-  animateWelcomeText(randomTitle);
-
+  animateWelcomeText(SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)]);
   $('suggestions').innerHTML = m.suggestions.map(function(s) {
-    return '<button class="suggestion" onclick="useSuggestion(\'' +
-      esc(s) +
-      '\')">' +
-      esc(s) +
-      '</button>';
+    return '<button class="suggestion" onclick="useSuggestion(\'' + esc(s) + '\')">' + esc(s) + '</button>';
   }).join('');
 }
+
 function useSuggestion(text) {
   $('composerInput').value = text;
   updateComposer();
   $('composerInput').focus();
 }
 
-/* ══ AUTH MANAGEMENT ══ */
+/* ── AUTH ── */
 var _pendingCreate = null, _resetStudent = null, _forgotOtpPassed = false;
 
 function switchMode(mode) {
   clearMsg();
   _pendingCreate = null; _resetStudent = null; _forgotOtpPassed = false;
-
   ['Login','Create','Forgot'].forEach(function(m) {
-    var box = $('box' + m);
-    if (box) box.classList.add('hidden');
+    var b = $('box' + m); if (b) b.classList.add('hidden');
   });
   $('createOtpArea').classList.add('hidden');
   $('forgotOtpArea').classList.add('hidden');
@@ -691,11 +689,11 @@ function switchMode(mode) {
   } else if (mode === 'create') {
     $('boxCreate').classList.remove('hidden');
     $('tabCreate').classList.add('active');
-    $('authSub').textContent = 'Register terminal telemetry to unlock personalized execution clusters.';
+    $('authSub').textContent = 'Register your account to unlock the AI workspace.';
   } else if (mode === 'forgot') {
     $('boxForgot').classList.remove('hidden');
     $('authTabs').classList.add('hidden');
-    $('authSub').textContent = 'Verify communication parameters to re-initialize account layer validation keys.';
+    $('authSub').textContent = 'Verify your identity to reset your password.';
   }
 }
 
@@ -705,13 +703,9 @@ function showMsg(type, text) {
   b.textContent = text || '';
   b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-function clearMsg() {
-  var b = $('authMsg');
-  b.className = 'msg-box';
-  b.textContent = '';
-}
+function clearMsg() { var b = $('authMsg'); b.className = 'msg-box'; b.textContent = ''; }
 
-/* ══ SUPABASE INFRASTRUCTURE LAYER ══ */
+/* ── SUPABASE ── */
 var _sb = null;
 async function getSb() {
   if (_sb) return _sb;
@@ -729,41 +723,29 @@ async function getSb() {
 
 async function edgeCall(fn, payload) {
   try {
-    if (!navigator.onLine) return { ok: false, message: 'Terminal disconnected. Check physical networking interfaces.' };
+    if (!navigator.onLine) return { ok: false, message: 'No internet connection.' };
     var sb = await getSb();
     var result = await sb.functions.invoke(fn, { body: payload || {} });
-    var data = result.data;
-    var error = result.error;
-    if (error) return { ok: false, message: error.message || 'Function endpoint returned exceptions.' };
-    return data || { ok: false, message: 'Null transaction payload signature.' };
-  } catch (e) {
-    return { ok: false, message: e.message || 'System fault runtime error.' };
-  }
+    if (result.error) return { ok: false, message: result.error.message || 'Function error.' };
+    return result.data || { ok: false, message: 'Empty response.' };
+  } catch (e) { return { ok: false, message: e.message || 'System error.' }; }
 }
 
-/* ══ AUTH RUNTIME METHODS ══ */
 async function doLogin() {
   var loginId = ($('loginPhone').value || '').trim();
   var cleanId = cleanPhone(loginId);
   var password = ($('loginPassword').value || '').trim();
-
-  if (!loginId) { showMsg('err', 'Verification mismatch. Identity key required.'); return; }
-  if (!password) { showMsg('err', 'Identity validation parameters missing.'); return; }
-
-  showMsg('info', 'Compiling profile verification nodes\u2026');
+  if (!loginId) { showMsg('err', 'Please enter your Student ID or phone number.'); return; }
+  if (!password) { showMsg('err', 'Please enter your password.'); return; }
+  showMsg('info', 'Verifying credentials…');
   var res = await edgeCall('student-login-af', {
-    login_id: loginId,
-    clean_login_id: cleanId,
-    password: password,
-    device_id: getDeviceId(),
-    device_name: getDeviceName()
+    login_id: loginId, clean_login_id: cleanId, password: password,
+    device_id: getDeviceId(), device_name: getDeviceName()
   });
-
-  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Authentication mismatch. Confirm active database hashes.'); return; }
-  if (!res.student)    { showMsg('err', 'Telemetry load failed. Profile configuration node unreadable.'); return; }
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Login failed. Please check your credentials.'); return; }
+  if (!res.student)    { showMsg('err', 'Profile load failed.'); return; }
   var token = res.session_token || res.login_token || '';
-  if (!token)          { showMsg('err', 'Authorization initialization rejected. Missing signature token.'); return; }
-
+  if (!token) { showMsg('err', 'Authorization token missing.'); return; }
   saveSession(res.student, token, res.device_id || getDeviceId());
   openWorkspace(res.student);
 }
@@ -773,130 +755,95 @@ async function sendCreateOtp() {
   var mobile   = cleanPhone($('createPhone').value || '');
   var email    = ($('createEmail').value || '').trim().toLowerCase();
   var password = ($('createPassword').value || '').trim();
-
-  if (!name || name.length < 3) { showMsg('err', 'String structure invalid. Provide absolute system name.'); return; }
-  if (!mobile || mobile.length < 10) { showMsg('err', 'Identity tracking validation require full length phone signature.'); return; }
-  if (!email || !email.includes('@')) { showMsg('err', 'Routing network failure. Invalid standard formatting pattern.'); return; }
-  if (!password || password.length < 4) { showMsg('err', 'Security arrays require minimum configuration size >= 4.'); return; }
-
-  showMsg('info', 'Scanning data blocks for duplicate entries\u2026');
+  if (!name || name.length < 3) { showMsg('err', 'Please enter your full name (min 3 characters).'); return; }
+  if (!mobile || mobile.length < 10) { showMsg('err', 'Please enter a valid 10-digit mobile number.'); return; }
+  if (!email || !email.includes('@')) { showMsg('err', 'Please enter a valid email address.'); return; }
+  if (!password || password.length < 4) { showMsg('err', 'Password must be at least 4 characters.'); return; }
+  showMsg('info', 'Checking for existing accounts…');
   var check = await edgeCall('student-check-existing-af', { mobile: mobile, email: email });
-  if (!check || !check.ok) { showMsg('err', (check && check.message) || 'Data stream scanning exception encountered.'); return; }
-  if (check.mobile_exists || check.student_id_exists) { showMsg('err', 'Identity already maps to existing system node.'); return; }
-  if (check.email_exists)  { showMsg('err', 'Communication node routing map matches duplicate entity records.'); return; }
-
-  _pendingCreate = { student_id: mobile, name: name, mobile: mobile, email: email, password: password, status: 'active', email_verified: false };
-
-  showMsg('info', 'Dispatching secure verification string to communication hub\u2026');
-  var otpRes = await edgeCall('student-send-otp-af', { email: email, mobile: mobile, purpose: 'create' });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'Dispatch sequence failed: ' + ((otpRes && otpRes.message) || 'Gateway offline.')); return; }
-
+  if (!check || !check.ok) { showMsg('err', (check && check.message) || 'Check failed.'); return; }
+  if (check.mobile_exists || check.student_id_exists) { showMsg('err', 'This mobile number is already registered.'); return; }
+  if (check.email_exists) { showMsg('err', 'This email is already registered.'); return; }
+  _pendingCreate = { student_id: mobile, name, mobile, email, password, status: 'active', email_verified: false };
+  showMsg('info', 'Sending OTP to your email…');
+  var otpRes = await edgeCall('student-send-otp-af', { email, mobile, purpose: 'create' });
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'OTP dispatch failed: ' + ((otpRes && otpRes.message) || 'Gateway error.')); return; }
   $('createOtpArea').classList.remove('hidden');
-  showMsg('ok', 'Telemetry string dispatched successfully. Verify target inbox.');
+  showMsg('ok', 'OTP sent! Check your inbox.');
 }
 
 async function verifyCreateOtp() {
   var otp = ($('createOtp').value || '').trim();
-  if (!_pendingCreate) { showMsg('err', 'Execution loop empty. Compile profile block data arrays first.'); return; }
-  if (!otp || otp.length < 4) { showMsg('err', 'Verification code matching parameters are incomplete.'); return; }
-
-  showMsg('info', 'Validating verification parameter keys & writing blocks\u2026');
-  var payload = Object.assign({}, _pendingCreate, { otp: otp, purpose: 'create' });
+  if (!_pendingCreate) { showMsg('err', 'Session expired. Please fill the form again.'); return; }
+  if (!otp || otp.length < 4) { showMsg('err', 'Please enter the 6-digit OTP.'); return; }
+  showMsg('info', 'Verifying OTP and creating account…');
+  var payload = Object.assign({}, _pendingCreate, { otp, purpose: 'create' });
   var res = await edgeCall('student-create-af', payload);
-  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Account database instantiation script failed.'); return; }
-  if (!res.student)    { showMsg('err', 'Workspace initialized but failed to extract data configuration nodes.'); return; }
-
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Account creation failed.'); return; }
+  if (!res.student) { showMsg('err', 'Account created but failed to load profile.'); return; }
   _pendingCreate = null;
   $('createOtpArea').classList.add('hidden');
   $('createOtp').value = '';
-
   saveSession(res.student, res.session_token || res.login_token || '', getDeviceId());
-  showToast('Student Workspace Instantiated! Welcome \uD83C\uDF89', 'ok');
+  showToast('Welcome to AcademeForge! 🎉', 'ok');
   openWorkspace(res.student);
 }
 
 async function findStudentForReset() {
   var value = ($('forgotLogin').value || '').trim();
   var clean = cleanPhone(value);
-  if (!value) { showMsg('err', 'Provide search tracking keys to scan database clusters.'); return; }
-
-  showMsg('info', 'Mapping account references\u2026');
-  var res = await edgeCall('student-find-reset-af', {
-    value: value,
-    clean_value: clean,
-    email_value: value.toLowerCase()
-  });
-  if (!res || !res.ok)       { showMsg('err', (res && res.message) || 'No registered structure matches the criteria search key.'); return; }
-  if (!res.student || !res.student.email) { showMsg('err', 'Cluster reference found but matching email routing maps are empty.'); return; }
-
-  _resetStudent = res.student;
-  _forgotOtpPassed = false;
-
-  showMsg('info', 'Dispatching authorization reset validation tokens\u2026');
-  var otpRes = await edgeCall('student-send-otp-af', {
-    email: _resetStudent.email,
-    mobile: _resetStudent.mobile || '',
-    purpose: 'reset'
-  });
-  if (!otpRes || !otpRes.ok) { showMsg('err', 'Token dispatch sequence threw system alerts: ' + ((otpRes && otpRes.message) || 'Internal exception.')); return; }
-
+  if (!value) { showMsg('err', 'Please enter your ID, email, or phone number.'); return; }
+  showMsg('info', 'Looking up your account…');
+  var res = await edgeCall('student-find-reset-af', { value, clean_value: clean, email_value: value.toLowerCase() });
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'No account found with that information.'); return; }
+  if (!res.student || !res.student.email) { showMsg('err', 'Account found but no email on file.'); return; }
+  _resetStudent = res.student; _forgotOtpPassed = false;
+  showMsg('info', 'Sending reset OTP…');
+  var otpRes = await edgeCall('student-send-otp-af', { email: _resetStudent.email, mobile: _resetStudent.mobile || '', purpose: 'reset' });
+  if (!otpRes || !otpRes.ok) { showMsg('err', 'OTP send failed: ' + ((otpRes && otpRes.message) || 'Error.')); return; }
   $('forgotOtpArea').classList.remove('hidden');
   $('resetPasswordArea').classList.add('hidden');
-  showMsg('ok', 'Verification string compiled and pushed to email records.');
+  showMsg('ok', 'OTP sent to your registered email.');
 }
 
 async function verifyForgotOtp() {
   var otp = ($('forgotOtp').value || '').trim();
-  if (!_resetStudent)        { showMsg('err', 'Missing entity context. Scan structural identity registries first.'); return; }
-  if (!otp || otp.length < 4){ showMsg('err', 'Parameter verification keys require complete characters layout.'); return; }
-
-  showMsg('info', 'Checking structural telemetry keys...');
-  var res = await edgeCall('student-verify-otp-af', {
-    email: _resetStudent.email,
-    otp: otp,
-    purpose: 'reset'
-  });
-  if (!res || !res.ok) { showMsg('err', 'Validation fail: ' + ((res && res.message) || 'Parameters unverified.')); return; }
-
+  if (!_resetStudent) { showMsg('err', 'Session expired. Please start again.'); return; }
+  if (!otp || otp.length < 4) { showMsg('err', 'Please enter the complete OTP.'); return; }
+  showMsg('info', 'Verifying OTP…');
+  var res = await edgeCall('student-verify-otp-af', { email: _resetStudent.email, otp, purpose: 'reset' });
+  if (!res || !res.ok) { showMsg('err', 'OTP verification failed: ' + ((res && res.message) || 'Invalid code.')); return; }
   _forgotOtpPassed = true;
   $('resetPasswordArea').classList.remove('hidden');
-  showMsg('ok', 'Identity verified. Rewrite execution security keys.');
+  showMsg('ok', 'Identity verified! Set your new password.');
 }
 
 async function resetPassword() {
   var newPwd = ($('newPassword').value || '').trim();
-  if (!_resetStudent)       { showMsg('err', 'Entity missing configuration initialization contexts.'); return; }
-  if (!_forgotOtpPassed)    { showMsg('err', 'Token validation layer check dependencies unresolved.'); return; }
-  if (!newPwd || newPwd.length < 4) { showMsg('err', 'Security keys criteria must be >= 4 characters.'); return; }
-
-  showMsg('info', 'Updating production cryptographic database records\u2026');
-  var res = await edgeCall('student-reset-password-af', {
-    id: _resetStudent.id,
-    email: _resetStudent.email,
-    new_password: newPwd
-  });
-  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Database commit rejected updates.'); return; }
-
+  if (!_resetStudent) { showMsg('err', 'Session expired.'); return; }
+  if (!_forgotOtpPassed) { showMsg('err', 'OTP not verified yet.'); return; }
+  if (!newPwd || newPwd.length < 4) { showMsg('err', 'Password must be at least 4 characters.'); return; }
+  showMsg('info', 'Updating password…');
+  var res = await edgeCall('student-reset-password-af', { id: _resetStudent.id, email: _resetStudent.email, new_password: newPwd });
+  if (!res || !res.ok) { showMsg('err', (res && res.message) || 'Password reset failed.'); return; }
   _resetStudent = null; _forgotOtpPassed = false;
   $('forgotOtpArea').classList.add('hidden');
   $('resetPasswordArea').classList.add('hidden');
-  $('forgotOtp').value = '';
-  $('newPassword').value = '';
-
-  showMsg('ok', 'Database updated. Re-authenticate using the new parameter criteria.');
+  $('forgotOtp').value = ''; $('newPassword').value = '';
+  showMsg('ok', 'Password updated! Please log in.');
   setTimeout(function() { switchMode('login'); }, 1200);
 }
 
-/* ══ PERSISTENCE LAYERS ══ */
+/* ── PERSISTENCE ── */
 function saveSession(student, token, deviceId) {
   localStorage.setItem('af_student_logged_in', 'true');
-  localStorage.setItem('af_session_token',     token || '');
-  localStorage.setItem('af_device_id',          deviceId || getDeviceId());
-  localStorage.setItem('af_student_uuid',      student.id || '');
-  localStorage.setItem('af_student_id',        student.student_id || student.mobile || student.phone || '');
-  localStorage.setItem('af_student_mobile',    student.mobile || student.phone || '');
-  localStorage.setItem('af_student_name',      student.name || 'Student');
-  localStorage.setItem('af_student_email',     student.email || '');
+  localStorage.setItem('af_session_token', token || '');
+  localStorage.setItem('af_device_id', deviceId || getDeviceId());
+  localStorage.setItem('af_student_uuid', student.id || '');
+  localStorage.setItem('af_student_id', student.student_id || student.mobile || student.phone || '');
+  localStorage.setItem('af_student_mobile', student.mobile || student.phone || '');
+  localStorage.setItem('af_student_name', student.name || 'Student');
+  localStorage.setItem('af_student_email', student.email || '');
 }
 
 function doLogout() {
@@ -907,39 +854,37 @@ function doLogout() {
   $('panelAI').classList.add('hidden');
   $('panelAuth').classList.remove('hidden');
   switchMode('login');
-  showToast('Terminal Session Terminated \uD83D\uDC4B', 'ok');
+  showToast('Signed out successfully 👋', 'ok');
 }
 
 function getDeviceId() {
   var k = 'af_device_id';
   var id = localStorage.getItem(k);
-  if (!id) {
-    id = 'afdev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 12);
-    localStorage.setItem(k, id);
-  }
+  if (!id) { id = 'afdev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,12); localStorage.setItem(k, id); }
   return id;
 }
 function getDeviceName() {
   var ua = navigator.userAgent || '';
-  if (/Android/i.test(ua)) return 'Android Telemetry Client';
-  if (/iPhone|iPad/i.test(ua)) return 'iOS Systems Interface';
-  if (/Windows/i.test(ua)) return 'NT Arch Framework OS';
-  return 'Standard Browser Engine';
+  if (/Android/i.test(ua)) return 'Android';
+  if (/iPhone|iPad/i.test(ua)) return 'iOS';
+  if (/Windows/i.test(ua)) return 'Windows';
+  return 'Browser';
 }
 
-/* ══ WORKSPACE LIFECYCLE INITIALIZER ══ */
+/* ── WORKSPACE ── */
 function openWorkspace(student) {
   $('panelAuth').classList.add('hidden');
   $('panelAI').classList.remove('hidden');
   var name = (student && student.name) || localStorage.getItem('af_student_name') || 'Student';
-  $('drawerStudent').textContent = name + ' \u00B7 Active Terminal';
+  /* FIX: "AcademeForge · Active Terminal" left-aligned */
+  $('drawerStudent').textContent = 'AcademeForge \u00B7 Active Terminal';
   $('welcomeUserGreet').textContent = 'Hi, ' + name + '!';
   setMode('af_proguide');
   loadUsage();
   loadConvList();
 }
 
-/* ══ COMPOSER SYSTEMS ══ */
+/* ── COMPOSER ── */
 function updateComposer() {
   var inp = $('composerInput');
   inp.style.height = 'auto';
@@ -947,13 +892,12 @@ function updateComposer() {
   $('charCount').textContent = inp.value.length + ' / ' + MAX_CHARS;
   $('sendBtn').disabled = isLoading || !inp.value.trim();
 }
-
 $('composerInput').addEventListener('input', updateComposer);
 $('composerInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
-/* ══ PIPELINE STREAM CORE ══ */
+/* ── PIPELINE ── */
 var isLoading = false;
 var currentConvId = '';
 
@@ -962,17 +906,13 @@ async function sendMessage() {
   var inp = $('composerInput');
   var text = inp.value.trim();
   if (!text) return;
-
   isLoading = true;
   $('welcomeBlock').classList.add('hidden');
   inp.value = '';
   updateComposer();
-
   appendMsg('user', text, currentMode);
-
   var thinking = document.createElement('div');
-  thinking.className = 'thinking';
-  thinking.id = 'thinking';
+  thinking.className = 'thinking'; thinking.id = 'thinking';
   thinking.innerHTML = '<div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div>';
   $('messages').appendChild(thinking);
   scrollChat();
@@ -996,71 +936,50 @@ async function sendMessage() {
     });
     clearTimeout(timer);
     result = await resp.json().catch(function() { return {}; });
-    if (!resp.ok) result = { error_af_ai: (result && result.error_af_ai) || 'Server cluster processing failure status ' + resp.status };
-  } catch (e) {
-    result = { error_af_ai: e.name === 'AbortError' ? 'Execution runtime timeout threshold breached.' : 'Network cluster link disconnection.' };
+    if (!resp.ok) result = { error_af_ai: (result && result.error_af_ai) || 'Server error ' + resp.status };
+  } catch(e) {
+    result = { error_af_ai: e.name === 'AbortError' ? 'Request timed out.' : 'Network error.' };
   }
 
   var thinkEl = $('thinking');
   if (thinkEl) thinkEl.remove();
   isLoading = false;
 
-  if (result.error_af_ai) {
-    showToast(result.error_af_ai, 'err');
-    updateComposer();
-    return;
-  }
-
+  if (result.error_af_ai) { showToast(result.error_af_ai, 'err'); updateComposer(); return; }
   if (result.session_request_limit_af_ai !== undefined) applyUsage(result);
   currentConvId = result.conversation_id_af_ai || currentConvId;
-  appendMsg('assistant', result.answer_af_ai || 'No processing signature fetched.', result.mode_af_ai || currentMode);
+  appendMsg('assistant', result.answer_af_ai || 'No response received.', result.mode_af_ai || currentMode);
   updateComposer();
   loadConvList();
 }
 
 function appendMsg(role, content, mode) {
   var row = document.createElement('div');
-  row.className = 'msg-row' + (role === 'user' ? ' user' : '') + (role === 'user' && mode !== 'af_proguide' ? ' ' + mode : '');
+  row.className = 'msg-row' + (role === 'user' ? ' user' : '');
   var name = localStorage.getItem('af_student_name') || 'Student';
   var initials = name.trim().split(/\s+/).slice(0,2).map(function(p) { return p[0].toUpperCase(); }).join('');
   var avatarContent = role === 'user' ? initials : 'AI';
   var bubbleContent = role === 'user' ? esc(content) : renderMarkdown(content);
-  
-  var labelConfig = 'AcademeForge Engine';
-  if (mode === 'dev') labelConfig = 'Dev Core v1.3';
-  if (mode === 'tapri') labelConfig = 'Tapri Protocol v7.9';
-
-  var metaLabel = role === 'user' ? esc(name) : labelConfig;
-
+  var metaLabel = role === 'user' ? esc(name) : (mode === 'dev' ? 'Dev Core' : mode === 'tapri' ? 'Tapri Core' : 'AcademeForge AI');
   row.innerHTML = '<div class="avatar">' + avatarContent + '</div>' +
-    '<div class="msg-body">' +
-      '<div class="bubble">' + bubbleContent + '</div>' +
-      '<div class="msg-meta">' + metaLabel + '</div>' +
-    '</div>';
+    '<div class="msg-body"><div class="bubble">' + bubbleContent + '</div>' +
+    '<div class="msg-meta">' + metaLabel + '</div></div>';
   $('messages').appendChild(row);
   scrollChat();
 }
 
-/* FIX: renderMarkdown — replaced broken template literal regex with a safe string-based split */
 function renderMarkdown(text) {
   var parts = [];
   var remaining = text;
   var codeBlockRegex = /```([\w+-]*)\n?([\s\S]*?)```/g;
-  var lastIndex = 0;
-  var match;
-
+  var lastIndex = 0; var match;
   codeBlockRegex.lastIndex = 0;
   while ((match = codeBlockRegex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push({ type: 'text', content: text.slice(lastIndex, match.index) });
-    }
-    parts.push({ type: 'code', lang: match[1] || 'Code Block', code: match[2] });
+    if (match.index > lastIndex) parts.push({ type: 'text', content: text.slice(lastIndex, match.index) });
+    parts.push({ type: 'code', lang: match[1] || 'code', code: match[2] });
     lastIndex = match.index + match[0].length;
   }
-  if (lastIndex < text.length) {
-    parts.push({ type: 'text', content: text.slice(lastIndex) });
-  }
-
+  if (lastIndex < text.length) parts.push({ type: 'text', content: text.slice(lastIndex) });
   return parts.map(function(part) {
     if (part.type === 'code') {
       return '<div class="code-wrap"><div class="code-head"><span>' + esc(part.lang) + '</span>' +
@@ -1084,27 +1003,19 @@ $('messages').addEventListener('click', async function(e) {
   } catch(err) {}
 });
 
-function scrollChat() {
-  var s = $('chatScroll');
-  s.scrollTop = s.scrollHeight;
-}
+function scrollChat() { var s = $('chatScroll'); s.scrollTop = s.scrollHeight; }
 
 function newChat() {
   currentConvId = '';
   $('messages').innerHTML = '';
   $('welcomeBlock').classList.remove('hidden');
-  var randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
-  animateWelcomeText(randomTitle);
-  if (window.innerWidth <= 768) {
-    $('aiDrawer').classList.remove('open');
-    $('aiOverlay').classList.remove('open');
-  }
+  animateWelcomeText(SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)]);
+  if (window.innerWidth <= 768) { $('aiDrawer').classList.remove('open'); $('aiOverlay').classList.remove('open'); }
   $('composerInput').focus();
 }
 
-/* ══ TELEMETRY ENGINE LOGGER ══ */
+/* ── CONV LIST ── */
 var allConvs = [];
-
 async function loadConvList() {
   try {
     var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
@@ -1122,20 +1033,18 @@ async function loadConvList() {
 
 function renderConvList(list) {
   var el = $('convList');
-  if (!list.length) { el.innerHTML = '<div class="conv-empty">No active parameters logged.</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:var(--tm);">No sessions yet.</div>'; return; }
   el.innerHTML = list.map(function(c) {
     return '<button class="conv-row' + (c.conversation_id_af_ai === currentConvId ? ' active' : '') + '"' +
       ' onclick="loadConv(\'' + esc(c.conversation_id_af_ai) + '\')">' +
       '<span class="conv-dot"></span>' +
-      '<span class="conv-title">' + esc(c.title_af_ai || 'Thread Node Cluster') + '</span>' +
+      '<span class="conv-title">' + esc(c.title_af_ai || 'Untitled Session') + '</span>' +
       '</button>';
   }).join('');
 }
 
 function filterConvs(q) {
-  var filtered = q.trim()
-    ? allConvs.filter(function(c) { return (c.title_af_ai || '').toLowerCase().includes(q.toLowerCase()); })
-    : allConvs;
+  var filtered = q.trim() ? allConvs.filter(function(c) { return (c.title_af_ai || '').toLowerCase().includes(q.toLowerCase()); }) : allConvs;
   renderConvList(filtered);
 }
 
@@ -1143,11 +1052,7 @@ async function loadConv(id) {
   currentConvId = id;
   $('welcomeBlock').classList.add('hidden');
   $('messages').innerHTML = '<div class="thinking" id="thinking"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>';
-  if (window.innerWidth <= 768) {
-    $('aiDrawer').classList.remove('open');
-    $('aiOverlay').classList.remove('open');
-  }
-
+  if (window.innerWidth <= 768) { $('aiDrawer').classList.remove('open'); $('aiOverlay').classList.remove('open'); }
   var key = localStorage.getItem('af_student_email') || localStorage.getItem('af_student_mobile') || '';
   var data;
   try {
@@ -1157,16 +1062,11 @@ async function loadConv(id) {
       body: JSON.stringify({ action_af_ai: 'load_conversation_af_ai', conversation_id_af_ai: id, student_key_af_ai: key })
     });
     data = await resp.json().catch(function() { return {}; });
-  } catch(err) { data = { error_af_ai: 'Network framework read block failure.' }; }
-
-  var thinkEl = $('thinking');
-  if (thinkEl) thinkEl.remove();
+  } catch(err) { data = { error_af_ai: 'Network error.' }; }
+  var thinkEl = $('thinking'); if (thinkEl) thinkEl.remove();
   if (data.error_af_ai) { showToast(data.error_af_ai, 'err'); return; }
-
   $('messages').innerHTML = '';
-  (data.messages_af_ai || []).forEach(function(m) {
-    appendMsg(m.role_af_ai, m.content_af_ai, m.mode_af_ai || 'af_proguide');
-  });
+  (data.messages_af_ai || []).forEach(function(m) { appendMsg(m.role_af_ai, m.content_af_ai, m.mode_af_ai || 'af_proguide'); });
   renderConvList(allConvs);
 }
 
@@ -1185,34 +1085,32 @@ async function loadUsage() {
 
 function applyUsage(d) {
   if (d.session_request_limit_af_ai === undefined) return;
-  var sessReqUsed  = Number(d.session_request_used_af_ai  || 0);
+  var sessReqUsed  = Number(d.session_request_used_af_ai || 0);
   var sessReqLimit = Number(d.session_request_limit_af_ai || 10);
   var sessReqRem   = Number(d.session_request_remaining_af_ai || 0);
-  var sessTokUsed  = Number(d.session_token_used_af_ai    || 0);
-  var sessTokLimit = Number(d.session_token_limit_af_ai   || 15000);
+  var sessTokUsed  = Number(d.session_token_used_af_ai || 0);
+  var sessTokLimit = Number(d.session_token_limit_af_ai || 15000);
   var sessTokRem   = Number(d.session_token_remaining_af_ai || 0);
-  var dailyUsed    = Number(d.daily_request_used_af_ai    || 0);
-  var dailyLimit   = Number(d.daily_request_limit_af_ai   || 20);
+  var dailyUsed    = Number(d.daily_request_used_af_ai || 0);
+  var dailyLimit   = Number(d.daily_request_limit_af_ai || 20);
   var dailyRem     = Number(d.daily_request_remaining_af_ai || 0);
-
-  $('uSessReq').textContent  = sessReqRem + ' left / ' + sessReqLimit;
+  $('uSessReq').textContent  = sessReqRem + ' / ' + sessReqLimit;
   $('uSessTok').textContent  = sessTokRem.toLocaleString() + ' left';
-  $('uDailyReq').textContent = dailyRem + ' left / ' + dailyLimit;
-
+  $('uDailyReq').textContent = dailyRem + ' / ' + dailyLimit;
   function pct(used, max) { return max > 0 ? Math.min(100, (used / max) * 100) + '%' : '0%'; }
   $('uSessReqBar').style.width  = pct(sessReqUsed,  sessReqLimit);
   $('uSessTokBar').style.width  = pct(sessTokUsed,  sessTokLimit);
   $('uDailyReqBar').style.width = pct(dailyUsed,    dailyLimit);
 }
 
-/* ══ TOAST NOTIFICATIONS ══ */
+/* ── TOAST ── */
 var _tt = null;
 function showToast(msg, type, title) {
   type = type || 'info';
   var w = $('toastWrap');
   w.innerHTML = '';
   if (_tt) { clearTimeout(_tt); _tt = null; }
-  var labels = { ok: 'Done', info: 'Info', err: 'Critical Failure' };
+  var labels = { ok: 'Done', info: 'Info', err: 'Error' };
   var d = document.createElement('div');
   d.className = 'toast ' + type;
   d.innerHTML = '<div class="toast-body"><p>' + esc(title || labels[type] || 'Info') + '</p><p>' + esc(msg) + '</p></div>' +
@@ -1221,17 +1119,16 @@ function showToast(msg, type, title) {
   _tt = setTimeout(function() { if (d.parentNode) d.remove(); }, 2800);
 }
 
-/* ══ MAIN DETECTOR ENGINE INIT ══ */
+/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function() {
   var loggedIn = localStorage.getItem('af_student_logged_in') === 'true';
   if (loggedIn) {
-    var student = {
-      id:    localStorage.getItem('af_student_uuid'),
-      name:  localStorage.getItem('af_student_name'),
-      email: localStorage.getItem('af_student_email'),
-      mobile:localStorage.getItem('af_student_mobile')
-    };
-    openWorkspace(student);
+    openWorkspace({
+      id:     localStorage.getItem('af_student_uuid'),
+      name:   localStorage.getItem('af_student_name'),
+      email:  localStorage.getItem('af_student_email'),
+      mobile: localStorage.getItem('af_student_mobile')
+    });
   } else {
     switchMode('login');
   }
