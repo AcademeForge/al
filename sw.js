@@ -1,6 +1,6 @@
 // sw.js
 
-const CACHE_NAME = "academeforge-v1";
+const CACHE_NAME = "academeforge-v2";
 
 const STATIC_ASSETS = [
   "/",
@@ -10,72 +10,93 @@ const STATIC_ASSETS = [
   "/AF%20LOGO%203.png"
 ];
 
+// INSTALL
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_ASSETS))
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
       .then(() => self.skipWaiting())
   );
 });
 
+// ACTIVATE
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys.map((key) => {
+            if (key !== CACHE_NAME) {
+              return caches.delete(key);
+            }
+          })
+        )
       )
-    ).then(() => self.clients.claim())
+      .then(() => self.clients.claim())
   );
 });
 
+// FETCH
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
-  // Never cache API calls
+  // NEVER cache non-GET requests
+  if (request.method !== "GET") {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // NEVER cache Supabase Functions/API requests
   if (
     request.url.includes("/functions/v1/") ||
+    request.url.includes(".supabase.co") ||
     request.headers.has("authorization")
   ) {
     event.respondWith(fetch(request));
     return;
   }
 
-  // HTML = network first
+  // HTML Pages → Network First
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
-        .then(response => {
-          const clone = response.clone();
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
 
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(request, clone));
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
 
           return response;
         })
         .catch(() => caches.match(request))
     );
+
     return;
   }
 
-  // Static assets = stale while revalidate
+  // Static Assets → Cache First + Background Update
   event.respondWith(
-    caches.match(request).then(cached => {
-      const fetchPromise = fetch(request)
-        .then(networkResponse => {
-          const clone = networkResponse.clone();
+    caches.match(request).then((cached) => {
+      const networkFetch = fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
 
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(request, clone));
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
 
-          return networkResponse;
+          return response;
         })
         .catch(() => cached);
 
-      return cached || fetchPromise;
+      return cached || networkFetch;
     })
   );
 });
