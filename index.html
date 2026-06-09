@@ -582,32 +582,53 @@ function animateWelcomeText(targetText) {
 }
 
 /* ══ SYSTEM CONTROL MODE PROPERTIES ══ */
-var MODES = {
-  af_proguide: {
-    kicker: 'STUDENT MENTOR ENGINE',
-    copy: 'Query multi-agent pipelines, career roadmaps, or core code execution matrices.',
-    suggestions: ['Learn Python Frameworks', 'Build a Next.js Portfolio', 'Prepare Core Engineering Interviews', 'Structure Technical Strategy'],
-    placeholder: 'Ask AF ProGuide anything\u2026'
-  },
-  dev: {
-    kicker: 'FOUNDER SYSTEM DIRECTIVES',
-    copy: 'Direct systems compilation access. Optimize execution matrices, database schemas, and infrastructure scaling.',
-    suggestions: ['Review Distributed Systems', 'Debug Multi-threaded Code', 'Draft architectural MVP', 'Refactor Core Database Indexes'],
-    placeholder: 'Ask Dev Anything\u2026'
-  },
-  tapri: {
-    kicker: 'BIG BROTHER PROTOCOLS',
-    copy: 'Career confusion, engineering fatigue, or study stress? Open a thread to clear validation dependencies.',
-    suggestions: ['Resolving Career Confusion', 'Effective Coding Roadmaps', 'Dealing with Burnout', 'Tech jobs vs placements advice'],
-    placeholder: 'Talk to Tapri Core\u2026'
-  }
-};
 
+var MODES = {
+
+  af_proguide: {
+    kicker: "STUDENT MENTOR ENGINE",
+    copy: "Learn concepts, prepare for exams, build projects, and improve skills.",
+    placeholder: "Ask your academic question...",
+    suggestions: [
+      "Explain OOP concepts",
+      "Help me prepare for interviews",
+      "Create a study plan",
+      "Teach me React.js"
+    ]
+  },
+
+  dev: {
+    kicker: "FOUNDER MODE",
+    copy: "Build products. Validate ideas. Ship faster.",
+    placeholder: "Describe the startup or product...",
+    suggestions: [
+      "Validate my startup idea",
+      "Build MVP roadmap",
+      "Growth strategy",
+      "Monetization plan"
+    ]
+  },
+
+  tapri: {
+    kicker: "BIG BRO MODE",
+    copy: "No formal advice. Just real talk.",
+    placeholder: "Bol bhai...",
+    suggestions: [
+      "Career confusion",
+      "Placement tension",
+      "Padhai nahi ho rahi",
+      "Bas baat karni hai"
+    ]
+  }
+
+};
 var currentMode = 'af_proguide';
 
 function setMode(mode) {
   if (!MODES[mode]) return;
+
   currentMode = mode;
+
   var m = MODES[mode];
 
   document.querySelectorAll('.mode-tab').forEach(function(t) {
@@ -618,14 +639,21 @@ function setMode(mode) {
   $('welcomeCopy').textContent = m.copy;
   $('composerInput').placeholder = m.placeholder;
 
-  var randomTitle = SYSTEM_PROMPTS_POOL[Math.floor(Math.random() * SYSTEM_PROMPTS_POOL.length)];
-  animateWelcomeText(randomTitle);
+  var pool = MODE_PROMPTS[mode] || [];
+  var title = pool[Math.floor(Math.random() * pool.length)];
 
-  $('suggestions').innerHTML = m.suggestions.map(function(s) {
-    return '<button class="suggestion" onclick="useSuggestion(\'' + esc(s) + '\')">' + esc(s) + '</button>';
-  }).join('');
+  animateWelcomeText(title);
+
+  $('suggestions').innerHTML =
+    m.suggestions.map(function(s) {
+      return `
+        <button class="suggestion"
+          onclick="useSuggestion('${s.replace(/'/g, "\\'")}')">
+          ${s}
+        </button>
+      `;
+    }).join('');
 }
-
 function useSuggestion(text) {
   $('composerInput').value = text;
   updateComposer();
