@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090b12">
+  <title>AcademeForge AI Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background-af_ai:#090b12;
+      --panel-af_ai:#111521;
+      --panel-soft-af_ai:#181e2d;
+      --panel-strong-af_ai:#20283a;
+      --line-af_ai:#2a3348;
+      --text-af_ai:#f1f4fb;
+      --muted-af_ai:#929db7;
+      --faint-af_ai:#66718d;
+      --blue-af_ai:#5687ff;
+      --orange-af_ai:#ff7a3d;
+      --purple-af_ai:#ae55f5;
+      --green-af_ai:#23c483;
+      --red-af_ai:#ff5a68;
+      --yellow-af_ai:#f6b94b;
+      --radius-af_ai:18px;
+      
+      /* Auth Colors mapped to dark theme */
+      --ok:#23c483;
+      --err:#ff5a68;
+      --info:#5687ff;
+      --inp:#181e2d;
+    }
+    
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0; background: #030508; color: var(--text-af_ai); font-family: 'Inter', sans-serif; overflow: hidden; }
+    button, input, textarea { font: inherit; color: inherit; }
+    
+    /* Responsive App Shell Setup */
+    .app-container {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* AI View layout: Boxed on mobile, glorious Full Screen on Desktop */
+    .shell-af_ai {
+      width: 100%;
+      height: 100%;
+      background: var(--background-af_ai);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    /* Auth View layout: Stays structurally clean and centered across form factor */
+    .auth-shell {
+      width: min(100%, 430px);
+      padding: 20px;
+      margin: auto;
+    }
+
+    /* --- AUTH CARD GRAPHICS --- */
+    .auth-card {
+      border-radius: 24px;
+      background: var(--panel-af_ai);
+      border: 1px solid var(--line-af_ai);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      margin: 0 auto 12px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      background: linear-gradient(135deg, rgba(86,135,255,0.15), rgba(35,196,131,0.1));
+      border: 1px solid var(--line-af_ai);
+    }
+    .auth-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 900; text-align: center; color: var(--text-af_ai); letter-spacing: -.03em; margin-bottom: 4px; }
+    .auth-sub { font-size: 13px; color: var(--muted-af_ai); text-align: center; line-height: 1.6; margin-bottom: 16px; font-weight: 500; }
+    
+    .tab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; border-radius: 14px; background: var(--inp); border: 1px solid var(--line-af_ai); margin-bottom: 16px; }
+    .tab-btn { min-height: 40px; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 800; color: var(--muted-af_ai); cursor: pointer; border: none; background: none;}
+    .tab-btn.active { background: linear-gradient(135deg, var(--ok), #16a34a); color: #fff; }
+    
+    .form-box { position: relative; z-index: 1; }
+    .form-label { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-af_ai); margin: 12px 0 5px; }
+    .form-input { width: 100%; min-height: 46px; padding: 12px 13px; border-radius: 12px; border: 1px solid var(--line-af_ai); background: var(--inp); color: var(--text-af_ai); font-size: 13.5px; outline: none; }
+    .form-input:focus { border-color: var(--blue-af_ai); background: var(--panel-strong-af_ai); }
+    
+    .main-btn { width: 100%; min-height: 48px; padding: 13px; border-radius: 12px; margin-top: 14px; font-size: 14px; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--ok), #16a34a); cursor: pointer; border: none; }
+    .main-btn.primary-btn { background: linear-gradient(135deg, var(--blue-af_ai), #2756cc); box-shadow: 0 4px 14px rgba(86,135,255,0.3); }
+    .danger-btn { width: 100%; min-height: 44px; padding: 11px; border-radius: 12px; margin-top: 10px; font-size: 13px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #5c1818, #b91c1c); cursor: pointer; border: none;}
+    
+    .msg-box { display: none; margin-top: 12px; padding: 11px 13px; border-radius: 12px; font-size: 13px; font-weight: 700; line-height: 1.45; }
+    .msg-box.ok { display: block; background: rgba(35,196,131,0.12); color: #4ade80; border: 1px solid rgba(35,196,131,0.25); }
+    .msg-box.err { display: block; background: rgba(255,90,104,0.12); color: #fca5a5; border: 1px solid rgba(255,90,104,0.25); }
+    .msg-box.info { display: block; background: rgba(86,135,255,0.12); color: #93c5fd; border: 1px solid rgba(86,135,255,0.25); }
+    
+    .auth-note { margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: var(--panel-soft-af_ai); border: 1px solid var(--line-af_ai); font-size: 12.5px; font-weight: 600; color: var(--muted-af_ai); line-height: 1.6; }
+    .auth-note b { color: var(--ok); }
+
+    /* --- CHAT APPLICATION INNER INTERFACE --- */
+    .overlay-af_ai { position: absolute; inset: 0; background: rgba(0,0,0,.62); backdrop-filter: blur(4px); z-index: 40; opacity: 0; visibility: hidden; transition: .2s; }
+    .overlay-af_ai[data-open-af_ai="true"] { opacity: 1; visibility: visible; }
+    
+    .drawer-af_ai { position: absolute; z-index: 50; inset: 0 auto 0 0; width: 300px; background: var(--panel-af_ai); border-right: 1px solid var(--line-af_ai); transform: translateX(-102%); transition: transform .25s ease; display: flex; flex-direction: column; }
+    .drawer-af_ai[data-open-af_ai="true"] { transform: none; }
+    .drawer-head-af_ai { padding: 18px; border-bottom: 1px solid var(--line-af_ai); }
+    .brand-af_ai { font-weight: 800; font-size: 18px; }
+    .student-af_ai { color: var(--muted-af_ai); font-size: 12px; margin-top: 5px; overflow: hidden; text-overflow: ellipsis; }
+    
+    .new-chat-af_ai { width: 100%; margin-top: 16px; border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); border-radius: 12px; padding: 11px 13px; text-align: left; font-weight: 700; cursor: pointer; }
+    .search-af_ai { margin: 12px 14px 6px; width: calc(100% - 28px); border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); color: var(--text-af_ai); border-radius: 11px; padding: 10px 12px; outline: none; }
+    .conversation-list-af_ai { flex: 1; overflow: auto; padding: 4px 8px; }
+    .conversation-empty-af_ai { padding: 26px 15px; text-align: center; color: var(--faint-af_ai); font-size: 13px; line-height: 1.6; }
+    
+    .conversation-row-af_ai { width: 100%; display: flex; gap: 9px; align-items: center; border: 1px solid transparent; background: transparent; border-radius: 11px; padding: 10px; color: var(--muted-af_ai); cursor: pointer; text-align: left; }
+    .conversation-row-af_ai:hover, .conversation-row-af_ai[data-active-af_ai="true"] { background: var(--panel-soft-af_ai); border-color: var(--line-af_ai); color: var(--text-af_ai); }
+    .conversation-dot-af_ai { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-af_ai); flex: none; }
+    .conversation-title-af_ai { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; }
+    .conversation-delete-af_ai { border: 0; background: transparent; color: var(--faint-af_ai); font-size: 17px; cursor: pointer; padding: 2px 5px; }
+    
+    .drawer-usage-af_ai { border-top: 1px solid var(--line-af_ai); padding: 15px; }
+    .usage-heading-af_ai { font-size: 11px; color: var(--faint-af_ai); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .usage-line-af_ai { display: flex; justify-content: space-between; font-size: 12px; margin: 7px 0; color: var(--muted-af_ai); }
+    .usage-meter-af_ai { height: 6px; background: var(--panel-strong-af_ai); border-radius: 99px; overflow: hidden; }
+    .usage-fill-af_ai { height: 100%; width: 0; background: var(--blue-af_ai); transition: width .25s; }
+    .usage-fill-af_ai[data-tone-af_ai="warning"] { background: var(--yellow-af_ai); }
+    .usage-fill-af_ai[data-tone-af_ai="danger"] { background: var(--red-af_ai); }
+    .usage-reset-af_ai { font-size: 11px; color: var(--faint-af_ai); margin-top: 12px; line-height: 1.5; }
+    
+    .header-af_ai { height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 15px; background: var(--panel-af_ai); border-bottom: 1px solid var(--line-af_ai); flex: none; }
+    .menu-af_ai { width: 39px; height: 39px; border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); border-radius: 12px; display: grid; place-items: center; cursor: pointer; font-size: 20px; }
+    .header-copy-af_ai { flex: 1; min-width: 0; }
+    .header-title-af_ai { font-weight: 800; font-size: 15px; }
+    .header-mode-af_ai { font-size: 11px; color: var(--faint-af_ai); margin-top: 3px; }
+    
+    .logout-btn-af { padding: 6px 12px; background: rgba(255,90,104,0.1); border: 1px solid rgba(255,90,104,0.2); color: var(--red-af_ai); font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; }
+    .limit-banner-af_ai { display: none; padding: 9px 14px; background: rgba(255,90,104,.12); border-bottom: 1px solid rgba(255,90,104,.3); color:#ffc2c8; font-size: 12px; line-height: 1.5; }
+    .limit-banner-af_ai[data-visible-af_ai="true"] { display: block; }
+    
+    .mode-tabs-af_ai { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin: 12px 15px 2px; padding: 4px; border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); border-radius: 13px; flex: none; }
+    .mode-tab-af_ai { border: 0; background: transparent; color: var(--muted-af_ai); padding: 9px 4px; border-radius: 9px; font-weight: 700; font-size: 12px; cursor: pointer; }
+    .mode-tab-af_ai[data-selected-af_ai="true"] { background: var(--blue-af_ai); color: white; }
+    .mode-tab-af_ai[data-mode-af_ai="dev_af_ai"][data-selected-af_ai="true"] { background: var(--orange-af_ai); }
+    .mode-tab-af_ai[data-mode-af_ai="tapri_af_ai"][data-selected-af_ai="true"] { background: var(--purple-af_ai); }
+    
+    .chat-scroll-af_ai { flex: 1; overflow: auto; padding: 14px 15px 185px; scroll-behavior: smooth; }
+    .welcome-af_ai { padding: 25px 0 12px; }
+    .welcome-kicker-af_ai { color: var(--faint-af_ai); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }
+    .welcome-title-af_ai { font-size: 25px; line-height: 1.25; font-weight: 800; margin: 9px 0; }
+    .welcome-copy-af_ai { font-size: 14px; color: var(--muted-af_ai); line-height: 1.6; }
+    .suggestions-af_ai { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .suggestion-af_ai { border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); color: var(--muted-af_ai); padding: 9px 13px; border-radius: 99px; font-size: 12px; cursor: pointer; }
+    
+    .messages-af_ai { display: flex; flex-direction: column; gap: 12px; }
+    .message-row-af_ai { display: flex; gap: 9px; align-items: flex-end; }
+    .message-row-af_ai[data-role-af_ai="user_af_ai"] { flex-direction: row-reverse; }
+    .avatar-af_ai { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--panel-strong-af_ai); font-size: 11px; font-weight: 800; flex: none; }
+    .message-body-af_ai { max-width: 84%; }
+    .bubble-af_ai { padding: 11px 13px; border-radius: 15px; border: 1px solid var(--line-af_ai); background: var(--panel-soft-af_ai); font-size: 13.5px; line-height: 1.65; overflow-wrap: anywhere; }
+    .message-row-af_ai[data-role-af_ai="user_af_ai"] .bubble-af_ai { background: var(--blue-af_ai); border-color: transparent; color: white; border-bottom-right-radius: 4px; white-space: pre-wrap; }
+    
+    .message-row-af_ai[data-mode-af_ai="dev_af_ai"][data-role-af_ai="user_af_ai"] .bubble-af_ai { background: var(--orange-af_ai); }
+    .message-row-af_ai[data-mode-af_ai="tapri_af_ai"][data-role-af_ai="user_af_ai"] .bubble-af_ai { background: var(--purple-af_ai); }
+    .message-meta-af_ai { font-size: 10px; color: var(--faint-af_ai); margin-top: 4px; }
+    .message-row-af_ai[data-role-af_ai="user_af_ai"] .message-meta-af_ai { text-align: right; }
+    
+    .code-wrap-af_ai { margin: 9px 0; border: 1px solid #30394f; border-radius: 10px; overflow: hidden; background: #080a10; }
+    .code-head-af_ai { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; background: #121622; color: #8e99b4; font-size: 10px; }
+    .code-copy-af_ai { border: 0; background: #252c3e; color: #d9def0; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 10px; }
+    .code-pre-af_ai { margin: 0; padding: 12px; overflow: auto; font: 12px/1.6 Consolas, monospace; color: #dce5ff; white-space: pre; }
+    
+    .thinking-af_ai { display: flex; align-items: center; gap: 5px; padding: 12px 15px; background: var(--panel-soft-af_ai); border: 1px solid var(--line-af_ai); border-radius: 15px; width: max-content; }
+    .thinking-dot-af_ai { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-af_ai); animation: pulse-af_ai 1s infinite; }
+    .thinking-dot-af_ai:nth-child(2) { animation-delay: .15s; } .thinking-dot-af_ai:nth-child(3) { animation-delay: .3s; }
+    @keyframes pulse-af_ai { 50% { opacity: .2; transform: translateY(-3px); } }
+    
+    .composer-area-af_ai { position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; padding: 34px 15px 13px; background: linear-gradient(transparent, var(--background-af_ai) 28%); }
+    .composer-af_ai { display: flex; align-items: flex-end; gap: 8px; border: 1px solid var(--line-af_ai); background: var(--panel-af_ai); border-radius: 17px; padding: 10px 10px 10px 13px; }
+    .composer-af_ai:focus-within { border-color: var(--blue-af_ai); box-shadow: 0 0 0 3px rgba(86,135,255,.1); }
+    .input-af_ai { flex: 1; min-height: 38px; max-height: 120px; resize: none; border: 0; outline: 0; background: transparent; color: var(--text-af_ai); line-height: 1.5; padding: 8px 0; }
+    .send-af_ai { width: 39px; height: 39px; border: 0; border-radius: 11px; background: var(--blue-af_ai); color: white; font-size: 17px; cursor: pointer; flex: none; }
+    .send-af_ai:disabled { opacity: .35; cursor: not-allowed; }
+    .composer-meta-af_ai { display: flex; justify-content: space-between; color: var(--faint-af_ai); font-size: 10px; padding: 7px 5px 0; }
+    
+    .toast-area-af_ai { position: fixed; z-index: 99999; top: 20px; left: 50%; transform: translateX(-50%); width: min(90vw, 360px); pointer-events: none; }
+    .toast-af_ai { padding: 12px 16px; border: 1px solid var(--line-af_ai); background: var(--panel-strong-af_ai); border-radius: 12px; font-size: 13px; box-shadow: 0 12px 34px rgba(0,0,0,.5); pointer-events: auto; text-align: center; }
+    .toast-af_ai[data-tone-af_ai="error"] { border-color: rgba(255,90,104,.5); color: #ffc2c8; }
+    
+    .hidden-af_ai { display: none !important; }
+
+    /* --- RESPONSIVE WORK FOR SCREEN ADAPTATION --- */
+    @media(max-width: 639px) {
+      /* Mobile Layout: Constrained Gemini-Shell style inside screen boundaries */
+      .shell-af_ai {
+        width: min(100%, 460px);
+        height: 100dvh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media(min-width: 640px) {
+      /* Desktop Layout: Fluid Fullscreen with an expandable widescreen sidebar setup */
+      .shell-af_ai {
+        flex-direction: row;
+      }
+      .drawer-af_ai {
+        position: relative;
+        transform: none;
+        width: 280px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--line-af_ai);
+      }
+      .overlay-af_ai, .menu-af_ai {
+        display: none !important;
+      }
+      .main-chat-window {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: 100%;
+      }
+      .mode-tabs-af_ai {
+        max-width: 600px;
+        margin: 16px auto 4px auto;
+        width: 100%;
+      }
+      .composer-area-af_ai {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-area-af_ai" id="toast-area-af_ai"></div>
+
+  <main class="app-container">
+    
+    <section id="panelAuth" class="auth-shell hidden-af_ai">
+      <div class="auth-card">
+        <div class="auth-icon">🎓</div>
+        <h2 class="auth-title">Student AI Access</h2>
+        <p class="auth-sub">Sign in with verified details to open your custom AcademeForge dynamic mentor workspaces.</p>
+        
+        <div class="tab-row">
+          <button class="tab-btn active" id="tabLogin" onclick="switchAuthMode('login')">Login</button>
+          <button class="tab-btn" id="tabCreate" onclick="switchAuthMode('create')">Create ID</button>
+        </div>
+
+        <div id="boxLogin" class="form-box">
+          <label class="form-label">Student Phone / Identifier ID</label>
+          <input id="loginPhone" class="form-input" type="tel" placeholder="Enter registration phone number"/>
+          <label class="form-label">Account Password</label>
+          <input id="loginPassword" class="form-input" type="password" placeholder="Enter secure password"/>
+          <button class="main-btn primary-btn" onclick="executeLogin()">Log In to Core AI</button>
+        </div>
+
+        <div id="boxCreate" class="form-box hidden-af_ai">
+          <label class="form-label">Full Profile Name</label>
+          <input id="createName" class="form-input" type="text" placeholder="Enter first and last name"/>
+          <label class="form-label">Active Contact Phone</label>
+          <input id="createPhone" class="form-input" type="tel" placeholder="Enter current contact number"/>
+          <label class="form-label">Institutional Email Address</label>
+          <input id="createEmail" class="form-input" type="email" placeholder="Enter primary email"/>
+          <label class="form-label">Setup Secure Password</label>
+          <input id="createPassword" class="form-input" type="password" placeholder="Create strong password"/>
+          <button class="main-btn primary-btn" onclick="triggerEmailOtp()">Request Email Verification Code</button>
+          
+          <div id="createOtpArea" class="otp-area hidden-af_ai">
+            <label class="form-label">Received 6-Digit Email OTP Token</label>
+            <input id="createOtp" class="form-input" type="text" maxlength="6" placeholder="Enter code token"/>
+            <button class="main-btn primary-btn" onclick="validateRegistrationOtp()">Verify Token & Finalize Signup</button>
+          </div>
+        </div>
+
+        <div id="authMsg" class="msg-box"></div>
+        <div class="auth-note">Registration support requests: <b>academeforge@gmail.com</b></div>
+      </div>
+    </section>
+
+    <section id="panelAI" class="shell-af_ai hidden-af_ai">
+      <div class="overlay-af_ai" id="overlay-af_ai" data-open-af_ai="false"></div>
+      
+      <aside class="drawer-af_ai" id="drawer-af_ai" data-open-af_ai="false">
+        <section class="drawer-head-af_ai">
+          <div class="brand-af_ai">AcademeForge AI</div>
+          <div class="student-af_ai" id="student-label-af_ai">Initialising System Config...</div>
+          <button class="new-chat-af_ai" id="new-chat-af_ai" type="button">+ New Session Thread</button>
+        </section>
+        <input class="search-af_ai" id="search-af_ai" type="search" placeholder="Search saved interaction histories...">
+        <section class="conversation-list-af_ai" id="conversation-list-af_ai"></section>
+        
+        <section class="drawer-usage-af_ai">
+          <div class="usage-heading-af_ai">Compute Quotas Remaining</div>
+          <div class="usage-line-af_ai"><span>Session Queries</span><strong id="session-request-label-af_ai">-</strong></div>
+          <div class="usage-meter-af_ai"><div class="usage-fill-af_ai" id="session-request-fill-af_ai"></div></div>
+          <div class="usage-line-af_ai"><span>Session Tokens</span><strong id="session-token-label-af_ai">-</strong></div>
+          <div class="usage-meter-af_ai"><div class="usage-fill-af_ai" id="session-token-fill-af_ai"></div></div>
+          <div class="usage-line-af_ai"><span>Daily Window Balance</span><strong id="daily-request-label-af_ai">-</strong></div>
+          <div class="usage-meter-af_ai"><div class="usage-fill-af_ai" id="daily-request-fill-af_ai"></div></div>
+          <div class="usage-reset-af_ai" id="usage-reset-af_ai">Updating cloud usage logs...</div>
+        </section>
+      </aside>
+
+      <div class="main-chat-window" style="flex:1; display:flex; flex-direction:column; height:100%; position:relative;">
+        <header class="header-af_ai">
+          <button class="menu-af_ai" id="menu-af_ai" type="button" aria-label="Open threads visual layout">☰</button>
+          <div class="header-copy-af_ai">
+            <div class="header-title-af_ai">AcademeForge AI Platform</div>
+            <div class="header-mode-af_ai" id="header-mode-af_ai">AF ProGuide 2.4</div>
+          </div>
+          <button class="logout-btn-af" onclick="terminateUserSession()">Log Out</button>
+        </header>
+
+        <div class="limit-banner-af_ai" id="limit-banner-af_ai" data-visible-af_ai="false"></div>
+
+        <nav class="mode-tabs-af_ai" id="mode-tabs-af_ai">
+          <button class="mode-tab-af_ai" type="button" data-mode-af_ai="af_proguide_af_ai" data-selected-af_ai="true">AF 2.4</button>
+          <button class="mode-tab-af_ai" type="button" data-mode-af_ai="dev_af_ai" data-selected-af_ai="false">Dev 1.3</button>
+          <button class="mode-tab-af_ai" type="button" data-mode-af_ai="tapri_af_ai" data-selected-af_ai="false">Tapri 7.9</button>
+        </nav>
+
+        <section class="chat-scroll-af_ai" id="chat-scroll-af_ai">
+          <section class="welcome-af_ai" id="welcome-af_ai">
+            <div class="welcome-kicker-af_ai" id="welcome-kicker-af_ai">Student mentor</div>
+            <div class="welcome-title-af_ai" id="welcome-title-af_ai">What are we building today?</div>
+            <div class="welcome-copy-af_ai" id="welcome-copy-af_ai">Ask about coding, careers, projects, interviews, or study strategy.</div>
+            <div class="suggestions-af_ai" id="suggestions-af_ai"></div>
+          </section>
+          <section class="messages-af_ai" id="messages-af_ai"></section>
+        </section>
+
+        <section class="composer-area-af_ai" id="composer-area-af_ai">
+          <div class="composer-af_ai">
+            <textarea class="input-af_ai" id="input-af_ai" maxlength="800" rows="1" placeholder="Ask anything..."></textarea>
+            <button class="send-af_ai" id="send-af_ai" type="button" disabled>➤</button>
+          </div>
+          <div class="composer-meta-af_ai">
+            <span>Dynamic response stream active. Engine telemetry checks complete.</span>
+            <span id="character-count-af_ai">0 / 800</span>
+          </div>
+        </section>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    'use strict';
+
+    /* --- CLOUD EDGE ROUTING INTERFACES --- */
+    const backend_host_endpoint = "https://afooyyydhlwngzssgqih.supabase.co";
+    const service_edge_router_url = `${backend_host_endpoint}/functions/v1/academe-ai-af_ai`;
+    const static_anon_jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
+    const maximum_characters_af_ai = 800;
+
+    const element_af_ai = (id) => document.getElementById(id);
+    const clean_phone_identity = v => String(v || '').trim().replace(/\D/g, '');
+
+    const mode_details_af_ai = {
+      af_proguide_af_ai: {
+        label_af_ai: "AF ProGuide 2.4",
+        placeholder_af_ai: "Ask AF ProGuide anything...",
+        kicker_af_ai: "Student mentor",
+        title_af_ai: "What are we building today?",
+        copy_af_ai: "Ask about coding, careers, projects, interviews, or study strategy.",
+        suggestions_af_ai: ["Learn Python", "Build a portfolio", "Prepare for interviews", "Choose a tech career"]
+      },
+      dev_af_ai: {
+        label_af_ai: "Dev 1.3",
+        placeholder_af_ai: "Ask Dev 1.3 anything...",
+        kicker_af_ai: "Founder mode",
+        title_af_ai: "Bring the problem. We will ship.",
+        copy_af_ai: "Get direct help with code, products, startups, architecture, and execution.",
+        suggestions_af_ai: ["Review my product idea", "Debug my code", "Plan an MVP", "Improve my architecture"]
+      },
+      tapri_af_ai: {
+        label_af_ai: "Tapri 7.9",
+        placeholder_af_ai: "Ask Tapri anything...",
+        kicker_af_ai: "Big bro mode",
+        title_af_ai: "Kya scene hai? Bolo.",
+        copy_af_ai: "Career confusion, college pressure, coding, ya self-doubt. Seedhi baat karte hain.",
+        suggestions_af_ai: ["Career mein confused hoon", "Coding kaise seekhun", "Self-doubt se kaise niklu", "College vs job advice"]
+      }
+    };
+
+    const state_af_ai = {
+      mode_af_ai: "af_proguide_af_ai",
+      conversation_id_af_ai: "",
+      conversations_af_ai: [],
+      filtered_conversations_af_ai: [],
+      loading_af_ai: false,
+      usage_af_ai: null,
+      usage_saved_at_af_ai: 0,
+      toast_timer_af_ai: 0,
+      registration_cache_object: null
+    };
+
+    /* --- SESSION STATE UTILITIES --- */
+    function resolveStudentSessionKey() {
+      return localStorage.getItem("af_student_email") || localStorage.getItem("af_student_mobile") || localStorage.getItem("af_student_id") || "";
+    }
+    function resolveStudentSessionName() {
+      return localStorage.getItem("af_student_name") || "Student User";
+    }
+    function verifyClientAuthenticationState() {
+      return Boolean(resolveStudentSessionKey() && localStorage.getItem("af_student_logged_in") === "true");
+    }
+    function extractInitials(val) {
+      return String(val || "AF").trim().split(/\s+/).slice(0,2).map(p => p.charAt(0).toUpperCase()).join("");
+    }
+    function escapeHtmlCharacterStrings(val) {
+      return String(val ?? "").replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      })[c]);
+    }
+
+    /* --- AUTH PANEL DISPLAY CONTROLLERS --- */
+    function switchAuthMode(targetMode) {
+      clearAuthNotificationBoxes();
+      state_af_ai.registration_cache_object = null;
+      ['Login', 'Create'].forEach(m => {
+        element_af_ai('box' + m).classList.add('hidden-af_ai');
+        element_af_ai('tab' + m).classList.remove('active');
+      });
+      element_af_ai('createOtpArea').classList.add('hidden-af_ai');
+      
+      if (targetMode === 'login') {
+        element_af_ai('boxLogin').classList.remove('hidden-af_ai');
+        element_af_ai('tabLogin').classList.add('active');
+      } else if (targetMode === 'create') {
+        element_af_ai('boxCreate').classList.remove('hidden-af_ai');
+        element_af_ai('tabCreate').classList.add('active');
+      }
+    }
+    function showAuthFeedbackMessage(type, text) {
+      const box = element_af_ai('authMsg');
+      box.className = 'msg-box ' + type;
+      box.textContent = text || '';
+    }
+    function clearAuthNotificationBoxes() {
+      const box = element_af_ai('authMsg');
+      box.className = 'msg-box';
+      box.textContent = '';
+    }
+
+    /* --- CENTRAL UI NAVIGATION TILE WORK --- */
+    function swapPlatformInterfaceViewport() {
+      if (verifyClientAuthenticationState()) {
+        element_af_ai('panelAuth').classList.add('hidden-af_ai');
+        element_af_ai('panelAI').classList.remove('hidden-af_ai');
+        launchChatInterfaceEngine();
+      } else {
+        element_af_ai('panelAI').classList.add('hidden-af_ai');
+        element_af_ai('panelAuth').classList.remove('hidden-af_ai');
+        switchAuthMode('login');
+      }
+    }
+
+    /* --- EDGE MICROSERVICE NETWORKING ENGINE --- */
+    async function executeDirectEdgeServiceCall(payload) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 60000);
+      try {
+        if (!navigator.onLine) return { error_af_ai: "Network offline status monitored." };
+        const response = await fetch(service_edge_router_url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-af-ai-student-key": resolveStudentSessionKey()
+          },
+          body: JSON.stringify({ ...payload, student_key_af_ai: resolveStudentSessionKey() }),
+          signal: controller.signal
+        });
+        const parsedJsonOutput = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          return {
+            error_af_ai: parsedJsonOutput.error_af_ai || `Edge exception status code: ${response.status}`,
+            status_af_ai: response.status
+          };
+        }
+        return parsedJsonOutput;
+      } catch (err) {
+        return {
+          error_af_ai: err && err.name === "AbortError" ? "Edge invocation processing timeout." : "Connection failed."
+        };
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    async function executeLazySupabaseClientCall(functionName, corePayload) {
+      try {
+        if (!navigator.onLine) return { ok: false, message: 'Internet offline connection failure.' };
+        if (typeof supabase === 'undefined') {
+          await new Promise((res, rej) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+            script.onload = res; script.onerror = rej;
+            document.head.appendChild(script);
+          });
+        }
+        const supabaseInstancedClient = supabase.createClient(backend_host_endpoint, static_anon_jwt_token);
+        const { data, error } = await supabaseInstancedClient.functions.invoke(functionName, { body: corePayload || {} });
+        if (error) return { ok: false, message: error.message };
+        return data || { ok: false, message: 'No execution context returned.' };
+      } catch (err) {
+        return { ok: false, message: err.message };
+      }
+    }
+
+    /* --- AUTH LOGIC METHODS --- */
+    async function executeLogin() {
+      const phoneRawInput = (element_af_ai('loginPhone').value || '').trim();
+      const cleanedPhoneId = clean_phone_identity(phoneRawInput);
+      const inputPassword = (element_af_ai('loginPassword').value || '').trim();
+
+      if (!phoneRawInput) { showAuthFeedbackMessage('err', 'Identity verification requires phone input.'); return; }
+      if (!inputPassword) { showAuthFeedbackMessage('err', 'Credential input field password required.'); return; }
+      
+      showAuthFeedbackMessage('info', 'Verifying active membership logs...');
+      const response = await executeLazySupabaseClientCall('student-login-af', {
+        login_id: phoneRawInput,
+        clean_login_id: cleanedPhoneId,
+        password: inputPassword,
+        device_id: 'web_client_shared_id',
+        device_name: 'Desktop Web Application Frame'
+      });
+
+      if (!response || !response.ok) { showAuthFeedbackMessage('err', response?.message || 'Identity validation rejected.'); return; }
+      saveUserAuthenticatedSession(response.student, response.session_token || response.login_token);
+      swapPlatformInterfaceViewport();
+    }
+
+    async function triggerEmailOtp() {
+      const name = (element_af_ai('createName').value || '').trim();
+      const mobile = clean_phone_identity(element_af_ai('createPhone').value || '');
+      const email = (element_af_ai('createEmail').value || '').trim().toLowerCase();
+      const password = (element_af_ai('createPassword').value || '').trim();
+
+      if (name.length < 3) { showAuthFeedbackMessage('err', 'Valid descriptive name parameters required.'); return; }
+      if (mobile.length < 10) { showAuthFeedbackMessage('err', 'Standard structural phone parameters required.'); return; }
+      if (!email.includes('@')) { showAuthFeedbackMessage('err', 'Valid mapping structural email target required.'); return; }
+      if (password.length < 4) { showAuthFeedbackMessage('err', 'Security threshold requires 4+ character values.'); return; }
+
+      showAuthFeedbackMessage('info', 'Confirming structural unique constraints...');
+      const structuralCheck = await executeLazySupabaseClientCall('student-check-existing-af', { mobile, email });
+      if (!structuralCheck || !structuralCheck.ok) { showAuthFeedbackMessage('err', structuralCheck?.message || 'Precheck failed.'); return; }
+      if (structuralCheck.mobile_exists || structuralCheck.student_id_exists) { showAuthFeedbackMessage('err', 'This identity phone is registered.'); return; }
+      if (structuralCheck.email_exists) { showAuthFeedbackMessage('err', 'This target communication email is registered.'); return; }
+
+      state_af_ai.registration_cache_object = { student_id: mobile, name, mobile, email, password, status: 'active', email_verified: false };
+      showAuthFeedbackMessage('info', 'Routing token request parameters to your email...');
+      const sendOtpResponse = await executeLazySupabaseClientCall('student-send-otp-af', { email, mobile, purpose: 'create' });
+      
+      if (!sendOtpResponse || !sendOtpResponse.ok) { showAuthFeedbackMessage('err', 'Routing token error: ' + (sendOtpResponse?.message)); return; }
+      element_af_ai('createOtpArea').classList.remove('hidden-af_ai');
+      showAuthFeedbackMessage('ok', 'Verification code has deployed to your email address.');
+    }
+
+    async function validateRegistrationOtp() {
+      const structuralTokenInput = (element_af_ai('createOtp').value || '').trim();
+      if (!state_af_ai.registration_cache_object) { showAuthFeedbackMessage('err', 'Initialise configuration state map first.'); return; }
+      if (structuralTokenInput.length < 4) { showAuthFeedbackMessage('err', 'Token data context out of valid lengths.'); return; }
+
+      showAuthFeedbackMessage('info', 'Validating verification parameters with central edge ledger...');
+      const registerResponse = await executeLazySupabaseClientCall('student-create-af', Object.assign({}, state_af_ai.registration_cache_object, { otp: structuralTokenInput, purpose: 'create' }));
+      
+      if (!registerResponse || !registerResponse.ok) { showAuthFeedbackMessage('err', registerResponse?.message || 'Central registration rejected.'); return; }
+      state_af_ai.registration_cache_object = null;
+      saveUserAuthenticatedSession(registerResponse.student, registerResponse.session_token);
+      swapPlatformInterfaceViewport();
+    }
+
+    function saveUserAuthenticatedSession(student, systemToken) {
+      localStorage.setItem('af_student_logged_in', 'true');
+      localStorage.setItem('af_session_token', systemToken || '');
+      localStorage.setItem('af_student_uuid', student.id || '');
+      localStorage.setItem('af_student_id', student.student_id || student.mobile || '');
+      localStorage.setItem('af_student_mobile', student.mobile || '');
+      localStorage.setItem('af_student_name', student.name || 'Student');
+      localStorage.setItem('af_student_email', student.email || '');
+    }
+
+    function terminateUserSession() {
+      ['af_student_logged_in', 'af_student_uuid', 'af_student_id', 'af_student_mobile', 'af_student_name', 'af_student_email', 'af_session_token'].forEach(k => localStorage.removeItem(k));
+      triggerSystemToastingNotifications('Session connection severed successfully.', 'info');
+      swapPlatformInterfaceViewport();
+    }
+
+    /* --- CHAT PROCESSOR CONTROLLERS --- */
+    function triggerSystemToastingNotifications(msg, tone = "info") {
+      clearTimeout(state_af_ai.toast_timer_af_ai);
+      element_af_ai("toast-area-af_ai").innerHTML = `<div class="toast-af_ai" data-tone-af_ai="${escapeHtmlCharacterStrings(tone)}">${escapeHtmlCharacterStrings(msg)}</div>`;
+      state_af_ai.toast_timer_af_ai = setTimeout(() => { element_af_ai("toast-area-af_ai").innerHTML = ""; }, 3500);
+    }
+
+    function parseComputeUsageMetrics(metrics) {
+      if (metrics.session_request_limit_af_ai === undefined) return;
+      state_af_ai.usage_af_ai = {
+        daily_request_used_af_ai: Number(metrics.daily_request_used_af_ai || 0),
+        daily_request_limit_af_ai: Number(metrics.daily_request_limit_af_ai || 20),
+        daily_request_remaining_af_ai: Number(metrics.daily_request_remaining_af_ai || 0),
+        daily_token_used_af_ai: Number(metrics.daily_token_used_af_ai || 0),
+        daily_token_limit_af_ai: Number(metrics.daily_token_limit_af_ai || 30000),
+        daily_token_remaining_af_ai: Number(metrics.daily_token_remaining_af_ai || 0),
+        session_request_used_af_ai: Number(metrics.session_request_used_af_ai || 0),
+        session_request_limit_af_ai: Number(metrics.session_request_limit_af_ai || 10),
+        session_request_remaining_af_ai: Number(metrics.session_request_remaining_af_ai || 0),
+        session_token_used_af_ai: Number(metrics.session_token_used_af_ai || 0),
+        session_token_limit_af_ai: Number(metrics.session_token_limit_af_ai || 15000),
+        session_token_remaining_af_ai: Number(metrics.session_token_remaining_af_ai || 0),
+        session_active_af_ai: Boolean(metrics.session_active_af_ai),
+        session_seconds_remaining_af_ai: Number(metrics.session_seconds_remaining_af_ai || 0)
+      };
+      state_af_ai.usage_saved_at_af_ai = Date.now();
+      renderUsageTrackingMeters();
+    }
+
+    function getCurrentUsageObject() {
+      if (!state_af_ai.usage_af_ai) return null;
+      const elapsed = Math.floor((Date.now() - state_af_ai.usage_saved_at_af_ai) / 1000);
+      const computedCopy = { ...state_af_ai.usage_af_ai };
+      computedCopy.session_seconds_remaining_af_ai = Math.max(0, computedCopy.session_seconds_remaining_af_ai - elapsed);
+      return computedCopy;
+    }
+
+    function renderUsageTrackingMeters() {
+      const data = getCurrentUsageObject();
+      if (!data) return;
+      element_af_ai("session-request-label-af_ai").textContent = `${data.session_request_remaining_af_ai} left / ${data.session_request_limit_af_ai}`;
+      element_af_ai("session-token-label-af_ai").textContent = `${data.session_token_remaining_af_ai.toLocaleString()} left`;
+      element_af_ai("daily-request-label-af_ai").textContent = `${data.daily_request_remaining_af_ai} left / ${data.daily_request_limit_af_ai}`;
+      
+      const computePercent = (u, l) => l > 0 ? Math.min(100, (u / l) * 100) : 0;
+      element_af_ai("session-request-fill-af_ai").style.width = `${computePercent(data.session_request_used_af_ai, data.session_request_limit_af_ai)}%`;
+      element_af_ai("session-token-fill-af_ai").style.width = `${computePercent(data.session_token_used_af_ai, data.session_token_limit_af_ai)}%`;
+      element_af_ai("daily-request-fill-af_ai").style.width = `${computePercent(data.daily_request_used_af_ai, data.daily_request_limit_af_ai)}%`;
+      
+      element_af_ai("input-af_ai").disabled = state_af_ai.loading_af_ai;
+      updateInputFormControls();
+    }
+
+    async function dispatchComputeUsageSync() {
+      const res = await executeDirectEdgeServiceCall({ action_af_ai: "usage_af_ai" });
+      if (!res.error_af_ai) parseComputeUsageMetrics(res);
+    }
+
+    function assignInterfaceModeContext(targetMode) {
+      if (!mode_details_af_ai[targetMode]) return;
+      state_af_ai.mode_af_ai = targetMode;
+      const params = mode_details_af_ai[targetMode];
+      document.querySelectorAll(".mode-tab-af_ai").forEach(tab => {
+        tab.dataset.selectedAf_ai = String(tab.dataset.modeAf_ai === targetMode);
+      });
+      element_af_ai("header-mode-af_ai").textContent = params.label_af_ai;
+      element_af_ai("input-af_ai").placeholder = params.placeholder_af_ai;
+      element_af_ai("welcome-kicker-af_ai").textContent = params.kicker_af_ai;
+      element_af_ai("welcome-title-af_ai").textContent = params.title_af_ai;
+      element_af_ai("welcome-copy-af_ai").textContent = params.copy_af_ai;
+      
+      element_af_ai("suggestions-af_ai").innerHTML = params.suggestions_af_ai.map(s =>
+        `<button class="suggestion-af_ai" type="button" data-suggestion-af_ai="${escapeHtmlCharacterStrings(s)}">${escapeHtmlCharacterStrings(s)}</button>`
+      ).join("");
+    }
+
+    function resetChatInterfaceWorkspace() {
+      state_af_ai.conversation_id_af_ai = "";
+      element_af_ai("messages-af_ai").innerHTML = "";
+      element_af_ai("welcome-af_ai").classList.remove("hidden-af_ai");
+      closeMobileNavigationDrawer();
+      element_af_ai("input-af_ai").focus();
+    }
+
+    function generateRenderedMessageMarkup(txt) {
+      return txt.split(/(```[\s\S]*?```)/g).map(chunk => {
+        const matchingCodeblock = chunk.match(/^```([\w+-]*)\n?([\s\S]*?)```$/);
+        if (matchingCodeblock) {
+          const lang = matchingCodeblock[1] || "code";
+          const block = matchingCodeblock[2];
+          return `<div class="code-wrap-af_ai"><div class="code-head-af_ai"><span>${escapeHtmlCharacterStrings(lang)}</span><button class="code-copy-af_ai" type="button" data-code-af_ai="${encodeURIComponent(block)}">Copy Code</button></div><pre class="code-pre-af_ai">${escapeHtmlCharacterStrings(block)}</pre></div>`;
+        }
+        return escapeHtmlCharacterStrings(chunk).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\n/g, "<br>");
+      }).join("");
+    }
+
+    function appendMessageRowToChatLogs(role, text, mode) {
+      const container = document.createElement("article");
+      container.className = "message-row-af_ai";
+      container.dataset.roleAf_ai = role;
+      container.dataset.modeAf_ai = mode;
+      const isUser = role === "user_af_ai";
+      container.innerHTML = `
+        <div class="avatar-af_ai">${isUser ? escapeHtmlCharacterStrings(extractInitials(resolveStudentSessionName())) : "AI"}</div>
+        <div class="message-body-af_ai">
+          <div class="bubble-af_ai">${isUser ? escapeHtmlCharacterStrings(text) : generateRenderedMessageMarkup(text)}</div>
+          <div class="message-meta-af_ai">${isUser ? escapeHtmlCharacterStrings(resolveStudentSessionName()) : escapeHtmlCharacterStrings(mode_details_af_ai[mode]?.label_af_ai || "AcademeForge AI")}</div>
+        </div>`;
+      element_af_ai("messages-af_ai").appendChild(container);
+      const viewScroll = element_af_ai("chat-scroll-af_ai");
+      viewScroll.scrollTop = viewScroll.scrollHeight;
+    }
+
+    async function processUserPromptSubmission() {
+      if (state_af_ai.loading_af_ai) return;
+      const field = element_af_ai("input-af_ai");
+      const question = field.value.trim();
+      if (!question) return;
+
+      state_af_ai.loading_af_ai = true;
+      element_af_ai("welcome-af_ai").classList.add("hidden-af_ai");
+      field.value = "";
+      updateInputFormControls();
+      
+      appendMessageRowToChatLogs("user_af_ai", question, state_af_ai.mode_af_ai);
+      
+      const thinkingBubble = document.createElement("div");
+      thinkingBubble.className = "thinking-af_ai"; thinkingBubble.id = "thinking-af_ai";
+      thinkingBubble.innerHTML = `<span class="thinking-dot-af_ai"></span><span class="thinking-dot-af_ai"></span><span class="thinking-dot-af_ai"></span>`;
+      element_af_ai("messages-af_ai").appendChild(thinkingBubble);
+
+      const response = await executeDirectEdgeServiceCall({
+        action_af_ai: "ask_af_ai",
+        question_af_ai: question,
+        mode_af_ai: state_af_ai.mode_af_ai,
+        conversation_id_af_ai: state_af_ai.conversation_id_af_ai || undefined
+      });
+
+      element_af_ai("thinking-af_ai")?.remove();
+      state_af_ai.loading_af_ai = false;
+
+      if (response.error_af_ai) {
+        triggerSystemToastingNotifications(response.error_af_ai, "error");
+        updateInputFormControls();
+        return;
+      }
+
+      state_af_ai.conversation_id_af_ai = response.conversation_id_af_ai;
+      appendMessageRowToChatLogs("assistant_af_ai", response.answer_af_ai || "Empty reply channel contextual parameter.", response.mode_af_ai || state_af_ai.mode_af_ai);
+      updateInputFormControls();
+      loadConversationHistoryLedger();
+    }
+
+    function updateInputFormControls() {
+      const field = element_af_ai("input-af_ai");
+      field.style.height = "auto";
+      field.style.height = `${Math.min(field.scrollHeight, 120)}px`;
+      element_af_ai("character-count-af_ai").textContent = `${field.value.length} / ${maximum_characters_af_ai}`;
+      element_af_ai("send-af_ai").disabled = state_af_ai.loading_af_ai || !field.value.trim();
+    }
+
+    async function loadConversationHistoryLedger() {
+      const res = await executeDirectEdgeServiceCall({ action_af_ai: "list_conversations_af_ai" });
+      if (res.error_af_ai) return;
+      state_af_ai.conversations_af_ai = Array.isArray(res.conversations_af_ai) ? res.conversations_af_ai : [];
+      state_af_ai.filtered_conversations_af_ai = [...state_af_ai.conversations_af_ai];
+      
+      const targetList = element_af_ai("conversation-list-af_ai");
+      if (!state_af_ai.filtered_conversations_af_ai.length) {
+        targetList.innerHTML = `<div class="conversation-empty-af_ai">No interface historical records saved.</div>`;
+        return;
+      }
+      targetList.innerHTML = state_af_ai.filtered_conversations_af_ai.map(c => {
+        const isActive = c.conversation_id_af_ai === state_af_ai.conversation_id_af_ai;
+        return `<div class="conversation-row-af_ai" data-active-af_ai="${isActive}" onclick="loadSelectedHistoricalThread('${c.conversation_id_af_ai}')">
+          <span class="conversation-dot-af_ai"></span>
+          <span class="conversation-title-af_ai">${escapeHtmlCharacterStrings(c.title_af_ai)}</span>
+        </div>`;
+      }).join("");
+    }
+
+    async function loadSelectedHistoricalThread(id) {
+      state_af_ai.conversation_id_af_ai = id;
+      element_af_ai("welcome-af_ai").classList.add("hidden-af_ai");
+      element_af_ai("messages-af_ai").innerHTML = '<div class="thinking-af_ai" id="thinking-af_ai"><span class="thinking-dot-af_ai"></span><span class="thinking-dot-af_ai"></span><span class="thinking-dot-af_ai"></span></div>';
+      closeMobileNavigationDrawer();
+
+      const response = await executeDirectEdgeServiceCall({ action_af_ai: "load_conversation_af_ai", conversation_id_af_ai: id });
+      element_af_ai("thinking-af_ai")?.remove();
+      
+      if (response.error_af_ai) { triggerSystemToastingNotifications(response.error_af_ai, "error"); return; }
+      element_af_ai("messages-af_ai").innerHTML = "";
+      (response.messages_af_ai || []).forEach(m => {
+        appendMessageRowToChatLogs(m.role_af_ai, m.content_af_ai, m.mode_af_ai);
+      });
+      loadConversationHistoryLedger();
+    }
+
+    function openMobileNavigationDrawer() {
+      element_af_ai("drawer-af_ai").dataset.openAf_ai = "true";
+      element_af_ai("overlay-af_ai").dataset.openAf_ai = "true";
+    }
+    function closeMobileNavigationDrawer() {
+      element_af_ai("drawer-af_ai").dataset.openAf_ai = "false";
+      element_af_ai("overlay-af_ai").dataset.openAf_ai = "false";
+    }
+
+    async function launchChatInterfaceEngine() {
+      element_af_ai("student-label-af_ai").textContent = `${resolveStudentSessionName()} · Connected`;
+      assignInterfaceModeContext("af_proguide_af_ai");
+      await Promise.all([dispatchComputeUsageSync(), loadConversationHistoryLedger()]);
+    }
+
+    /* --- GLOBAL COMPONENT LIFECYCLE INITIALIZATION --- */
+    function bindSystemUserInterfaceEvents() {
+      element_af_ai("menu-af_ai").addEventListener("click", openMobileNavigationDrawer);
+      element_af_ai("overlay-af_ai").addEventListener("click", closeMobileNavigationDrawer);
+      element_af_ai("new-chat-af_ai").addEventListener("click", resetChatInterfaceWorkspace);
+      
+      element_af_ai("mode-tabs-af_ai").addEventListener("click", (e) => {
+        const tab = e.target.closest(".mode-tab-af_ai");
+        if (tab) assignInterfaceModeContext(tab.dataset.modeAf_ai);
+      });
+      
+      element_af_ai("suggestions-af_ai").addEventListener("click", (e) => {
+        const trigger = e.target.closest(".suggestion-af_ai");
+        if (!trigger) return;
+        element_af_ai("input-af_ai").value = trigger.dataset.suggestionAf_ai;
+        updateInputFormControls();
+      });
+
+      element_af_ai("input-af_ai").addEventListener("input", updateInputFormControls);
+      element_af_ai("input-af_ai").addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          processUserPromptSubmission();
+        }
+      });
+      element_af_ai("send-af_ai").addEventListener("click", processUserPromptSubmission);
+
+      element_af_ai("messages-af_ai").addEventListener("click", async (e) => {
+        const button = e.target.closest("[data-code-af_ai]");
+        if (!button) return;
+        await navigator.clipboard.writeText(decodeURIComponent(button.dataset.codeAf_ai));
+        button.textContent = "Copied Chunk!";
+        setTimeout(() => { button.textContent = "Copy Code"; }, 1500);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      bindSystemUserInterfaceEvents();
+      swapPlatformInterfaceViewport();
+    });
+  </script>
+</body>
+</html>
