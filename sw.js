@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = "academeforge-v5";
+const CACHE_NAME = "academeforge-v6";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
