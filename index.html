@@ -985,7 +985,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 window.addEventListener('resize',function(){ if(window.innerWidth>768){$('aiSidebar').classList.remove('mobile-open');$('aiOverlay').classList.remove('open');} });
 </script>
-
+ 
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',function(){
@@ -994,6 +994,7 @@ if('serviceWorker' in navigator){
     }).catch(function(err){console.warn('SW registration failed:',err);});
   });
 }
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cb57fb4402974979880bc681bde3e7fb"}'></script><!-- End Cloudflare Web Analytics -->
 </script>
 </body>
 </html>
