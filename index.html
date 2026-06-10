@@ -957,7 +957,21 @@ function closeConfirm(){ $('confirmOverlay').classList.add('hidden'); _confirmCa
 $('confirmOkBtn').addEventListener('click',function(){ if(_confirmCallback)_confirmCallback(); closeConfirm(); });
 
 function confirmDeleteConv(id,title){ showConfirm('Delete Session','Delete "'+title+'"? This cannot be undone.','Delete',function(){deleteConv(id);}); }
-function confirmClearAll(){ if(!allConvs.length){showToast('No sessions to clear.','ok','Nothing to clear');return;} showConfirm('Clear All History','Delete all '+allConvs.length+' sessions? This cannot be undone.','Clear All History',function(){clearAllConvs();}); }
+function confirmClearAll() {
+  if (!allConvs.length) {
+    showToast('No sessions to clear.', 'ok', 'Nothing to clear');
+    return;
+  }
+
+  showConfirm(
+    'Clear All History',
+    'Are you sure you want to delete all conversations? This cannot be undone.',
+    'Delete All',
+    function() {
+      clearAllConvs();
+    }
+  );
+}
 
 async function deleteConv(id){ var data=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:id}); if(data.error_af_ai||!data.success_af_ai){showToast(data.error_af_ai||'Delete failed.','err','Delete failed');return;} allConvs=allConvs.filter(function(c){return c.conversation_id_af_ai!==id;}); if(currentConvId===id) newChat(); renderConvList(allConvs); showToast('Session deleted successfully.','ok','Done'); }
 async function clearAllConvs(){ var ids=allConvs.map(function(c){return c.conversation_id_af_ai;}),failed=0; for(var i=0;i<ids.length;i++){ var result=await aiCall({action_af_ai:'delete_conversation_af_ai',conversation_id_af_ai:ids[i]}); if(result.error_af_ai||!result.success_af_ai) failed++; } await loadConvList(); if(!failed){currentConvId='';newChat();showToast('All sessions cleared.','ok','Done');} else showToast(failed+' session(s) could not be deleted.','err','Partially cleared'); }
