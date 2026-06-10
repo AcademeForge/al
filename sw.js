@@ -1,106 +1,110 @@
-// sw.js
-const CACHE_NAME = "academeforge-v4";
-const STATIC_ASSETS = [
+const CACHE_NAME = "academeforge-v2";
+
+const STATIC_FILES = [
   "/",
   "/index.html",
+  "/offline/",
   "/AF%20LOGO%202.jpeg"
 ];
 
-// ── INSTALL ────────────────────────────────────────────────────────────────
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(STATIC_FILES))
       .then(() => self.skipWaiting())
   );
 });
 
-// ── ACTIVATE ───────────────────────────────────────────────────────────────
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((key) => key !== CACHE_NAME)
-            .map((key) => caches.delete(key))
-        )
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
       )
-      .then(() => self.clients.claim())
+    ).then(() => self.clients.claim())
   );
 });
 
-// ── FETCH ──────────────────────────────────────────────────────────────────
 self.addEventListener("fetch", (event) => {
+
   const request = event.request;
-  const url = request.url;
 
-  // ── 1. NEVER intercept non-GET requests — pass straight through ──────
-  // This is the PRIMARY fix: POST/PUT/DELETE/OPTIONS must never touch the
-  // Cache API because cache.put() does not support them.
+  // Ignore non-GET
   if (request.method !== "GET") {
-    return; // let the browser handle it natively — no event.respondWith()
-  }
-
-  // ── 2. NEVER cache Supabase or any API/auth requests ─────────────────
-  if (
-    url.includes(".supabase.co") ||
-    url.includes("/functions/v1/") ||
-    url.includes("/rest/v1/") ||
-    url.includes("/auth/v1/") ||
-    url.includes("supabase.in") ||
-    request.headers.get("authorization")
-  ) {
-    event.respondWith(fetch(request));
     return;
   }
 
-  // ── 3. NEVER cache third-party CDN requests (fonts, scripts) ─────────
+  // Ignore APIs
   if (
-    url.includes("fonts.googleapis.com") ||
-    url.includes("fonts.gstatic.com") ||
-    url.includes("cdn.jsdelivr.net") ||
-    url.includes("esm.sh")
+    request.url.includes("supabase.co") ||
+    request.url.includes("/functions/v1/")
   ) {
-    event.respondWith(fetch(request));
     return;
   }
 
-  // ── 4. HTML navigation → Network First, fall back to cache ───────────
+  // HTML Navigation -> Network First
   if (request.mode === "navigate") {
+
     event.respondWith(
       fetch(request)
-        .then((response) => {
-          if (response && response.ok) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+        .then(response => {
+
+          if (response.ok) {
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => cache.put(request, copy));
           }
+
           return response;
         })
-        .catch(() => caches.match(request))
+        .catch(async () => {
+
+          const cached = await caches.match(request);
+
+          if (cached) {
+            return cached;
+          }
+
+          return caches.match("/offline/");
+        })
     );
+
     return;
   }
 
-  // ── 5. Static assets → Cache First, background revalidate ────────────
+  // Static Assets -> Cache First
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const networkFetch = fetch(request)
-        .then((response) => {
-          if (response && response.ok && response.status < 400) {
-            const clone = response.clone();
-            caches
-              .open(CACHE_NAME)
-              .then((cache) => cache.put(request, clone))
-              .catch(() => {}); // silently ignore cache write errors
+    caches.match(request).then(cached => {
+
+      if (cached) {
+        return cached;
+      }
+
+      return fetch(request)
+        .then(response => {
+
+          if (
+            response &&
+            response.ok &&
+            request.method === "GET"
+          ) {
+
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => cache.put(request, copy))
+              .catch(() => {});
           }
+
           return response;
         })
-        .catch(() => cached);
-
-      return cached || networkFetch;
+        .catch(() => caches.match("/offline/"));
     })
   );
+
 });
