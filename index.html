@@ -774,12 +774,12 @@
     </div>
     <div class="composer-wrap">
       <div class="composer">
-        <textarea class="composer-input" id="composerInput" maxlength="800" rows="1" placeholder="Ask your academic question…" aria-label="Type your message"></textarea>
+        <textarea class="composer-input" id="composerInput" maxlength="2500" rows="1" placeholder="Ask your academic question…" aria-label="Type your message"></textarea>
         <button class="send-btn" id="sendBtn" disabled onclick="sendMessage()" aria-label="Send message">&#x27A4;</button>
       </div>
       <div class="composer-meta">
         <span>Always verify AcademeForge AI outputs before use.</span>
-        <span id="charCount" aria-live="polite">0 / 800</span>
+        <span id="charCount" aria-live="polite">0 / 2500</span>
       </div>
     </div>
   </div>
@@ -861,7 +861,7 @@ if(window.matchMedia){ window.matchMedia('(prefers-color-scheme: light)').addEve
 var SB_URL="https://afooyyydhlwngzssgqih.supabase.co";
 var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmb295eXlkaGx3bmd6c3NncWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDQxMjgsImV4cCI6MjA5NDIyMDEyOH0.KG0XO0oP_2MpewHoIwTtbrKg5FkyOYRUtVzLH1MSJiE";
 var AI_ENDPOINT=SB_URL+"/functions/v1/academe-ai-af_ai";
-var MAX_CHARS=800;
+var MAX_CHARS=2500;
 
 var currentMode='af_proguide',isLoading=false,currentConvId='';
 var _typeTimer=null,allConvs=[],latestUsage=null,usageLimited=false;
