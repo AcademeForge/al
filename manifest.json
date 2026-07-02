@@ -1,6 +1,6 @@
 {
-  "name": "AcademeForge AI — AF ProGuide Student Mentor",
-  "short_name": "AF ProGuide",
+  "name": "ProGuide",
+  "short_name": "ProGuide",
   "description": "Your personal AI student mentor — chat with AF 2.4, Dev 1.3, and Tapri 7.9 for coding help, career guidance, interview prep, and learning support. Exclusively for AcademeForge students.",
   "start_url": "/",
   "scope": "/",
@@ -14,37 +14,37 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/IMG/icon-72.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/IMG/icon-96.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/IMG/icon-128.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/IMG/icon-192.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/IMG/icon-384.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/IMG/icon-512.png",
+      "src": "/AF%20LOGO%203.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -56,44 +56,44 @@
       "sizes": "390x844",
       "type": "image/webp",
       "form_factor": "narrow",
-      "label": "AF ProGuide AI on mobile"
+      "label": "ProGuide AI on mobile"
     },
     {
       "src": "/IMG/screenshot-desktop.webp",
       "sizes": "1280x720",
       "type": "image/webp",
       "form_factor": "wide",
-      "label": "AF ProGuide AI on desktop"
+      "label": "ProGuide AI on desktop"
     }
   ],
   "shortcuts": [
     {
       "name": "Chat with AF 2.4",
       "short_name": "AF 2.4",
-      "description": "Open AF ProGuide in general study mode",
+      "description": "Open ProGuide in general study mode",
       "url": "/?model=af24",
-      "icons": [{ "src": "/IMG/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
     },
     {
       "name": "Chat with Dev 1.3",
       "short_name": "Dev 1.3",
-      "description": "Open AF ProGuide in coding and tech mode",
+      "description": "Open ProGuide in coding and tech mode",
       "url": "/?model=dev13",
-      "icons": [{ "src": "/IMG/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
     },
     {
       "name": "Chat with Tapri 7.9",
       "short_name": "Tapri 7.9",
-      "description": "Open AF ProGuide in casual friendly mode",
+      "description": "Open ProGuide in casual friendly mode",
       "url": "/?model=tapri79",
-      "icons": [{ "src": "/IMG/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
     },
     {
       "name": "AcademeForge Home",
       "short_name": "AF Home",
       "description": "Go back to AcademeForge main platform",
       "url": "https://academeforge.in/",
-      "icons": [{ "src": "/IMG/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],
