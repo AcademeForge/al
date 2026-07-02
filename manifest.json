@@ -87,13 +87,6 @@
       "description": "Open ProGuide in casual friendly mode",
       "url": "/?model=tapri79",
       "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "AcademeForge Home",
-      "short_name": "AF Home",
-      "description": "Go back to AcademeForge main platform",
-      "url": "https://academeforge.in/",
-      "icons": [{ "src": "/AF%20LOGO%203.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],
