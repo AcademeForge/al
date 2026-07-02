@@ -1,0 +1,45 @@
+# AcademeForge AI — ai.academeforge.in
+# robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ai.academeforge.in/sitemap.xml
+
+# Block private/internal paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /internal/
+Disallow: /private/
+
+# Allow key assets
+Allow: /manifest.json
+Allow: /sitemap.xml
+Allow: /IMG/
+
+# Crawl delay for polite bots
+Crawl-delay: 2
+
+# Google — fastest priority
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Social preview crawlers — allow OG image
+User-agent: Twitterbot
+Allow: /IMG/og-image.webp
+
+User-agent: facebookexternalhit
+Allow: /IMG/og-image.webp
+
+User-agent: LinkedInBot
+Allow: /IMG/og-image.webp
+
+User-agent: WhatsApp
+Allow: /IMG/og-image.webp
