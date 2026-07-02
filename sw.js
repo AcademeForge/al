@@ -1,11 +1,10 @@
-// sw.js
-const CACHE_NAME = "academeforge-v8";
+const CACHE_NAME = "academeforge-v9";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
-  "/AF%20LOGO%202.jpeg"
+  "/AF%20LOGO%202.jpeg",
+  "/AF%20LOGO%203.png"
 ];
-
 // ── INSTALL ────────────────────────────────────────────────────────────────
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -15,7 +14,6 @@ self.addEventListener("install", (event) => {
       .then(() => self.skipWaiting())
   );
 });
-
 // ── ACTIVATE ───────────────────────────────────────────────────────────────
 self.addEventListener("activate", (event) => {
   event.waitUntil(
@@ -31,19 +29,16 @@ self.addEventListener("activate", (event) => {
       .then(() => self.clients.claim())
   );
 });
-
 // ── FETCH ──────────────────────────────────────────────────────────────────
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = request.url;
-
   // ── 1. NEVER intercept non-GET requests — pass straight through ──────
   // This is the PRIMARY fix: POST/PUT/DELETE/OPTIONS must never touch the
   // Cache API because cache.put() does not support them.
   if (request.method !== "GET") {
     return; // let the browser handle it natively — no event.respondWith()
   }
-
   // ── 2. NEVER cache Supabase or any API/auth requests ─────────────────
   if (
     url.includes(".supabase.co") ||
@@ -56,7 +51,6 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(request));
     return;
   }
-
   // ── 3. NEVER cache third-party CDN requests (fonts, scripts) ─────────
   if (
     url.includes("fonts.googleapis.com") ||
@@ -67,7 +61,6 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(request));
     return;
   }
-
   // ── 4. HTML navigation → Network First, fall back to cache ───────────
   if (request.mode === "navigate") {
     event.respondWith(
@@ -83,7 +76,6 @@ self.addEventListener("fetch", (event) => {
     );
     return;
   }
-
   // ── 5. Static assets → Cache First, background revalidate ────────────
   event.respondWith(
     caches.match(request).then((cached) => {
@@ -99,7 +91,6 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => cached);
-
       return cached || networkFetch;
     })
   );
